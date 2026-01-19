@@ -14,7 +14,7 @@ def test_arxiv(aspect: str, max_results: int) -> None:
 def test_llm(prompt: str) -> None:
     client = get_env_llm_client()
     resp = client.chat_completions(
-        model=settings.models.agent_model,  # 你说 agent 用 gemini-3-pro-preview
+        model=settings.models.agent_model,  
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7,
         max_tokens=1000,

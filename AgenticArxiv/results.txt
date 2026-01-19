@@ -1,0 +1,120 @@
+1. Applying Formal Methods Tools to an Electronic Warfare Codebase (Experience report)
+   作者: Letitia W. Li, Denley Lam, Vu Le
+   发布时间: 2026-01-16 18:46:19
+   PDF链接: https://arxiv.org/pdf/2601.11510v1
+   注释: None
+--------------------------------------------------------------------------------
+2. Enhancing Vision Language Models with Logic Reasoning for Situational Awareness
+   作者: Pavana Pradeep, Krishna Kant, Suya Yu
+   发布时间: 2026-01-16 14:16:38
+   PDF链接: https://arxiv.org/pdf/2601.11322v1
+   注释: Accepted for publication in IEEE Transactions on AI
+--------------------------------------------------------------------------------
+3. Proving Circuit Functional Equivalence in Zero Knowledge
+   作者: Sirui Shen, Zunchen Huang, Chenglu Jin
+   发布时间: 2026-01-16 10:43:30
+   PDF链接: https://arxiv.org/pdf/2601.11173v1
+   注释: None
+--------------------------------------------------------------------------------
+4. Multi-Property Synthesis
+   作者: Christoph Weinhuber, Yannik Schnitzer, Alessandro Abate
+   发布时间: 2026-01-15 18:18:33
+   PDF链接: https://arxiv.org/pdf/2601.10651v1
+   注释: None
+--------------------------------------------------------------------------------
+5. Rewriting Systems on Arbitrary Monoids
+   作者: Eduardo Magalhães
+   发布时间: 2026-01-15 16:27:17
+   PDF链接: https://arxiv.org/pdf/2601.10564v1
+   注释: None
+--------------------------------------------------------------------------------
+6. Resource-Bounded Martin-Löf Type Theory: Compositional Cost Analysis for Dependent Types
+   作者: Mirco A. Mannucci, Corey Thuro
+   发布时间: 2026-01-15 15:11:22
+   PDF链接: https://arxiv.org/pdf/2601.10772v1
+   注释: 22 pages
+--------------------------------------------------------------------------------
+7. Outrunning Big KATs: Efficient Decision Procedures for Variants of GKAT
+   作者: Cheng Zhang, Qiancheng Fu, Hang Ji
+   发布时间: 2026-01-15 01:59:57
+   PDF链接: https://arxiv.org/pdf/2601.09986v1
+   注释: Conditionally Accepted at ESOP 2026
+--------------------------------------------------------------------------------
+8. On Numbers of Simplicial Walks and Equivalent Canonizations for Graph Recognition
+   作者: Marek Černý
+   发布时间: 2026-01-14 14:12:02
+   PDF链接: https://arxiv.org/pdf/2601.09506v1
+   注释: Accepted for LATIN 2026
+--------------------------------------------------------------------------------
+9. Query Languages for Machine-Learning Models
+   作者: Martin Grohe
+   发布时间: 2026-01-14 11:15:09
+   PDF链接: https://arxiv.org/pdf/2601.09381v1
+   注释: None
+--------------------------------------------------------------------------------
+10. Lower Bounds in Algebraic Complexity via Symmetry and Homomorphism Polynomials
+   作者: Prateek Dwivedi, Benedikt Pago, Tim Seppelt
+   发布时间: 2026-01-14 10:20:55
+   PDF链接: https://arxiv.org/pdf/2601.09343v1
+   注释: None
+--------------------------------------------------------------------------------
+11. The Unification Type of an Equational Theory May Depend on the Instantiation Preorder: From Results for Single Theories to Results for Classes of Theories
+   作者: Franz Baader, Oliver Fernández Gil
+   发布时间: 2026-01-13 16:38:25
+   PDF链接: https://arxiv.org/pdf/2601.08710v1
+   注释: None
+--------------------------------------------------------------------------------
+12. On Deciding Constant Runtime of Linear Loops
+   作者: Florian Frohn, Jürgen Giesl, Peter Giesl
+   发布时间: 2026-01-13 12:26:59
+   PDF链接: https://arxiv.org/pdf/2601.08492v1
+   注释: TACAS 2026
+--------------------------------------------------------------------------------
+13. Degree-preserving Godel logics with an involution: intermediate logics and (ideal) paraconsistency
+   作者: M. E. Coniglio, F. Esteva, J. Gispert
+   发布时间: 2026-01-13 12:07:16
+   PDF链接: https://arxiv.org/pdf/2601.08474v1
+   注释: 34 pages, 2 figures
+--------------------------------------------------------------------------------
+14. Forcing and Interpolation in First-Order Hybrid Logic with rigid symbols
+   作者: Daniel Găină, Go Hashimoto
+   发布时间: 2026-01-13 11:03:38
+   PDF链接: https://arxiv.org/pdf/2601.08432v1
+   注释: None
+--------------------------------------------------------------------------------
+15. Evaluating Implicit Regulatory Compliance in LLM Tool Invocation via Logic-Guided Synthesis
+   作者: Da Song, Yuheng Huang, Boqi Chen
+   发布时间: 2026-01-13 03:55:18
+   PDF链接: https://arxiv.org/pdf/2601.08196v1
+   注释: 11 pages, 3 figures
+--------------------------------------------------------------------------------
+16. S4 modal sequent calculus as intermediate logic and intermediate language
+   作者: Jean Caspar, Guillaume Munch-Maccagnoni
+   发布时间: 2026-01-12 23:30:21
+   PDF链接: https://arxiv.org/pdf/2601.08071v1
+   注释: 14 pages, paper accepted for PEPM 2026 in the "short paper" category
+--------------------------------------------------------------------------------
+17. The Complexity of Games with Randomised Control
+   作者: Sarvin Bahmani, Rasmus Ibsen-Jensen, Soumyajit Paul
+   发布时间: 2026-01-12 17:53:02
+   PDF链接: https://arxiv.org/pdf/2601.07775v1
+   注释: 28 pages including appendices, accepted to FoSSaCS 2026
+--------------------------------------------------------------------------------
+18. On Angels and Demons: Strategic (De)Construction of Dynamic Models
+   作者: Davide Catta, Rustam Galimullin, Munyque Mittelmann
+   发布时间: 2026-01-12 16:19:22
+   PDF链接: https://arxiv.org/pdf/2601.07690v1
+   注释: This is an extended version of the paper with the same title that will appear in the proceedings of AAMAS 2026. This version contains a technical appendix with proof details
+--------------------------------------------------------------------------------
+19. Simplicial Belief
+   作者: Christian Cachin, David Lehnherr, Thomas Studer
+   发布时间: 2026-01-12 15:51:09
+   PDF链接: https://arxiv.org/pdf/2601.07669v1
+   注释: None
+--------------------------------------------------------------------------------
+20. Formalization of Amicable Numbers Theory
+   作者: Zhipeng Chen, Haolun Tang, Jingyi Zhan
+   发布时间: 2026-01-12 11:36:11
+   PDF链接: https://arxiv.org/pdf/2601.07444v1
+   注释: None
+--------------------------------------------------------------------------------
