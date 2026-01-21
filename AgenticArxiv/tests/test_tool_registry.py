@@ -54,6 +54,7 @@ def test_aspect_validation():
             "get_recently_submitted_cs_papers",
             {"aspect": "INVALID_CATEGORY", "max_results": 2},
         )
+        print(type(result))
     except Exception as e:
         print(f"参数验证生效: {str(e)}")
 
