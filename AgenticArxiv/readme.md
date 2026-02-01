@@ -6,3 +6,9 @@
 LLM_BASE_URL=<base-url>
 LLM_API_KEY=<token>
 ```
+
+### PDFMathTranslate
+```sh
+export PDF_RAW_PATH=/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw 
+wget -P $PDF_RAW_PATH https://arxiv.org/pdf/2601.22156v1.pdf
+```
