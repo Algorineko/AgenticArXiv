@@ -55,7 +55,7 @@ def get_env_llm_client() -> LLMClient:
     - LLM_API_KEY    必填
     """
     base_url = os.getenv("LLM_BASE_URL", "https://antigravity.byssted.cn")
-    api_key = os.getenv("LLM_API_KEY", "no-token-here")
+    api_key = os.getenv("LLM_API_KEY")
     if not api_key:
         raise RuntimeError("Missing env: LLM_API_KEY (请在 .env 或 shell 环境中设置)")
     return LLMClient(base_url=base_url, api_key=api_key)

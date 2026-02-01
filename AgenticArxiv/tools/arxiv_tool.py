@@ -1,5 +1,5 @@
 # AgenticArxiv/tools/arxiv_tool.py
-import arxiv # type: ignore
+import arxiv  # type: ignore
 from datetime import datetime, timezone, timedelta
 from typing import List, Dict
 import sys
@@ -8,6 +8,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from tools.tool_registry import registry
+from utils.file_writer import save_papers_to_file
 
 cs_categories = {
     "*": "All Computer Science",  # 所有计算机科学领域
@@ -105,24 +106,12 @@ def get_recently_submitted_cs_papers(
             "links": [link.href for link in result.links],
         }
         papers.append(paper_info)
+        # 自动保存论文到文件
+        if papers:
+            output_path = "/home/dev/AgenticDemo/AgenticArxiv/output/recent_cs_papers.txt"
+            save_papers_to_file(papers, output_path)
 
     return papers
-
-
-def format_papers_console(papers: List[Dict], top_authors: int = 3) -> str:
-    if not papers:
-        return "未获取到最近提交的论文\n"
-    lines = []
-    for i, paper in enumerate(papers, 1):
-        lines.append(f"{i}. {paper['title']}")
-        lines.append(f"   作者: {', '.join(paper['authors'][:top_authors])}")
-        lines.append(f"   发布时间: {paper['published']}")
-        lines.append(f"   PDF链接: {paper['pdf_url']}")
-        lines.append(f"   注释: {paper.get('comment')}")
-        lines.append(f"   摘要: {paper['summary']}")
-        lines.append(f"   全部链接: {paper['links']}")
-        lines.append("-" * 80)
-    return "\n".join(lines)
 
 
 # 定义参数模式 (JSON Schema)
@@ -161,38 +150,11 @@ registry.register_tool(
     func=get_recently_submitted_cs_papers,
 )
 
-# 注册格式化工具
-FORMAT_TOOL_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "papers": {
-            "type": "array",
-            "description": "论文信息列表",
-            "items": {"type": "object"},
-        },
-        "top_authors": {
-            "type": "integer",
-            "description": "显示前几位作者",
-            "minimum": 1,
-            "default": 3,
-        },
-    },
-    "required": ["papers"],
-}
-
-registry.register_tool(
-    name="format_papers_console",
-    description="格式化论文列表为控制台可读的文本格式",
-    parameter_schema=FORMAT_TOOL_SCHEMA,
-    func=format_papers_console,
-)
-
 
 if __name__ == "__main__":
     # 测试工具注册
     ASPECT = "CL"
     papers = get_recently_submitted_cs_papers(max_results=20, aspect=ASPECT)
-    print(format_papers_console(papers))
 
     # 测试通过注册表调用
     print("\n=== 通过工具注册表调用 ===")

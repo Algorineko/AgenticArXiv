@@ -1,0 +1,253 @@
+================================================================================
+ArXiv 计算机科学论文列表
+生成时间: 2026-02-01 15:54:41
+论文数量: 15
+================================================================================
+
+论文 1: Discovering Hidden Gems in Model Repositories
+------------------------------------------------------------
+ID: 2601.22157v1
+作者: Jonathan Kahana, Eliahu Horwitz, Yedid Hoshen
+发表时间: 2026-01-29 18:59:55
+更新时间: 2026-01-29 18:59:55
+主要分类: cs.LG
+所有分类: cs.LG, cs.CL
+PDF链接: https://arxiv.org/pdf/2601.22157v1
+摘要: Public repositories host millions of fine-tuned models, yet community usage remains disproportionately concentrated on a small number of foundation checkpoints. We investigate whether this concentrati...
+相关链接:
+  - https://arxiv.org/abs/2601.22157v1
+  - https://arxiv.org/pdf/2601.22157v1
+
+================================================================================
+
+论文 2: Hybrid Linear Attention Done Right: Efficient Distillation and Effective Architectures for Extremely Long Contexts
+------------------------------------------------------------
+ID: 2601.22156v1
+作者: Yingfa Chen, Zhen Leng Thai, Zihan Zhou, Zhu Zhang, Xingyu Shen, Shuo Wang, Chaojun Xiao, Xu Han, Zhiyuan Liu
+发表时间: 2026-01-29 18:59:53
+更新时间: 2026-01-29 18:59:53
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2601.22156v1
+备注: 20 pages, 8 figures
+摘要: Hybrid Transformer architectures, which combine softmax attention blocks and recurrent neural networks (RNNs), have shown a desirable performance-throughput tradeoff for long-context modeling, but the...
+相关链接:
+  - https://arxiv.org/abs/2601.22156v1
+  - https://arxiv.org/pdf/2601.22156v1
+
+================================================================================
+
+论文 3: Late Breaking Results: Conversion of Neural Networks into Logic Flows for Edge Computing
+------------------------------------------------------------
+ID: 2601.22151v1
+作者: Daniel Stein, Shaoyi Huang, Rolf Drechsler, Bing Li, Grace Li Zhang
+发表时间: 2026-01-29 18:59:50
+更新时间: 2026-01-29 18:59:50
+主要分类: cs.LG
+所有分类: cs.LG, eess.SY
+PDF链接: https://arxiv.org/pdf/2601.22151v1
+备注: accepted by DATE2026
+摘要: Neural networks have been successfully applied in various resource-constrained edge devices, where usually central processing units (CPUs) instead of graphics processing units exist due to limited pow...
+相关链接:
+  - https://arxiv.org/abs/2601.22151v1
+  - https://arxiv.org/pdf/2601.22151v1
+
+================================================================================
+
+论文 4: FineInstructions: Scaling Synthetic Instructions to Pre-Training Scale
+------------------------------------------------------------
+ID: 2601.22146v1
+作者: Ajay Patel, Colin Raffel, Chris Callison-Burch
+发表时间: 2026-01-29 18:58:47
+更新时间: 2026-01-29 18:58:47
+主要分类: cs.CL
+所有分类: cs.CL, cs.LG
+PDF链接: https://arxiv.org/pdf/2601.22146v1
+摘要: Due to limited supervised training data, large language models (LLMs) are typically pre-trained via a self-supervised "predict the next word" objective on a vast amount of unstructured text data. To m...
+相关链接:
+  - https://arxiv.org/abs/2601.22146v1
+  - https://arxiv.org/pdf/2601.22146v1
+
+================================================================================
+
+论文 5: Routing the Lottery: Adaptive Subnetworks for Heterogeneous Data
+------------------------------------------------------------
+ID: 2601.22141v1
+作者: Grzegorz Stefanski, Alberto Presta, Michal Byra
+发表时间: 2026-01-29 18:56:41
+更新时间: 2026-01-29 18:56:41
+主要分类: cs.AI
+所有分类: cs.AI, cs.CV, cs.LG
+PDF链接: https://arxiv.org/pdf/2601.22141v1
+摘要: In pruning, the Lottery Ticket Hypothesis posits that large networks contain sparse subnetworks, or winning tickets, that can be trained in isolation to match the performance of their dense counterpar...
+相关链接:
+  - https://arxiv.org/abs/2601.22141v1
+  - https://arxiv.org/pdf/2601.22141v1
+
+================================================================================
+
+论文 6: PRISM: Distribution-free Adaptive Computation of Matrix Functions for Accelerating Neural Network Training
+------------------------------------------------------------
+ID: 2601.22137v1
+作者: Shenghao Yang, Zhichao Wang, Oleg Balabanov, N. Benjamin Erichson, Michael W. Mahoney
+发表时间: 2026-01-29 18:55:46
+更新时间: 2026-01-29 18:55:46
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, math.NA, math.OC
+PDF链接: https://arxiv.org/pdf/2601.22137v1
+摘要: Matrix functions such as square root, inverse roots, and orthogonalization play a central role in preconditioned gradient methods for neural network training. This has motivated the development of ite...
+相关链接:
+  - https://arxiv.org/abs/2601.22137v1
+  - https://arxiv.org/pdf/2601.22137v1
+
+================================================================================
+
+论文 7: StepShield: When, Not Whether to Intervene on Rogue Agents
+------------------------------------------------------------
+ID: 2601.22136v1
+作者: Gloria Felicia, Michael Eniolade, Jinfeng He, Zitha Sasindran, Hemant Kumar, Milan Hussain Angati, Sandeep Bandarupalli
+发表时间: 2026-01-29 18:55:46
+更新时间: 2026-01-29 18:55:46
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, cs.CR, cs.SE
+PDF链接: https://arxiv.org/pdf/2601.22136v1
+备注: 16 pages, 2 figures, 14 tables
+摘要: Existing agent safety benchmarks report binary accuracy, conflating early intervention with post-mortem analysis. A detector that flags a violation at step 8 enables intervention; one that reports it ...
+相关链接:
+  - https://arxiv.org/abs/2601.22136v1
+  - https://arxiv.org/pdf/2601.22136v1
+
+================================================================================
+
+论文 8: Pay for Hints, Not Answers: LLM Shepherding for Cost-Efficient Inference
+------------------------------------------------------------
+ID: 2601.22132v1
+作者: Ziming Dong, Hardik Sharma, Evan O'Toole, Jaya Prakash Champati, Kui Wu
+发表时间: 2026-01-29 18:52:54
+更新时间: 2026-01-29 18:52:54
+主要分类: cs.LG
+所有分类: cs.LG
+PDF链接: https://arxiv.org/pdf/2601.22132v1
+摘要: Large Language Models (LLMs) deliver state-of-the-art performance on complex reasoning tasks, but their inference costs limit deployment at scale. Small Language Models (SLMs) offer dramatic cost savi...
+相关链接:
+  - https://arxiv.org/abs/2601.22132v1
+  - https://arxiv.org/pdf/2601.22132v1
+
+================================================================================
+
+论文 9: SMOG: Scalable Meta-Learning for Multi-Objective Bayesian Optimization
+------------------------------------------------------------
+ID: 2601.22131v1
+作者: Leonard Papenmeier, Petru Tighineanu
+发表时间: 2026-01-29 18:51:58
+更新时间: 2026-01-29 18:51:58
+主要分类: cs.LG
+所有分类: cs.LG
+PDF链接: https://arxiv.org/pdf/2601.22131v1
+备注: 19 pages, 15 figures
+摘要: Multi-objective optimization aims to solve problems with competing objectives, often with only black-box access to a problem and a limited budget of measurements. In many applications, historical data...
+相关链接:
+  - https://arxiv.org/abs/2601.22131v1
+  - https://arxiv.org/pdf/2601.22131v1
+
+================================================================================
+
+论文 10: SWE-Replay: Efficient Test-Time Scaling for Software Engineering Agents
+------------------------------------------------------------
+ID: 2601.22129v1
+作者: Yifeng Ding, Lingming Zhang
+发表时间: 2026-01-29 18:50:29
+更新时间: 2026-01-29 18:50:29
+主要分类: cs.SE
+所有分类: cs.SE, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2601.22129v1
+摘要: Test-time scaling has been widely adopted to enhance the capabilities of Large Language Model (LLM) agents in software engineering (SWE) tasks. However, the standard approach of repeatedly sampling tr...
+相关链接:
+  - https://arxiv.org/abs/2601.22129v1
+  - https://arxiv.org/pdf/2601.22129v1
+
+================================================================================
+
+论文 11: EditYourself: Audio-Driven Generation and Manipulation of Talking Head Videos with Diffusion Transformers
+------------------------------------------------------------
+ID: 2601.22127v1
+作者: John Flynn, Wolfgang Paier, Dimitar Dinev, Sam Nhut Nguyen, Hayk Poghosyan, Manuel Toribio, Sandipan Banerjee, Guy Gafni
+发表时间: 2026-01-29 18:49:27
+更新时间: 2026-01-29 18:49:27
+主要分类: cs.CV
+所有分类: cs.CV, cs.GR, cs.LG, cs.MM
+PDF链接: https://arxiv.org/pdf/2601.22127v1
+备注: Project page: https://edit-yourself.github.io/
+摘要: Current generative video models excel at producing novel content from text and image prompts, but leave a critical gap in editing existing pre-recorded videos, where minor alterations to the spoken sc...
+相关链接:
+  - https://arxiv.org/abs/2601.22127v1
+  - https://arxiv.org/pdf/2601.22127v1
+
+================================================================================
+
+论文 12: Learning Hamiltonian Flow Maps: Mean Flow Consistency for Large-Timestep Molecular Dynamics
+------------------------------------------------------------
+ID: 2601.22123v1
+作者: Winfried Ripken, Michael Plainer, Gregor Lied, Thorben Frank, Oliver T. Unke, Stefan Chmiela, Frank Noé, Klaus Robert Müller
+发表时间: 2026-01-29 18:47:46
+更新时间: 2026-01-29 18:47:46
+主要分类: cs.LG
+所有分类: cs.LG
+PDF链接: https://arxiv.org/pdf/2601.22123v1
+摘要: Simulating the long-time evolution of Hamiltonian systems is limited by the small timesteps required for stable numerical integration. To overcome this constraint, we introduce a framework to learn Ha...
+相关链接:
+  - https://arxiv.org/abs/2601.22123v1
+  - https://arxiv.org/pdf/2601.22123v1
+
+================================================================================
+
+论文 13: Alpha Discovery via Grammar-Guided Learning and Search
+------------------------------------------------------------
+ID: 2601.22119v1
+作者: Han Yang, Dong Hao, Zhuohan Wang, Qi Shi, Xingtong Li
+发表时间: 2026-01-29 18:46:15
+更新时间: 2026-01-29 18:46:15
+主要分类: q-fin.CP
+所有分类: q-fin.CP, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2601.22119v1
+备注: 24 pages, 10 figures
+摘要: Automatically discovering formulaic alpha factors is a central problem in quantitative finance. Existing methods often ignore syntactic and semantic constraints, relying on exhaustive search over unst...
+相关链接:
+  - https://arxiv.org/abs/2601.22119v1
+  - https://arxiv.org/pdf/2601.22119v1
+
+================================================================================
+
+论文 14: Diverse Approaches to Optimal Execution Schedule Generation
+------------------------------------------------------------
+ID: 2601.22113v1
+作者: Robert de Witt, Mikko S. Pakkanen
+发表时间: 2026-01-29 18:41:52
+更新时间: 2026-01-29 18:41:52
+主要分类: q-fin.TR
+所有分类: q-fin.TR, cs.LG
+PDF链接: https://arxiv.org/pdf/2601.22113v1
+备注: 27 pages, 15 figures, 5 tables
+摘要: We present the first application of MAP-Elites, a quality-diversity algorithm, to trade execution. Rather than searching for a single optimal policy, MAP-Elites generates a diverse portfolio of regime...
+相关链接:
+  - https://arxiv.org/abs/2601.22113v1
+  - https://arxiv.org/pdf/2601.22113v1
+
+================================================================================
+
+论文 15: Physics Informed Reconstruction of Four-Dimensional Atmospheric Wind Fields Using Multi-UAS Swarm Observations in a Synthetic Turbulent Environment
+------------------------------------------------------------
+ID: 2601.22111v1
+作者: Abdullah Tasim, Wei Sun
+发表时间: 2026-01-29 18:40:32
+更新时间: 2026-01-29 18:40:32
+主要分类: cs.LG
+所有分类: cs.LG, eess.SY, physics.ao-ph
+PDF链接: https://arxiv.org/pdf/2601.22111v1
+摘要: Accurate reconstruction of atmospheric wind fields is essential for applications such as weather forecasting, hazard prediction, and wind energy assessment, yet conventional instruments leave spatio-t...
+相关链接:
+  - https://arxiv.org/abs/2601.22111v1
+  - https://arxiv.org/pdf/2601.22111v1
+
+================================================================================
+

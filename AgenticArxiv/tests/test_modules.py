@@ -5,7 +5,7 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from tools.arxiv_tool import get_recently_submitted_cs_papers, format_papers_console
+from tools.arxiv_tool import get_recently_submitted_cs_papers
 from utils.llm_client import get_env_llm_client
 from config import settings
 from tools.tool_registry import registry
@@ -14,7 +14,7 @@ from tools.tool_registry import registry
 def test_arxiv(aspect: str, max_results: int) -> None:
     # 直接调用
     papers = get_recently_submitted_cs_papers(max_results=max_results, aspect=aspect)
-    print(format_papers_console(papers))
+    print(f"直接调用获取 {len(papers)} 篇论文")
     
     # 通过注册表调用
     print("\n" + "="*60)
