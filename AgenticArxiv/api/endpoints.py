@@ -66,7 +66,9 @@ class SessionPapersResponse(BaseModel):
 
 class CreateTranslateTaskRequest(BaseModel):
     session_id: str = "default"
-    ref: str | int = Field(..., description="论文引用：1-based序号 或 arxiv id 或 title子串")
+    ref: str | int = Field(
+        ..., description="论文引用：1-based序号 或 arxiv id 或 title子串"
+    )
 
 
 class CreateTranslateTaskResponse(BaseModel):
@@ -87,6 +89,52 @@ class AgentRunResponse(BaseModel):
     task: str
     history: List[Dict[str, str]]
     final_observation: str
+
+
+class DownloadPdfRequest(BaseModel):
+    session_id: str = Field(default="default", description="会话ID，用于短期记忆")
+    ref: str | int = Field(
+        ..., description="论文引用：1-based序号 或 arxiv id 或 title子串"
+    )
+    force: bool = Field(default=False, description="是否强制重新下载")
+
+
+class DownloadPdfResponse(BaseModel):
+    session_id: str
+    paper_id: str
+    pdf_url: str
+    local_path: str
+    status: str
+    existed: bool
+    size_bytes: Optional[int] = None
+    sha256: Optional[str] = None
+
+
+class TranslatePdfRequest(BaseModel):
+    session_id: str = Field(default="default", description="会话ID，用于短期记忆")
+    ref: str | int = Field(
+        ..., description="论文引用：1-based序号 或 arxiv id 或 title子串"
+    )
+    force: bool = Field(default=False, description="是否强制重新翻译（覆盖本地 mono）")
+    service: str = Field(default="bing", description="翻译服务，如 bing/deepl/google")
+    threads: int = Field(
+        default=4, ge=1, le=32, description="线程数（服务器 4 核可设 4）"
+    )
+    keep_dual: bool = Field(
+        default=False, description="是否保留双语 PDF（默认否，只保留中文）"
+    )
+
+
+class TranslatePdfResponse(BaseModel):
+    session_id: str
+    paper_id: str
+    input_pdf_path: str
+    output_pdf_path: str
+    status: str
+    existed: bool
+    service: str
+    threads: int
+    log_path: Optional[str] = None
 
 
 # -------------------------
@@ -162,7 +210,9 @@ def get_session_papers(session_id: str) -> SessionPapersResponse:
 # 翻译任务：先把“创建任务/查任务”打通（翻译执行可后续接入 pdf2zh）
 # -------------------------
 @router.post("/translate/tasks", response_model=CreateTranslateTaskResponse)
-def create_translate_task(req: CreateTranslateTaskRequest) -> CreateTranslateTaskResponse:
+def create_translate_task(
+    req: CreateTranslateTaskRequest,
+) -> CreateTranslateTaskResponse:
     paper = store.resolve_paper(req.session_id, req.ref)
     if paper is None:
         raise HTTPException(
@@ -196,8 +246,59 @@ def run_agent(req: AgentRunRequest) -> AgentRunResponse:
 
         llm_client = get_env_llm_client()
         agent = ReActAgent(llm_client)
-        result = agent.run(task=req.task, agent_model=req.agent_model, session_id=req.session_id)
+        result = agent.run(
+            task=req.task, agent_model=req.agent_model, session_id=req.session_id
+        )
         return AgentRunResponse(**result)
     except Exception as e:
         log.error(f"Agent运行失败: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Agent运行失败: {str(e)}")
+
+
+@router.post("/pdf/download", response_model=DownloadPdfResponse)
+def pdf_download(req: DownloadPdfRequest) -> DownloadPdfResponse:
+    """
+    根据 session 的短期记忆 + ref 下载 PDF 到 output/pdf_raw，并维护 output/pdf_cache.json
+    """
+    tool_name = "download_arxiv_pdf"
+    try:
+        result = registry.execute_tool(
+            tool_name,
+            {"session_id": req.session_id, "ref": req.ref, "force": req.force},
+        )
+        if not isinstance(result, dict):
+            raise RuntimeError(f"工具返回类型异常: {type(result)}")
+        return DownloadPdfResponse(**result)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"下载PDF失败: {str(e)}")
+
+
+@router.post("/pdf/translate", response_model=TranslatePdfResponse)
+def pdf_translate(req: TranslatePdfRequest) -> TranslatePdfResponse:
+    """
+    翻译 PDF 全文，默认只保留中文单语（mono）PDF：
+      输出：output/pdf_translated/{paper_id}-mono.pdf
+      同时维护：output/translate_cache.json
+    """
+    tool_name = "translate_arxiv_pdf"
+    try:
+        result = registry.execute_tool(
+            tool_name,
+            {
+                "session_id": req.session_id,
+                "ref": req.ref,
+                "force": req.force,
+                "service": req.service,
+                "threads": req.threads,
+                "keep_dual": req.keep_dual,
+            },
+        )
+        if not isinstance(result, dict):
+            raise RuntimeError(f"工具返回类型异常: {type(result)}")
+        return TranslatePdfResponse(**result)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"翻译PDF失败: {str(e)}")

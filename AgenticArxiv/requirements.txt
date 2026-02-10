@@ -5,3 +5,4 @@ loguru
 pydantic
 fastapi
 uvicorn[standard]
+pdf2zh

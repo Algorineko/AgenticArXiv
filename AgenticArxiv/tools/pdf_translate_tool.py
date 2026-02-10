@@ -1,0 +1,301 @@
+# AgenticArxiv/tools/pdf_translate_tool.py
+from __future__ import annotations
+
+import os
+from datetime import datetime
+from typing import Dict, Any, Optional, Union
+
+from tools.tool_registry import registry
+from models.store import store
+from models.pdf_cache import PdfAsset
+from models.translate_cache import TranslateAsset
+from utils.pdf_downloader import (
+    normalize_arxiv_pdf_url,
+    safe_filename,
+    acquire_lock,
+    release_lock,
+    download_pdf,
+)
+from utils.pdf_translator import run_pdf2zh_translate
+from config import settings
+from utils.logger import log
+
+
+def _fallback_pdf_url(paper_id: str) -> str:
+    return f"https://arxiv.org/pdf/{paper_id}.pdf"
+
+
+def _ensure_pdf_downloaded_by_id(
+    paper_id: str,
+    pdf_url: Optional[str],
+    force: bool,
+) -> str:
+    """
+    不依赖 session 短期记忆：只靠 paper_id/pdf_url 确保 raw pdf 存在，并同步更新 pdf_cache.json
+    """
+    url = normalize_arxiv_pdf_url(pdf_url or _fallback_pdf_url(paper_id))
+    local_path = os.path.join(settings.pdf_raw_path, safe_filename(paper_id) + ".pdf")
+
+    existed = os.path.exists(local_path) and os.path.getsize(local_path) > 0
+    asset = store.get_pdf_asset(paper_id)
+
+    if existed and not force:
+        if asset is None:
+            asset = PdfAsset(
+                paper_id=paper_id,
+                pdf_url=url,
+                local_path=local_path,
+                status="READY",
+                size_bytes=os.path.getsize(local_path),
+                downloaded_at=datetime.now(),
+            )
+            store.upsert_pdf_asset(asset)
+        elif asset.status != "READY":
+            store.update_pdf_asset(
+                paper_id,
+                status="READY",
+                local_path=local_path,
+                pdf_url=url,
+                size_bytes=os.path.getsize(local_path),
+                downloaded_at=asset.downloaded_at or datetime.now(),
+                error=None,
+            )
+        return local_path
+
+    # 需要下载：加锁避免重复
+    lock_path = local_path + ".lock"
+    acquire_lock(lock_path)
+    try:
+        if asset is None:
+            asset = PdfAsset(
+                paper_id=paper_id,
+                pdf_url=url,
+                local_path=local_path,
+                status="DOWNLOADING",
+                size_bytes=0,
+                sha256=None,
+                downloaded_at=None,
+                error=None,
+            )
+            store.upsert_pdf_asset(asset)
+        else:
+            store.update_pdf_asset(
+                paper_id,
+                status="DOWNLOADING",
+                pdf_url=url,
+                local_path=local_path,
+                error=None,
+            )
+
+        size_bytes, sha256_hex = download_pdf(url, local_path)
+
+        store.update_pdf_asset(
+            paper_id,
+            status="READY",
+            size_bytes=size_bytes,
+            sha256=sha256_hex,
+            downloaded_at=datetime.now(),
+            error=None,
+        )
+        return local_path
+    except Exception as e:
+        store.update_pdf_asset(paper_id, status="FAILED", error=str(e))
+        raise
+    finally:
+        release_lock(lock_path)
+
+
+def translate_arxiv_pdf(
+    session_id: str = "default",
+    ref: Union[str, int] = 1,
+    force: bool = False,
+    service: str = None,
+    threads: int = None,
+    keep_dual: bool = False,
+    # 可选：不依赖 session 的参数（用于 TranslateTask 执行）
+    paper_id: Optional[str] = None,
+    pdf_url: Optional[str] = None,
+    input_pdf_path: Optional[str] = None,
+) -> Dict[str, Any]:
+    """
+    翻译 PDF（全文），输出到 settings.pdf_translated_path
+    默认只保留 mono（中文单语），dual 会被删除（除非 keep_dual=True）
+    并维护 translate_cache.json
+    """
+    service = service or settings.pdf2zh_service
+    threads = int(threads or settings.pdf2zh_threads)
+
+    # 1) 确定 paper_id / pdf_url / input_pdf_path
+    if input_pdf_path and os.path.exists(input_pdf_path):
+        in_path = input_pdf_path
+        if not paper_id:
+            paper_id = os.path.splitext(os.path.basename(in_path))[0]
+    else:
+        if not paper_id:
+            # 依赖 session 短期记忆解析 ref
+            paper = store.resolve_paper(session_id, ref)
+            if paper is None:
+                raise ValueError(
+                    "未找到论文：请先调用 /arxiv/recent 写入 session 记忆，或传 paper_id/pdf_url/input_pdf_path"
+                )
+            paper_id = paper.id
+            pdf_url = paper.pdf_url or _fallback_pdf_url(paper_id)
+
+        in_path = _ensure_pdf_downloaded_by_id(paper_id, pdf_url, force=force)
+
+    # 2) 计算输出路径
+    os.makedirs(settings.pdf_translated_path, exist_ok=True)
+    mono_path = os.path.join(settings.pdf_translated_path, f"{paper_id}-mono.pdf")
+    dual_path = os.path.join(settings.pdf_translated_path, f"{paper_id}-dual.pdf")
+    log_path = os.path.join(settings.pdf_translated_path, f"{paper_id}.pdf2zh.log")
+
+    existed = os.path.exists(mono_path) and os.path.getsize(mono_path) > 0
+    asset = store.get_translate_asset(paper_id)
+
+    # 3) 若已存在且不强制，直接返回
+    if existed and not force:
+        if asset is None:
+            asset = TranslateAsset(
+                paper_id=paper_id,
+                input_pdf_path=in_path,
+                output_mono_path=mono_path,
+                output_dual_path=dual_path if (keep_dual and os.path.exists(dual_path)) else None,
+                status="READY",
+                service=service,
+                threads=threads,
+                translated_at=datetime.now(),
+                error=None,
+            )
+            store.upsert_translate_asset(asset)
+        elif asset.status != "READY":
+            store.update_translate_asset(
+                paper_id,
+                status="READY",
+                input_pdf_path=in_path,
+                output_mono_path=mono_path,
+                output_dual_path=dual_path if (keep_dual and os.path.exists(dual_path)) else None,
+                service=service,
+                threads=threads,
+                translated_at=asset.translated_at or datetime.now(),
+                error=None,
+            )
+        return {
+            "session_id": session_id,
+            "paper_id": paper_id,
+            "input_pdf_path": in_path,
+            "output_pdf_path": mono_path,
+            "status": "READY",
+            "existed": True,
+            "service": service,
+            "threads": threads,
+            "log_path": log_path,
+        }
+
+    # 4) 翻译：加锁避免并发重复翻译
+    lock_path = mono_path + ".lock"
+    acquire_lock(lock_path)
+    try:
+        if asset is None:
+            asset = TranslateAsset(
+                paper_id=paper_id,
+                input_pdf_path=in_path,
+                output_mono_path=mono_path,
+                output_dual_path=None,
+                status="TRANSLATING",
+                service=service,
+                threads=threads,
+                translated_at=None,
+                error=None,
+            )
+            store.upsert_translate_asset(asset)
+        else:
+            store.update_translate_asset(
+                paper_id,
+                status="TRANSLATING",
+                input_pdf_path=in_path,
+                output_mono_path=mono_path,
+                service=service,
+                threads=threads,
+                error=None,
+            )
+
+        # 调 pdf2zh（输出目录固定为 settings.pdf_translated_path）
+        res = run_pdf2zh_translate(
+            pdf2zh_bin=settings.pdf2zh_bin,
+            input_pdf=in_path,
+            out_dir=settings.pdf_translated_path,
+            service=service,
+            threads=threads,
+            keep_dual=keep_dual,
+            log_path=log_path,
+        )
+
+        # pdf2zh 实际输出名可能是 stem-mono / stem-zh，这里统一成 {paper_id}-mono.pdf
+        if res.mono_path != mono_path:
+            # 覆盖/替换到 canonical 名称
+            if os.path.exists(mono_path):
+                os.remove(mono_path)
+            os.replace(res.mono_path, mono_path)
+
+        # dual：如果保留且存在，也统一命名
+        kept_dual = None
+        if keep_dual and res.dual_path and os.path.exists(res.dual_path):
+            kept_dual = dual_path
+            if res.dual_path != dual_path:
+                if os.path.exists(dual_path):
+                    os.remove(dual_path)
+                os.replace(res.dual_path, dual_path)
+
+        store.update_translate_asset(
+            paper_id,
+            status="READY",
+            output_mono_path=mono_path,
+            output_dual_path=kept_dual,
+            translated_at=datetime.now(),
+            error=None,
+        )
+
+        return {
+            "session_id": session_id,
+            "paper_id": paper_id,
+            "input_pdf_path": in_path,
+            "output_pdf_path": mono_path,
+            "status": "READY",
+            "existed": False,
+            "service": service,
+            "threads": threads,
+            "log_path": log_path,
+        }
+
+    except Exception as e:
+        store.update_translate_asset(paper_id, status="FAILED", error=str(e))
+        raise
+    finally:
+        release_lock(lock_path)
+
+
+PDF_TRANSLATE_TOOL_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "session_id": {"type": "string", "default": "default"},
+        "ref": {
+            "description": "论文引用：1-based序号 或 arxiv id 或 title子串",
+            "anyOf": [{"type": "integer"}, {"type": "string"}],
+        },
+        "force": {"type": "boolean", "default": False},
+        "service": {"type": "string", "description": "翻译服务，如 bing/deepl/google", "default": "bing"},
+        "threads": {"type": "integer", "description": "线程数", "default": 4, "minimum": 1, "maximum": 32},
+        "keep_dual": {"type": "boolean", "description": "是否保留双语 PDF", "default": False},
+        "paper_id": {"type": "string", "description": "可选：直接指定 paper_id（不依赖 session）"},
+        "pdf_url": {"type": "string", "description": "可选：直接指定 pdf_url（不依赖 session）"},
+        "input_pdf_path": {"type": "string", "description": "可选：直接指定本地 PDF 路径（不依赖 session）"},
+    },
+    "required": [],
+}
+
+registry.register_tool(
+    name="translate_arxiv_pdf",
+    description="调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引",
+    parameter_schema=PDF_TRANSLATE_TOOL_SCHEMA,
+    func=translate_arxiv_pdf,
+)

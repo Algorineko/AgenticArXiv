@@ -25,7 +25,21 @@ pdf2zh /home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2601.22156v1.pdf -s bin
 ### FastAPI
 ```sh
 # 启动FastAPI
+cd /home/dev/AgenticDemo/AgenticArxiv
 uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
 # 查看Swagger文档
 http://127.0.0.1:8000/docs
 ```
+
+### cURL测试
+```sh
+# 写入 session 短期记忆
+curl -s -X POST "http://127.0.0.1:8000/arxiv/recent" \
+  -H "Content-Type: application/json" \
+  -d '{"session_id":"demo1","aspect":"LG","days":7,"max_results":5}'
+# 下载2号论文 PDF
+curl -s -X POST "http://127.0.0.1:8000/pdf/download" \
+  -H "Content-Type: application/json" \
+  -d '{"session_id":"demo1","ref":2}'
+```
+

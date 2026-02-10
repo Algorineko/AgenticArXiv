@@ -6,8 +6,11 @@ try:
     from dotenv import load_dotenv  # pyright: ignore[reportMissingImports]
     load_dotenv()
 except Exception:
-    # 也可以直接在终端 export 环境变量
     pass
+
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output")
 
 
 @dataclass(frozen=True)
@@ -23,6 +26,27 @@ class Settings:
     )
     antigravity_api_key: str = os.getenv("LLM_API_KEY", "no-token-here")
     models: LLMModels = LLMModels()
+
+    # --- PDF download/cache ---
+    pdf_raw_path: str = os.getenv(
+        "PDF_RAW_PATH", os.path.join(DEFAULT_OUTPUT_DIR, "pdf_raw")
+    )
+    pdf_cache_path: str = os.getenv(
+        "PDF_CACHE_PATH", os.path.join(DEFAULT_OUTPUT_DIR, "pdf_cache.json")
+    )
+
+    # --- PDF translate/cache ---
+    pdf_translated_path: str = os.getenv(
+        "PDF_TRANSLATED_PATH", os.path.join(DEFAULT_OUTPUT_DIR, "pdf_translated")
+    )
+    translate_cache_path: str = os.getenv(
+        "TRANSLATE_CACHE_PATH", os.path.join(DEFAULT_OUTPUT_DIR, "translate_cache.json")
+    )
+
+    # --- pdf2zh CLI ---
+    pdf2zh_bin: str = os.getenv("PDF2ZH_BIN", "pdf2zh")
+    pdf2zh_service: str = os.getenv("PDF2ZH_SERVICE", "bing")
+    pdf2zh_threads: int = int(os.getenv("PDF2ZH_THREADS", "4"))
 
 
 settings = Settings()

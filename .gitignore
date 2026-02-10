@@ -10,6 +10,7 @@ __pycache__
 # 日志文件
 logs/*.log
 logs/*.log.*
+*.log
 # 数据文件
 results.txt
 temp.txt

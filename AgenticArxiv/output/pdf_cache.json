@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "updated_at": "2026-02-11T02:31:05.178600",
+  "assets": {
+    "2602.09017v1": {
+      "paper_id": "2602.09017v1",
+      "pdf_url": "https://arxiv.org/pdf/2602.09017v1.pdf",
+      "local_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.09017v1.pdf",
+      "status": "READY",
+      "size_bytes": 7907170,
+      "sha256": "b0428cf26ad882127851059de2fafebb3ae164e38f631b9d941ca8ac0ebbeda4",
+      "downloaded_at": "2026-02-11T02:31:05.178532",
+      "updated_at": "2026-02-11T02:31:05.178596",
+      "error": null
+    }
+  }
+}

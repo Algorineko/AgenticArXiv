@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # 确保工具被注册（side-effect import）
 import tools.arxiv_tool  # noqa: F401
+import tools.pdf_download_tool  # noqa: F401
+import tools.pdf_translate_tool  # noqa: F401
 
 from api.endpoints import router as api_router
 
@@ -15,7 +17,6 @@ def create_app() -> FastAPI:
         description="Expose ToolRegistry tools via FastAPI",
     )
 
-    # CORS（本地前端/调试方便，生产可收紧）
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -23,7 +24,7 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    
+
     @app.get("/")
     def root():
         return {"msg": "Agentic Arxiv API is running", "docs": "/docs"}
