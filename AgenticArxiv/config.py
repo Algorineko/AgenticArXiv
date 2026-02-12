@@ -39,6 +39,9 @@ class Settings:
     pdf_translated_path: str = os.getenv(
         "PDF_TRANSLATED_PATH", os.path.join(DEFAULT_OUTPUT_DIR, "pdf_translated")
     )
+    pdf_translated_log_path: str = os.getenv(
+        "PDF_TRANSLATED_LOG_PATH", os.path.join(DEFAULT_OUTPUT_DIR, "pdf_translated_log")
+    )
     translate_cache_path: str = os.getenv(
         "TRANSLATE_CACHE_PATH", os.path.join(DEFAULT_OUTPUT_DIR, "translate_cache.json")
     )

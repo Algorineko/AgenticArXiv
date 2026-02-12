@@ -1,88 +1,89 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-02-11 03:06:16
+生成时间: 2026-02-12 23:21:05
 论文数量: 5
 ================================================================================
 
-论文 1: Robustness Is a Function, Not a Number: A Factorized Comprehensive Study of OOD Robustness in Vision-Based Driving
+论文 1: Beyond VLM-Based Rewards: Diffusion-Native Latent Reward Modeling
 ------------------------------------------------------------
-ID: 2602.09018v1
-作者: Amir Mallak, Alaa Maalouf
-发表时间: 2026-02-09 18:59:03
-更新时间: 2026-02-09 18:59:03
-主要分类: cs.RO
-所有分类: cs.RO, cs.AI, cs.CV, cs.LG
-PDF链接: https://arxiv.org/pdf/2602.09018v1
-摘要: Out of distribution (OOD) robustness in autonomous driving is often reduced to a single number, hiding what breaks a policy. We decompose environments along five axes: scene (rural/urban), season, wea...
+ID: 2602.11146v1
+作者: Gongye Liu, Bo Yang, Yida Zhi, Zhizhou Zhong, Lei Ke, Didan Deng, Han Gao, Yongxiang Huang, Kaihao Zhang, Hongbo Fu, Wenhan Luo
+发表时间: 2026-02-11 18:57:29
+更新时间: 2026-02-11 18:57:29
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI
+PDF链接: https://arxiv.org/pdf/2602.11146v1
+备注: Code: https://github.com/HKUST-C4G/diffusion-rm
+摘要: Preference optimization for diffusion and flow-matching models relies on reward functions that are both discriminatively robust and computationally efficient. Vision-Language Models (VLMs) have emerge...
 相关链接:
-  - https://arxiv.org/abs/2602.09018v1
-  - https://arxiv.org/pdf/2602.09018v1
+  - https://arxiv.org/abs/2602.11146v1
+  - https://arxiv.org/pdf/2602.11146v1
 
 ================================================================================
 
-论文 2: Contact-Anchored Policies: Contact Conditioning Creates Strong Robot Utility Models
+论文 2: GENIUS: Generative Fluid Intelligence Evaluation Suite
 ------------------------------------------------------------
-ID: 2602.09017v1
-作者: Zichen Jeff Cui, Omar Rayyan, Haritheja Etukuru, Bowen Tan, Zavier Andrianarivo, Zicheng Teng, Yihang Zhou, Krish Mehta, Nicholas Wojno, Kevin Yuanbo Wu, Manan H Anjaria, Ziyuan Wu, Manrong Mao, Guangxun Zhang, Binit Shah, Yejin Kim, Soumith Chintala, Lerrel Pinto, Nur Muhammad Mahi Shafiullah
-发表时间: 2026-02-09 18:58:50
-更新时间: 2026-02-09 18:58:50
-主要分类: cs.RO
-所有分类: cs.RO, cs.LG
-PDF链接: https://arxiv.org/pdf/2602.09017v1
-摘要: The prevalent paradigm in robot learning attempts to generalize across environments, embodiments, and tasks with language prompts at runtime. A fundamental tension limits this approach: language is of...
+ID: 2602.11144v1
+作者: Ruichuan An, Sihan Yang, Ziyu Guo, Wei Dai, Zijun Shen, Haodong Li, Renrui Zhang, Xinyu Wei, Guopeng Li, Wenshan Wu, Wentao Zhang
+发表时间: 2026-02-11 18:55:54
+更新时间: 2026-02-11 18:55:54
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, cs.CV
+PDF链接: https://arxiv.org/pdf/2602.11144v1
+摘要: Unified Multimodal Models (UMMs) have shown remarkable progress in visual generation. Yet, existing benchmarks predominantly assess $\textit{Crystallized Intelligence}$, which relies on recalling accu...
 相关链接:
-  - https://arxiv.org/abs/2602.09017v1
-  - https://arxiv.org/pdf/2602.09017v1
+  - https://arxiv.org/abs/2602.11144v1
+  - https://arxiv.org/pdf/2602.11144v1
 
 ================================================================================
 
-论文 3: Next-Gen CAPTCHAs: Leveraging the Cognitive Gap for Scalable and Diverse GUI-Agent Defense
+论文 3: Data-Efficient Hierarchical Goal-Conditioned Reinforcement Learning via Normalizing Flows
 ------------------------------------------------------------
-ID: 2602.09012v1
-作者: Jiacheng Liu, Yaxin Luo, Jiacheng Cui, Xinyi Shang, Xiaohan Zhao, Zhiqiang Shen
-发表时间: 2026-02-09 18:55:33
-更新时间: 2026-02-09 18:55:33
+ID: 2602.11142v1
+作者: Shaswat Garg, Matin Moezzi, Brandon Da Silva
+发表时间: 2026-02-11 18:54:48
+更新时间: 2026-02-11 18:54:48
+主要分类: cs.RO
+所有分类: cs.RO, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2602.11142v1
+备注: 9 pages, 3 figures, IEEE International Conference on Robotics and Automation 2026
+摘要: Hierarchical goal-conditioned reinforcement learning (H-GCRL) provides a powerful framework for tackling complex, long-horizon tasks by decomposing them into structured subgoals. However, its practica...
+相关链接:
+  - https://arxiv.org/abs/2602.11142v1
+  - https://arxiv.org/pdf/2602.11142v1
+
+================================================================================
+
+论文 4: Weight Decay Improves Language Model Plasticity
+------------------------------------------------------------
+ID: 2602.11137v1
+作者: Tessa Han, Sebastian Bordt, Hanlin Zhang, Sham Kakade
+发表时间: 2026-02-11 18:49:26
+更新时间: 2026-02-11 18:49:26
 主要分类: cs.LG
 所有分类: cs.LG, cs.AI, cs.CL
-PDF链接: https://arxiv.org/pdf/2602.09012v1
-备注: Project page at https://greenoso.github.io/NextGen-CAPTCHAs_webpage/
-摘要: The rapid evolution of GUI-enabled agents has rendered traditional CAPTCHAs obsolete. While previous benchmarks like OpenCaptchaWorld established a baseline for evaluating multimodal agents, recent ad...
+PDF链接: https://arxiv.org/pdf/2602.11137v1
+摘要: The prevailing paradigm in large language model (LLM) development is to pretrain a base model, then perform further training to improve performance and model behavior. However, hyperparameter optimiza...
 相关链接:
-  - https://arxiv.org/abs/2602.09012v1
-  - https://arxiv.org/pdf/2602.09012v1
+  - https://arxiv.org/abs/2602.11137v1
+  - https://arxiv.org/pdf/2602.11137v1
 
 ================================================================================
 
-论文 4: ANCRe: Adaptive Neural Connection Reassignment for Efficient Depth Scaling
+论文 5: FormalJudge: A Neuro-Symbolic Paradigm for Agentic Oversight
 ------------------------------------------------------------
-ID: 2602.09009v1
-作者: Yilang Zhang, Bingcong Li, Niao He, Georgios B. Giannakis
-发表时间: 2026-02-09 18:54:18
-更新时间: 2026-02-09 18:54:18
-主要分类: cs.LG
-所有分类: cs.LG, cs.AI
-PDF链接: https://arxiv.org/pdf/2602.09009v1
-摘要: Scaling network depth has been a central driver behind the success of modern foundation models, yet recent investigations suggest that deep layers are often underutilized. This paper revisits the defa...
+ID: 2602.11136v1
+作者: Jiayi Zhou, Yang Sheng, Hantao Lou, Yaodong Yang, Jie Fu
+发表时间: 2026-02-11 18:48:11
+更新时间: 2026-02-11 18:48:11
+主要分类: cs.AI
+所有分类: cs.AI
+PDF链接: https://arxiv.org/pdf/2602.11136v1
+备注: 27 pages
+摘要: As LLM-based agents increasingly operate in high-stakes domains with real-world consequences, ensuring their behavioral safety becomes paramount. The dominant oversight paradigm, LLM-as-a-Judge, faces...
 相关链接:
-  - https://arxiv.org/abs/2602.09009v1
-  - https://arxiv.org/pdf/2602.09009v1
-
-================================================================================
-
-论文 5: ShapeCond: Fast Shapelet-Guided Dataset Condensation for Time Series Classification
-------------------------------------------------------------
-ID: 2602.09008v1
-作者: Sijia Peng, Yun Xiong, Xi Chen, Yi Xie, Guanzhi Li, Yanwei Yu, Yangyong Zhu, Zhiqiang Shen
-发表时间: 2026-02-09 18:53:08
-更新时间: 2026-02-09 18:53:08
-主要分类: cs.LG
-所有分类: cs.LG
-PDF链接: https://arxiv.org/pdf/2602.09008v1
-备注: Code at: https://github.com/lunaaa95/ShapeCond
-摘要: Time series data supports many domains (e.g., finance and climate science), but its rapid growth strains storage and computation. Dataset condensation can alleviate this by synthesizing a compact trai...
-相关链接:
-  - https://arxiv.org/abs/2602.09008v1
-  - https://arxiv.org/pdf/2602.09008v1
+  - https://arxiv.org/abs/2602.11136v1
+  - https://arxiv.org/pdf/2602.11136v1
 
 ================================================================================
 

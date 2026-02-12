@@ -147,7 +147,8 @@ def translate_arxiv_pdf(
     os.makedirs(settings.pdf_translated_path, exist_ok=True)
     mono_path = os.path.join(settings.pdf_translated_path, f"{paper_id}-mono.pdf")
     dual_path = os.path.join(settings.pdf_translated_path, f"{paper_id}-dual.pdf")
-    log_path = os.path.join(settings.pdf_translated_path, f"{paper_id}.pdf2zh.log")
+    os.makedirs(settings.pdf_translated_log_path, exist_ok=True)
+    log_path = os.path.join(settings.pdf_translated_log_path, f"{paper_id}.pdf2zh.log")
 
     existed = os.path.exists(mono_path) and os.path.getsize(mono_path) > 0
     asset = store.get_translate_asset(paper_id)
