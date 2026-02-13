@@ -2,6 +2,7 @@
 .vscode
 __pycache__
 *.pyc
+!.gitkeep
 # 环境变量文件
 .env
 .env.*
@@ -19,3 +20,5 @@ collected_code.txt
 environment_backup.yml
 # PDF files
 *.pdf
+*.pdf.lock
+*.pdf.part
