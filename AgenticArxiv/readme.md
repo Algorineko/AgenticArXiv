@@ -5,6 +5,8 @@
 ```txt
 LLM_BASE_URL=<base-url>
 LLM_API_KEY=<token>
+PDF_RAW_PATH=/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw
+PDF_TRANSLATED_PATH=/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated
 ```
 
 ### PDFMathTranslate

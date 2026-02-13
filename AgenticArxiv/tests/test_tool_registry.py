@@ -6,6 +6,11 @@ import json
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# 注册工具
+import tools.arxiv_tool  # noqa: F401
+import tools.pdf_download_tool  # noqa: F401
+import tools.pdf_translate_tool  # noqa: F401
+
 from tools.tool_registry import registry
 from tools.arxiv_tool import cs_categories
 

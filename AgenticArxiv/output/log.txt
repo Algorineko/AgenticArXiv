@@ -1,2 +1,0 @@
-2026-02-12 23:21:05 | INFO | utils.file_writer:save_papers_to_file:57 | 论文已保存到: /home/dev/AgenticDemo/AgenticArxiv/output/recent_cs_papers.txt
-2026-02-12 23:24:15 | INFO | utils.pdf_translator:run_pdf2zh_translate:72 | Run pdf2zh: /home/dev/miniconda3/envs/agent/bin/pdf2zh /home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.11144v1.pdf -s bing -o /home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated -t 4
