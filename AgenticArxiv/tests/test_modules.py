@@ -40,7 +40,7 @@ def test_llm(prompt: str) -> None:
     print(content or resp)
 
 def test_tools() -> None:
-    """新增：测试工具注册表"""
+    """测试工具注册表"""
     print("=== 工具注册表测试 ===")
     tools = registry.list_tools()
     print(f"注册的工具数量: {len(tools)}")

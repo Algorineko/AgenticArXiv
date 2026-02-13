@@ -47,5 +47,13 @@ curl -s -X POST "http://127.0.0.1:8000/pdf/download" \
 curl -s -X POST "http://127.0.0.1:8000/pdf/translate" \
   -H "Content-Type: application/json" \
   -d '{"session_id":"demo1","ref":2,"force":false,"service":"bing","threads":4,"keep_dual":false}'
+# 与Agent交互让LLM调用相关tool获取近期论文信息
+curl -s -X POST "http://127.0.0.1:8000/chat" \
+  -H "Content-Type: application/json" \
+  -d '{"session_id":"demo1","message":"获取最近7天内AI(cs.AI)方向论文，最多5篇"}'
+# Agent交互让LLM调用相关tool下载某篇论文PDF
+curl -s -X POST "http://127.0.0.1:8000/chat" \
+  -H "Content-Type: application/json" \
+  -d '{"session_id":"demo1","message":"下载第2篇论文PDF"}'
 ```
 

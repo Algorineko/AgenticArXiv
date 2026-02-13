@@ -29,6 +29,8 @@ class ReActAgent:
         # 确保工具被注册 - 导入工具模块
         try:
             import tools.arxiv_tool  # noqa: F401
+            import tools.pdf_download_tool  # noqa: F401
+            import tools.pdf_translate_tool  # noqa: F401
 
             log.info(f"已导入工具模块，注册了 {len(registry.list_tools())} 个工具")
         except ImportError as e:
@@ -128,18 +130,26 @@ class ReActAgent:
 
         # 如果无法解析，返回错误
         log.error(f"无法解析Action: {action_text}")
-        return thought, {
-            "name": "format_papers_console",
-            "args": {"papers": [], "top_authors": 3},
-        }
+        return thought, None  # FINISH
 
     def execute_action(self, action_dict: Dict[str, Any]) -> str:
         """执行动作并返回观察结果"""
         try:
             tool_name = action_dict["name"]
-            args = action_dict["args"]
+            args = action_dict.get("args", {}) or {}
 
             log.info(f"执行工具: {tool_name}, 参数: {args}")
+
+            # 强制覆盖 session_id：只要工具参数里支持 session_id，就用当前会话 self.session_id
+            try:
+                tool = registry.get_tool(tool_name)
+                props = (tool or {}).get("parameters", {}).get("properties", {})
+                if isinstance(args, dict) and ("session_id" in props):
+                    args["session_id"] = (
+                        self.session_id
+                    )  # 覆盖 LLM 传的 default / 其它值
+            except Exception:
+                pass
 
             # 检查工具是否存在
             available_tools = [tool["name"] for tool in registry.list_tools()]
@@ -179,14 +189,16 @@ class ReActAgent:
                     return f"工具返回结果格式异常: {type(result)}"
 
             elif tool_name == "format_papers_console":
-                # 格式化工具返回字符串
-                if isinstance(result, str):
-                    # 如果结果太长，截断但保持完整性
-                    if len(result) > 2000:
-                        return result[:2000] + "\n...(结果过长，已截断)"
-                    return result
-                else:
-                    return f"格式化结果: {str(result)[:500]}"
+                # # 格式化工具返回字符串
+                # if isinstance(result, str):
+                #     # 如果结果太长，截断但保持完整性
+                #     if len(result) > 2000:
+                #         return result[:2000] + "\n...(结果过长，已截断)"
+                #     return result
+                # else:
+                #     return f"格式化结果: {str(result)[:500]}"
+                # 这是历史测试工具：不在前端展示长文本，直接返回 FINISH
+                return "FINISH"
 
             # 默认处理
             if isinstance(result, list):

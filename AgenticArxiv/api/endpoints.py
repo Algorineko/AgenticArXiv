@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional
 from tools.tool_registry import registry
 from models.schemas import Paper, TranslateTask
 from models.store import store
+from models.pdf_cache import PdfAsset
+from models.translate_cache import TranslateAsset
 from utils.logger import log
 
 
@@ -113,7 +115,7 @@ class DownloadPdfResponse(BaseModel):
 class TranslatePdfRequest(BaseModel):
     session_id: str = Field(default="default", description="会话ID，用于短期记忆")
     ref: str | int = Field(
-        ..., description="论文引用：1-based序号 或 arxiv id 或 title子串"
+        ..., description="论文引用:1-based序号 或 arxiv id 或 title子串"
     )
     force: bool = Field(default=False, description="是否强制重新翻译（覆盖本地 mono）")
     service: str = Field(default="bing", description="翻译服务，如 bing/deepl/google")
@@ -135,6 +137,30 @@ class TranslatePdfResponse(BaseModel):
     service: str
     threads: int
     log_path: Optional[str] = None
+
+
+class ChatRequest(BaseModel):
+    session_id: str = Field(default="default")
+    message: str = Field(..., description="用户对 Agent 的一句话/一个任务")
+    agent_model: Optional[str] = None
+
+
+class ChatResponse(BaseModel):
+    session_id: str
+    message: str
+    reply: str
+    history: List[Dict[str, str]]
+    papers: List[Paper]
+    pdf_assets: List[PdfAsset]
+    translate_assets: List[TranslateAsset]
+
+
+class PdfAssetsResponse(BaseModel):
+    assets: List[PdfAsset]
+
+
+class TranslateAssetsResponse(BaseModel):
+    assets: List[TranslateAsset]
 
 
 # -------------------------
@@ -302,3 +328,60 @@ def pdf_translate(req: TranslatePdfRequest) -> TranslatePdfResponse:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"翻译PDF失败: {str(e)}")
+
+@router.post("/chat", response_model=ChatResponse)
+def chat(req: ChatRequest) -> ChatResponse:
+    """
+    最小闭环对话接口：用户一句话 -> Agent 自己决定调用哪个 tool -> 返回回复 + 状态快照
+    """
+    try:
+        from utils.llm_client import get_env_llm_client
+        from agents.agent_engine import ReActAgent
+
+        llm_client = get_env_llm_client()
+        agent = ReActAgent(llm_client)
+
+        result = agent.run(
+            task=req.message,
+            agent_model=req.agent_model,
+            session_id=req.session_id,
+        )
+
+        # 状态快照：短期记忆 + 两份 cache
+        papers = store.get_last_papers(req.session_id)
+        pdf_assets = sorted(store.pdf_cache.assets.values(), key=lambda x: x.updated_at, reverse=True)
+        translate_assets = sorted(store.translate_cache.assets.values(), key=lambda x: x.updated_at, reverse=True)
+
+        # reply：用最后一步“有意义”的 observation（避免最后是“任务完成”）
+        reply = ""
+        for step in reversed(result.get("history", [])):
+            if step.get("action") not in ("FINISH", "FORCE_STOP", "ERROR"):
+                reply = step.get("observation", "")
+                break
+        reply = reply or result.get("final_observation", "")
+
+        return ChatResponse(
+            session_id=req.session_id,
+            message=req.message,
+            reply=reply,
+            history=result.get("history", []),
+            papers=papers,
+            pdf_assets=list(pdf_assets),
+            translate_assets=list(translate_assets),
+        )
+
+    except Exception as e:
+        log.error(f"/chat 失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"chat失败: {str(e)}")
+
+
+@router.get("/pdf/assets", response_model=PdfAssetsResponse)
+def list_pdf_assets() -> PdfAssetsResponse:
+    assets = sorted(store.pdf_cache.assets.values(), key=lambda x: x.updated_at, reverse=True)
+    return PdfAssetsResponse(assets=list(assets))
+
+
+@router.get("/translate/assets", response_model=TranslateAssetsResponse)
+def list_translate_assets() -> TranslateAssetsResponse:
+    assets = sorted(store.translate_cache.assets.values(), key=lambda x: x.updated_at, reverse=True)
+    return TranslateAssetsResponse(assets=list(assets))

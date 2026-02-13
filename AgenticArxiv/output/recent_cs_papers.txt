@@ -1,89 +1,86 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-02-12 23:21:05
+生成时间: 2026-02-13 19:56:51
 论文数量: 5
 ================================================================================
 
-论文 1: Beyond VLM-Based Rewards: Diffusion-Native Latent Reward Modeling
+论文 1: Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment
 ------------------------------------------------------------
-ID: 2602.11146v1
-作者: Gongye Liu, Bo Yang, Yida Zhi, Zhizhou Zhong, Lei Ke, Didan Deng, Han Gao, Yongxiang Huang, Kaihao Zhang, Hongbo Fu, Wenhan Luo
-发表时间: 2026-02-11 18:57:29
-更新时间: 2026-02-11 18:57:29
-主要分类: cs.CV
-所有分类: cs.CV, cs.AI
-PDF链接: https://arxiv.org/pdf/2602.11146v1
-备注: Code: https://github.com/HKUST-C4G/diffusion-rm
-摘要: Preference optimization for diffusion and flow-matching models relies on reward functions that are both discriminatively robust and computationally efficient. Vision-Language Models (VLMs) have emerge...
-相关链接:
-  - https://arxiv.org/abs/2602.11146v1
-  - https://arxiv.org/pdf/2602.11146v1
-
-================================================================================
-
-论文 2: GENIUS: Generative Fluid Intelligence Evaluation Suite
-------------------------------------------------------------
-ID: 2602.11144v1
-作者: Ruichuan An, Sihan Yang, Ziyu Guo, Wei Dai, Zijun Shen, Haodong Li, Renrui Zhang, Xinyu Wei, Guopeng Li, Wenshan Wu, Wentao Zhang
-发表时间: 2026-02-11 18:55:54
-更新时间: 2026-02-11 18:55:54
-主要分类: cs.LG
-所有分类: cs.LG, cs.AI, cs.CV
-PDF链接: https://arxiv.org/pdf/2602.11144v1
-摘要: Unified Multimodal Models (UMMs) have shown remarkable progress in visual generation. Yet, existing benchmarks predominantly assess $\textit{Crystallized Intelligence}$, which relies on recalling accu...
-相关链接:
-  - https://arxiv.org/abs/2602.11144v1
-  - https://arxiv.org/pdf/2602.11144v1
-
-================================================================================
-
-论文 3: Data-Efficient Hierarchical Goal-Conditioned Reinforcement Learning via Normalizing Flows
-------------------------------------------------------------
-ID: 2602.11142v1
-作者: Shaswat Garg, Matin Moezzi, Brandon Da Silva
-发表时间: 2026-02-11 18:54:48
-更新时间: 2026-02-11 18:54:48
+ID: 2602.12281v1
+作者: Jacky Kwok, Xilun Zhang, Mengdi Xu, Yuejiang Liu, Azalia Mirhoseini, Chelsea Finn, Marco Pavone
+发表时间: 2026-02-12 18:59:59
+更新时间: 2026-02-12 18:59:59
 主要分类: cs.RO
-所有分类: cs.RO, cs.AI, cs.LG
-PDF链接: https://arxiv.org/pdf/2602.11142v1
-备注: 9 pages, 3 figures, IEEE International Conference on Robotics and Automation 2026
-摘要: Hierarchical goal-conditioned reinforcement learning (H-GCRL) provides a powerful framework for tackling complex, long-horizon tasks by decomposing them into structured subgoals. However, its practica...
+所有分类: cs.RO, cs.AI, eess.SY
+PDF链接: https://arxiv.org/pdf/2602.12281v1
+摘要: The long-standing vision of general-purpose robots hinges on their ability to understand and act upon natural language instructions. Vision-Language-Action (VLA) models have made remarkable progress t...
 相关链接:
-  - https://arxiv.org/abs/2602.11142v1
-  - https://arxiv.org/pdf/2602.11142v1
+  - https://arxiv.org/abs/2602.12281v1
+  - https://arxiv.org/pdf/2602.12281v1
 
 ================================================================================
 
-论文 4: Weight Decay Improves Language Model Plasticity
+论文 2: UniT: Unified Multimodal Chain-of-Thought Test-time Scaling
 ------------------------------------------------------------
-ID: 2602.11137v1
-作者: Tessa Han, Sebastian Bordt, Hanlin Zhang, Sham Kakade
-发表时间: 2026-02-11 18:49:26
-更新时间: 2026-02-11 18:49:26
-主要分类: cs.LG
-所有分类: cs.LG, cs.AI, cs.CL
-PDF链接: https://arxiv.org/pdf/2602.11137v1
-摘要: The prevailing paradigm in large language model (LLM) development is to pretrain a base model, then perform further training to improve performance and model behavior. However, hyperparameter optimiza...
+ID: 2602.12279v1
+作者: Leon Liangyu Chen, Haoyu Ma, Zhipeng Fan, Ziqi Huang, Animesh Sinha, Xiaoliang Dai, Jialiang Wang, Zecheng He, Jianwei Yang, Chunyuan Li, Junzhe Sun, Chu Wang, Serena Yeung-Levy, Felix Juefei-Xu
+发表时间: 2026-02-12 18:59:49
+更新时间: 2026-02-12 18:59:49
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2602.12279v1
+摘要: Unified models can handle both multimodal understanding and generation within a single architecture, yet they typically operate in a single pass without iteratively refining their outputs. Many multim...
 相关链接:
-  - https://arxiv.org/abs/2602.11137v1
-  - https://arxiv.org/pdf/2602.11137v1
+  - https://arxiv.org/abs/2602.12279v1
+  - https://arxiv.org/pdf/2602.12279v1
 
 ================================================================================
 
-论文 5: FormalJudge: A Neuro-Symbolic Paradigm for Agentic Oversight
+论文 3: AttentionRetriever: Attention Layers are Secretly Long Document Retrievers
 ------------------------------------------------------------
-ID: 2602.11136v1
-作者: Jiayi Zhou, Yang Sheng, Hantao Lou, Yaodong Yang, Jie Fu
-发表时间: 2026-02-11 18:48:11
-更新时间: 2026-02-11 18:48:11
+ID: 2602.12278v1
+作者: David Jiahao Fu, Lam Thanh Do, Jiayu Li, Kevin Chen-Chuan Chang
+发表时间: 2026-02-12 18:59:35
+更新时间: 2026-02-12 18:59:35
+主要分类: cs.IR
+所有分类: cs.IR, cs.AI
+PDF链接: https://arxiv.org/pdf/2602.12278v1
+摘要: Retrieval augmented generation (RAG) has been widely adopted to help Large Language Models (LLMs) to process tasks involving long documents. However, existing retrieval models are not designed for lon...
+相关链接:
+  - https://arxiv.org/abs/2602.12278v1
+  - https://arxiv.org/pdf/2602.12278v1
+
+================================================================================
+
+论文 4: Agentic Test-Time Scaling for WebAgents
+------------------------------------------------------------
+ID: 2602.12276v1
+作者: Nicholas Lee, Lutfi Eren Erdogan, Chris Joseph John, Surya Krishnapillai, Michael W. Mahoney, Kurt Keutzer, Amir Gholami
+发表时间: 2026-02-12 18:58:30
+更新时间: 2026-02-12 18:58:30
 主要分类: cs.AI
-所有分类: cs.AI
-PDF链接: https://arxiv.org/pdf/2602.11136v1
-备注: 27 pages
-摘要: As LLM-based agents increasingly operate in high-stakes domains with real-world consequences, ensuring their behavioral safety becomes paramount. The dominant oversight paradigm, LLM-as-a-Judge, faces...
+所有分类: cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2602.12276v1
+摘要: Test-time scaling has become a standard way to improve performance and boost reliability of neural network models. However, its behavior on agentic, multi-step tasks remains less well-understood: smal...
 相关链接:
-  - https://arxiv.org/abs/2602.11136v1
-  - https://arxiv.org/pdf/2602.11136v1
+  - https://arxiv.org/abs/2602.12276v1
+  - https://arxiv.org/pdf/2602.12276v1
+
+================================================================================
+
+论文 5: Creative Ownership in the Age of AI
+------------------------------------------------------------
+ID: 2602.12270v1
+作者: Annie Liang, Jay Lu
+发表时间: 2026-02-12 18:56:42
+更新时间: 2026-02-12 18:56:42
+主要分类: econ.TH
+所有分类: econ.TH, cs.AI, cs.GT
+PDF链接: https://arxiv.org/pdf/2602.12270v1
+摘要: Copyright law focuses on whether a new work is "substantially similar" to an existing one, but generative AI can closely imitate style without copying content, a capability now central to ongoing liti...
+相关链接:
+  - https://arxiv.org/abs/2602.12270v1
+  - https://arxiv.org/pdf/2602.12270v1
 
 ================================================================================
 

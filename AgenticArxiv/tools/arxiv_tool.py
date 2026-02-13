@@ -109,7 +109,6 @@ def get_recently_submitted_cs_papers(
         }
         papers.append(paper_info)
 
-    # ✅ 只保存一次
     if save_to_file:
         path = output_path or _default_output_path()
         save_papers_to_file(papers, path)
