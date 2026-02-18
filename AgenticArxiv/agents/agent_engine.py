@@ -311,4 +311,5 @@ class ReActAgent:
         }
 
         log.info(f"任务执行完成，共 {len(self.context.history)} 步")
+        log.info("-" * 50)
         return result

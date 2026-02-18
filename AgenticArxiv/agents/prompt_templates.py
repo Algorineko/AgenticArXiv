@@ -5,20 +5,15 @@ REACT_PROMPT_TEMPLATE = """你是一个AI研究助手,可以获取最新的arXiv
 {tools_description}
 
 当前任务：{task}
-
 请按照ReAct框架的格式思考和行动:
 Thought: 分析当前情况和下一步需要做什么
 Action: {{"name": "工具名称", "args": {{参数对象}}}}
 Observation: 工具执行的结果
-
 当你认为任务已经完成时，使用以下格式结束：
 Thought: 任务已完成
 Action: FINISH
-
 注意：只能使用上面列出的工具。每次只能执行一个动作。
-
 现在开始执行任务：
-
 {history}
 """
 
@@ -68,7 +63,7 @@ def format_tool_description(tools) -> str:
         # 构建完整描述
         tool_desc = f"- {name}: {desc}"
         if params_info:
-            tool_desc += f"\n  参数:"
+            tool_desc += "\n  参数:"
             tool_desc += params_info
         
         descriptions.append(tool_desc)

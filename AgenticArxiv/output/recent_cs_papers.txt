@@ -1,22 +1,22 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-02-18 23:52:36
+生成时间: 2026-02-19 00:19:03
 论文数量: 1
 ================================================================================
 
-论文 1: Ensemble-size-dependence of deep-learning post-processing methods that minimize an (un)fair score: motivating examples and a proof-of-concept solution
+论文 1: Perceptive Humanoid Parkour: Chaining Dynamic Human Skills via Motion Matching
 ------------------------------------------------------------
-ID: 2602.15830v1
-作者: Christopher David Roberts
-发表时间: 2026-02-17 18:59:55
-更新时间: 2026-02-17 18:59:55
-主要分类: physics.ao-ph
-所有分类: physics.ao-ph, cs.LG
-PDF链接: https://arxiv.org/pdf/2602.15830v1
-摘要: Fair scores reward ensemble forecast members that behave like samples from the same distribution as the verifying observations. They are therefore an attractive choice as loss functions to train data-...
+ID: 2602.15827v1
+作者: Zhen Wu, Xiaoyu Huang, Lujie Yang, Yuanhang Zhang, Koushil Sreenath, Xi Chen, Pieter Abbeel, Rocky Duan, Angjoo Kanazawa, Carmelo Sferrazza, Guanya Shi, C. Karen Liu
+发表时间: 2026-02-17 18:59:11
+更新时间: 2026-02-17 18:59:11
+主要分类: cs.RO
+所有分类: cs.RO, cs.AI, cs.LG, eess.SY
+PDF链接: https://arxiv.org/pdf/2602.15827v1
+摘要: While recent advances in humanoid locomotion have achieved stable walking on varied terrains, capturing the agility and adaptivity of highly dynamic human motions remains an open challenge. In particu...
 相关链接:
-  - https://arxiv.org/abs/2602.15830v1
-  - https://arxiv.org/pdf/2602.15830v1
+  - https://arxiv.org/abs/2602.15827v1
+  - https://arxiv.org/pdf/2602.15827v1
 
 ================================================================================
 
