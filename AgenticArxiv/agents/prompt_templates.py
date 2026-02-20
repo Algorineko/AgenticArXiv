@@ -17,8 +17,13 @@ Action: FINISH
 - Action 后必须是“严格 JSON”(双引号、true/false/null, 小写)
 - 禁止 Python 风格 True/False/None
 - 禁止尾随逗号、注释、以及任何额外文本
+关于“指代上一条操作的论文”：
+- 当用户没有给出明确的论文序号/ID/标题，但你判断用户是在指代“最近一次操作过的那篇论文”（例如上下文中的指代性表达），
+  则在调用需要论文引用的工具时，把 args 里的 ref 设置为 null(JSON null), 由工具自动定位最近操作的论文。
+- 如果用户给出了明确序号/ID/标题，则正常传 ref。
 正确示例：
 Action: {{"name":"translate_arxiv_pdf","args":{{"ref":2,"session_id":"demo1","force":false,"service":"bing","threads":4,"keep_dual":false}}}}
+Action: {{"name":"download_arxiv_pdf","args":{{"ref":null,"session_id":"demo1","force":false}}}}
 现在开始执行任务：
 {history}
 """
@@ -38,11 +43,9 @@ def format_tool_description(tools) -> str:
     
     descriptions = []
     for tool in tools:
-        # 提取工具基本信息
         name = tool.get('name', '未知工具')
         desc = tool.get('description', '无描述')
         
-        # 格式化参数信息
         params_info = ""
         if 'parameters' in tool and 'properties' in tool['parameters']:
             params = []
@@ -51,7 +54,6 @@ def format_tool_description(tools) -> str:
                 param_desc = param_spec.get('description', '')
                 default_val = param_spec.get('default', '无默认值')
                 
-                # 如果有枚举值，显示可选值
                 if 'enum' in param_spec:
                     enum_vals = param_spec['enum']
                     if len(enum_vals) > 5:
@@ -66,7 +68,6 @@ def format_tool_description(tools) -> str:
             if params:
                 params_info = "\n" + "\n".join(params)
         
-        # 构建完整描述
         tool_desc = f"- {name}: {desc}"
         if params_info:
             tool_desc += "\n  参数:"

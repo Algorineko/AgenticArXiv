@@ -20,6 +20,8 @@ class Paper(BaseModel):
 class SessionState(BaseModel):
     session_id: str
     last_papers: List[Paper] = Field(default_factory=list)
+    last_active_paper_id: Optional[str] = None
+    last_active_at: Optional[datetime] = None
     updated_at: datetime = Field(default_factory=datetime.now)
 
 TaskStatus = Literal["PENDING", "RUNNING", "SUCCEEDED", "FAILED"]

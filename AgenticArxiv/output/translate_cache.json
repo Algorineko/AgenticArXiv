@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-02-20T02:24:34.292837",
+  "updated_at": "2026-02-20T23:26:06.687086",
   "assets": {
     "2602.16306v1": {
       "paper_id": "2602.16306v1",
@@ -12,6 +12,18 @@
       "threads": 4,
       "translated_at": "2026-02-20T02:24:34.292767",
       "updated_at": "2026-02-20T02:24:34.292833",
+      "error": null
+    },
+    "2602.17663v1": {
+      "paper_id": "2602.17663v1",
+      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17663v1.pdf",
+      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17663v1-mono.pdf",
+      "output_dual_path": null,
+      "status": "READY",
+      "service": "bing",
+      "threads": 4,
+      "translated_at": "2026-02-20T23:26:06.687002",
+      "updated_at": "2026-02-20T23:26:06.687082",
       "error": null
     }
   }

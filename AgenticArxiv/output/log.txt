@@ -1,7 +1,7 @@
-2026-02-20 02:15:27 | INFO | agents.agent_engine:__init__:36 | 已导入工具模块，注册了 4 个工具
-2026-02-20 02:15:27 | INFO | agents.agent_engine:run:230 | 开始执行任务: 获取最近7天内图形学(cs.CG)方向论文，最多5篇
-2026-02-20 02:15:27 | INFO | agents.agent_engine:run:245 | 第 1 次迭代
-2026-02-20 02:15:27 | DEBUG | agents.agent_engine:run:254 | 发送给LLM的提示词:
+2026-02-20 23:17:58 | INFO | agents.agent_engine:__init__:36 | 已导入工具模块，注册了 4 个工具
+2026-02-20 23:17:58 | INFO | agents.agent_engine:run:188 | 开始执行任务: 获取最近7天内AI(cs.AI)方向论文，最多5篇
+2026-02-20 23:17:58 | INFO | agents.agent_engine:run:200 | 第 1 次迭代
+2026-02-20 23:17:58 | DEBUG | agents.agent_engine:run:208 | 发送给LLM的提示词:
 你是一个AI研究助手,可以获取最新的arXiv计算机科学论文。你有以下工具可以使用：
 
 - get_recently_submitted_cs_papers: 获取最近提交的计算机科学领域论文列表，支持按子领域筛选
@@ -12,16 +12,16 @@
     output_path (string): 可选：保存到指定文件路径；不传则用项目 output/recent_cs_papers.txt, 默认: 无默认值
     save_to_file (boolean): 是否将论文列表写入文件, 默认: True
 
-- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引
+- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
-    session_id (string): 会话ID，用于从短期记忆中解析 ref, 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    session_id (string): 会话ID，用于从短期记忆中解析 ref 或读取 last_active_paper_id, 默认: default
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): 是否强制重新下载（覆盖本地文件）, 默认: False
 
-- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引
+- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): , 默认: False
     service (string): 翻译服务，如 bing/deepl/google, 默认: bing
     threads (integer): 线程数, 默认: 4
@@ -30,13 +30,13 @@
     pdf_url (string): 可选：直接指定 pdf_url（不依赖 session）, 默认: 无默认值
     input_pdf_path (string): 可选：直接指定本地 PDF 路径（不依赖 session）, 默认: 无默认值
 
-- get_paper_cache_status: 查询某篇论文的本地缓存状态（是否已下载raw、是否已翻译mono），用于避免重复下载/翻译
+- get_paper_cache_status: 查询某篇论文的本地缓存状态(是否已下载raw、是否已翻译mono), 用于避免重复下载/翻译（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): , 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     paper_id (string): , 默认: 无默认值
 
-当前任务：获取最近7天内图形学(cs.CG)方向论文，最多5篇
+当前任务：获取最近7天内AI(cs.AI)方向论文，最多5篇
 请按照ReAct框架的格式思考和行动:
 Thought: 分析当前情况和下一步需要做什么
 Action: {"name":"工具名称","args":{参数对象}}
@@ -49,27 +49,30 @@ Action: FINISH
 - Action 后必须是“严格 JSON”(双引号、true/false/null, 小写)
 - 禁止 Python 风格 True/False/None
 - 禁止尾随逗号、注释、以及任何额外文本
+关于“指代上一条操作的论文”：
+- 当用户没有给出明确的论文序号/ID/标题，但你判断用户是在指代“最近一次操作过的那篇论文”（例如上下文中的指代性表达），
+  则在调用需要论文引用的工具时，把 args 里的 ref 设置为 null(JSON null), 由工具自动定位最近操作的论文。
+- 如果用户给出了明确序号/ID/标题，则正常传 ref。
 正确示例：
 Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"demo1","force":false,"service":"bing","threads":4,"keep_dual":false}}
+Action: {"name":"download_arxiv_pdf","args":{"ref":null,"session_id":"demo1","force":false}}
 现在开始执行任务：
 
 
-2026-02-20 02:15:36 | DEBUG | agents.agent_engine:run:272 | LLM响应: Thought: 用户需要获取最近7天内计算机图形学（cs.CG）方向的论文，最多5篇。我应该使用 `get_recently_submitted_cs_papers` 工具。参数设置为：`max_results=5`, `aspect='CG'`, `days=7`。
-
-Action: {"name":"get_recently_submitted_cs_papers","args":{"max_results":5,"aspect":"CG","days":7}}
-2026-02-20 02:15:36 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 用户需要获取最近7天内计算机图形学（cs.CG）方向的论文，最多5篇。我应该使用 `get_recently_submitted_cs_papers` 工具。参数设置为：`max_results=5`, `aspect='CG'`, `days=7`。
-
-Action: {"name":"get_recently_submitted_cs_papers","args":{"max...
-2026-02-20 02:15:36 | INFO | agents.agent_engine:parse_llm_response:62 | 提取到的Action文本: {"name":"get_recently_submitted_cs_papers","args":{"max_results":5,"aspect":"CG","days":7}}
-2026-02-20 02:15:36 | INFO | agents.agent_engine:parse_llm_response:93 | 解析成功: 工具=get_recently_submitted_cs_papers, 参数={'max_results': 5, 'aspect': 'CG', 'days': 7}
-2026-02-20 02:15:36 | INFO | agents.agent_engine:run:278 | Thought: 用户需要获取最近7天内计算机图形学（cs.CG）方向的论文，最多5篇。我应该使用 `get_recently_submitted_cs_papers` 工具。参数设置为：`max_results=5`, `aspect='CG'`, `days=7`。
-2026-02-20 02:15:36 | INFO | agents.agent_engine:execute_action:142 | 执行工具: get_recently_submitted_cs_papers, 参数: {'max_results': 5, 'aspect': 'CG', 'days': 7}
-2026-02-20 02:15:36 | INFO | utils.file_writer:save_papers_to_file:57 | 论文已保存到: /home/dev/AgenticDemo/AgenticArxiv/output/recent_cs_papers.txt
-2026-02-20 02:15:36 | INFO | agents.agent_engine:run:288 | Observation: 成功获取 5 篇论文。示例论文:
-  - Improved Bounds for Discrete Voronoi Games
-  - Dynamic and Streaming Algorithms...
-2026-02-20 02:15:36 | INFO | agents.agent_engine:run:245 | 第 2 次迭代
-2026-02-20 02:15:36 | DEBUG | agents.agent_engine:run:254 | 发送给LLM的提示词:
+2026-02-20 23:18:12 | DEBUG | agents.agent_engine:run:224 | LLM响应: Thought: 我需要使用 get_recently_submitted_cs_papers 工具来获取最近7天内 cs.AI 方向的最新论文，并且限制最大结果数为5篇。
+Action: {"name":"get_recently_submitted_cs_papers","args":{"max_results":5,"aspect":"AI","days":7}}
+2026-02-20 23:18:12 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 我需要使用 get_recently_submitted_cs_papers 工具来获取最近7天内 cs.AI 方向的最新论文，并且限制最大结果数为5篇。
+Action: {"name":"get_recently_submitted_cs_papers","args":{"max_results":5,"aspect":"AI","days":7}}...
+2026-02-20 23:18:12 | INFO | agents.agent_engine:parse_llm_response:60 | 提取到的Action文本: {"name":"get_recently_submitted_cs_papers","args":{"max_results":5,"aspect":"AI","days":7}}
+2026-02-20 23:18:12 | INFO | agents.agent_engine:parse_llm_response:84 | 解析成功: 工具=get_recently_submitted_cs_papers, 参数={'max_results': 5, 'aspect': 'AI', 'days': 7}
+2026-02-20 23:18:12 | INFO | agents.agent_engine:run:228 | Thought: 我需要使用 get_recently_submitted_cs_papers 工具来获取最近7天内 cs.AI 方向的最新论文，并且限制最大结果数为5篇。
+2026-02-20 23:18:12 | INFO | agents.agent_engine:execute_action:126 | 执行工具: get_recently_submitted_cs_papers, 参数: {'max_results': 5, 'aspect': 'AI', 'days': 7}
+2026-02-20 23:18:15 | INFO | utils.file_writer:save_papers_to_file:57 | 论文已保存到: /home/dev/AgenticDemo/AgenticArxiv/output/recent_cs_papers.txt
+2026-02-20 23:18:15 | INFO | agents.agent_engine:run:236 | Observation: 成功获取 5 篇论文。示例论文:
+  - Sink-Aware Pruning for Diffusion Language Models
+  - CLEF HIPE-2026: Evaluating...
+2026-02-20 23:18:15 | INFO | agents.agent_engine:run:200 | 第 2 次迭代
+2026-02-20 23:18:15 | DEBUG | agents.agent_engine:run:208 | 发送给LLM的提示词:
 你是一个AI研究助手,可以获取最新的arXiv计算机科学论文。你有以下工具可以使用：
 
 - get_recently_submitted_cs_papers: 获取最近提交的计算机科学领域论文列表，支持按子领域筛选
@@ -80,16 +83,16 @@ Action: {"name":"get_recently_submitted_cs_papers","args":{"max...
     output_path (string): 可选：保存到指定文件路径；不传则用项目 output/recent_cs_papers.txt, 默认: 无默认值
     save_to_file (boolean): 是否将论文列表写入文件, 默认: True
 
-- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引
+- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
-    session_id (string): 会话ID，用于从短期记忆中解析 ref, 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    session_id (string): 会话ID，用于从短期记忆中解析 ref 或读取 last_active_paper_id, 默认: default
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): 是否强制重新下载（覆盖本地文件）, 默认: False
 
-- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引
+- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): , 默认: False
     service (string): 翻译服务，如 bing/deepl/google, 默认: bing
     threads (integer): 线程数, 默认: 4
@@ -98,13 +101,13 @@ Action: {"name":"get_recently_submitted_cs_papers","args":{"max...
     pdf_url (string): 可选：直接指定 pdf_url（不依赖 session）, 默认: 无默认值
     input_pdf_path (string): 可选：直接指定本地 PDF 路径（不依赖 session）, 默认: 无默认值
 
-- get_paper_cache_status: 查询某篇论文的本地缓存状态（是否已下载raw、是否已翻译mono），用于避免重复下载/翻译
+- get_paper_cache_status: 查询某篇论文的本地缓存状态(是否已下载raw、是否已翻译mono), 用于避免重复下载/翻译（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): , 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     paper_id (string): , 默认: 无默认值
 
-当前任务：获取最近7天内图形学(cs.CG)方向论文，最多5篇
+当前任务：获取最近7天内AI(cs.AI)方向论文，最多5篇
 请按照ReAct框架的格式思考和行动:
 Thought: 分析当前情况和下一步需要做什么
 Action: {"name":"工具名称","args":{参数对象}}
@@ -117,31 +120,36 @@ Action: FINISH
 - Action 后必须是“严格 JSON”(双引号、true/false/null, 小写)
 - 禁止 Python 风格 True/False/None
 - 禁止尾随逗号、注释、以及任何额外文本
+关于“指代上一条操作的论文”：
+- 当用户没有给出明确的论文序号/ID/标题，但你判断用户是在指代“最近一次操作过的那篇论文”（例如上下文中的指代性表达），
+  则在调用需要论文引用的工具时，把 args 里的 ref 设置为 null(JSON null), 由工具自动定位最近操作的论文。
+- 如果用户给出了明确序号/ID/标题，则正常传 ref。
 正确示例：
 Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"demo1","force":false,"service":"bing","threads":4,"keep_dual":false}}
+Action: {"name":"download_arxiv_pdf","args":{"ref":null,"session_id":"demo1","force":false}}
 现在开始执行任务：
-Thought: 用户需要获取最近7天内计算机图形学（cs.CG）方向的论文，最多5篇。我应该使用 `get_recently_submitted_cs_papers` 工具。参数设置为：`max_results=5`, `aspect='CG'`, `days=7`。
-Action: {"name": "get_recently_submitted_cs_papers", "args": {"max_results": 5, "aspect": "CG", "days": 7}}
+Thought: 我需要使用 get_recently_submitted_cs_papers 工具来获取最近7天内 cs.AI 方向的最新论文，并且限制最大结果数为5篇。
+Action: {"name": "get_recently_submitted_cs_papers", "args": {"max_results": 5, "aspect": "AI", "days": 7}}
 Observation: 成功获取 5 篇论文。示例论文:
-  - Improved Bounds for Discrete Voronoi Games
-  - Dynamic and Streaming Algorithms for Union Volume Estimation
-  - Ratio Covers of Convex Sets and Optimal Mixture Density Estimation
+  - Sink-Aware Pruning for Diffusion Language Models
+  - CLEF HIPE-2026: Evaluating Accurate and Efficient Person-Place Relation Extraction from Multilingual Historical Texts
+  - MARS: Margin-Aware Reward-Modeling with Self-Refinement
   ... 还有 2 篇论文
 
-2026-02-20 02:15:45 | DEBUG | agents.agent_engine:run:272 | LLM响应: Thought: 任务要求获取最近7天内图形学(cs.CG)方向的论文，最多5篇。上一步已经调用 `get_recently_submitted_cs_papers` 成功获取了列表。任务目标已达成。
+2026-02-20 23:18:29 | DEBUG | agents.agent_engine:run:224 | LLM响应: Thought: 任务已完成，我已经成功获取了最近7天内AI方向的5篇最新论文。
 Action: FINISH
-2026-02-20 02:15:45 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 任务要求获取最近7天内图形学(cs.CG)方向的论文，最多5篇。上一步已经调用 `get_recently_submitted_cs_papers` 成功获取了列表。任务目标已达成。
+2026-02-20 23:18:29 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 任务已完成，我已经成功获取了最近7天内AI方向的5篇最新论文。
 Action: FINISH...
-2026-02-20 02:15:45 | INFO | agents.agent_engine:parse_llm_response:62 | 提取到的Action文本: FINISH
-2026-02-20 02:15:45 | INFO | agents.agent_engine:parse_llm_response:66 | Agent决定结束任务
-2026-02-20 02:15:45 | INFO | agents.agent_engine:run:278 | Thought: 任务要求获取最近7天内图形学(cs.CG)方向的论文，最多5篇。上一步已经调用 `get_recently_submitted_cs_papers` 成功获取了列表。任务目标已达成。
-2026-02-20 02:15:45 | INFO | agents.agent_engine:run:282 | 任务完成
-2026-02-20 02:15:45 | INFO | agents.agent_engine:run:314 | 任务执行完成，共 2 步
-2026-02-20 02:15:45 | INFO | agents.agent_engine:run:315 | --------------------------------------------------
-2026-02-20 02:17:50 | INFO | agents.agent_engine:__init__:36 | 已导入工具模块，注册了 4 个工具
-2026-02-20 02:17:50 | INFO | agents.agent_engine:run:230 | 开始执行任务: 请下载临时记忆中的第一篇论文
-2026-02-20 02:17:50 | INFO | agents.agent_engine:run:245 | 第 1 次迭代
-2026-02-20 02:17:50 | DEBUG | agents.agent_engine:run:254 | 发送给LLM的提示词:
+2026-02-20 23:18:29 | INFO | agents.agent_engine:parse_llm_response:60 | 提取到的Action文本: FINISH
+2026-02-20 23:18:29 | INFO | agents.agent_engine:parse_llm_response:63 | Agent决定结束任务
+2026-02-20 23:18:29 | INFO | agents.agent_engine:run:228 | Thought: 任务已完成，我已经成功获取了最近7天内AI方向的5篇最新论文。
+2026-02-20 23:18:29 | INFO | agents.agent_engine:run:231 | 任务完成
+2026-02-20 23:18:29 | INFO | agents.agent_engine:run:257 | 任务执行完成，共 2 步
+2026-02-20 23:18:29 | INFO | agents.agent_engine:run:258 | --------------------------------------------------
+2026-02-20 23:18:59 | INFO | agents.agent_engine:__init__:36 | 已导入工具模块，注册了 4 个工具
+2026-02-20 23:18:59 | INFO | agents.agent_engine:run:188 | 开始执行任务: 请下载临时记忆中的第二篇论文
+2026-02-20 23:18:59 | INFO | agents.agent_engine:run:200 | 第 1 次迭代
+2026-02-20 23:18:59 | DEBUG | agents.agent_engine:run:208 | 发送给LLM的提示词:
 你是一个AI研究助手,可以获取最新的arXiv计算机科学论文。你有以下工具可以使用：
 
 - get_recently_submitted_cs_papers: 获取最近提交的计算机科学领域论文列表，支持按子领域筛选
@@ -152,16 +160,16 @@ Action: FINISH...
     output_path (string): 可选：保存到指定文件路径；不传则用项目 output/recent_cs_papers.txt, 默认: 无默认值
     save_to_file (boolean): 是否将论文列表写入文件, 默认: True
 
-- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引
+- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
-    session_id (string): 会话ID，用于从短期记忆中解析 ref, 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    session_id (string): 会话ID，用于从短期记忆中解析 ref 或读取 last_active_paper_id, 默认: default
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): 是否强制重新下载（覆盖本地文件）, 默认: False
 
-- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引
+- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): , 默认: False
     service (string): 翻译服务，如 bing/deepl/google, 默认: bing
     threads (integer): 线程数, 默认: 4
@@ -170,13 +178,13 @@ Action: FINISH...
     pdf_url (string): 可选：直接指定 pdf_url（不依赖 session）, 默认: 无默认值
     input_pdf_path (string): 可选：直接指定本地 PDF 路径（不依赖 session）, 默认: 无默认值
 
-- get_paper_cache_status: 查询某篇论文的本地缓存状态（是否已下载raw、是否已翻译mono），用于避免重复下载/翻译
+- get_paper_cache_status: 查询某篇论文的本地缓存状态(是否已下载raw、是否已翻译mono), 用于避免重复下载/翻译（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): , 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     paper_id (string): , 默认: 无默认值
 
-当前任务：请下载临时记忆中的第一篇论文
+当前任务：请下载临时记忆中的第二篇论文
 请按照ReAct框架的格式思考和行动:
 Thought: 分析当前情况和下一步需要做什么
 Action: {"name":"工具名称","args":{参数对象}}
@@ -189,20 +197,27 @@ Action: FINISH
 - Action 后必须是“严格 JSON”(双引号、true/false/null, 小写)
 - 禁止 Python 风格 True/False/None
 - 禁止尾随逗号、注释、以及任何额外文本
+关于“指代上一条操作的论文”：
+- 当用户没有给出明确的论文序号/ID/标题，但你判断用户是在指代“最近一次操作过的那篇论文”（例如上下文中的指代性表达），
+  则在调用需要论文引用的工具时，把 args 里的 ref 设置为 null(JSON null), 由工具自动定位最近操作的论文。
+- 如果用户给出了明确序号/ID/标题，则正常传 ref。
 正确示例：
 Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"demo1","force":false,"service":"bing","threads":4,"keep_dual":false}}
+Action: {"name":"download_arxiv_pdf","args":{"ref":null,"session_id":"demo1","force":false}}
 现在开始执行任务：
 
 
-2026-02-20 02:18:05 | DEBUG | agents.agent_engine:run:272 | LLM响应: Action: {"name":"download_arxiv_pdf","args":{"ref":1,"session_id":"default"}}
-2026-02-20 02:18:05 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Action: {"name":"download_arxiv_pdf","args":{"ref":1,"session_id":"default"}}...
-2026-02-20 02:18:05 | INFO | agents.agent_engine:parse_llm_response:62 | 提取到的Action文本: {"name":"download_arxiv_pdf","args":{"ref":1,"session_id":"default"}}
-2026-02-20 02:18:05 | INFO | agents.agent_engine:parse_llm_response:93 | 解析成功: 工具=download_arxiv_pdf, 参数={'ref': 1, 'session_id': 'default'}
-2026-02-20 02:18:05 | INFO | agents.agent_engine:run:278 | Thought: 未提供思考过程
-2026-02-20 02:18:05 | INFO | agents.agent_engine:execute_action:142 | 执行工具: download_arxiv_pdf, 参数: {'ref': 1, 'session_id': 'default'}
-2026-02-20 02:18:06 | INFO | agents.agent_engine:run:288 | Observation: {'session_id': 'demo1', 'paper_id': '2602.16518v1', 'pdf_url': 'https://arxiv.org/pdf/2602.16518v1.p...
-2026-02-20 02:18:06 | INFO | agents.agent_engine:run:245 | 第 2 次迭代
-2026-02-20 02:18:06 | DEBUG | agents.agent_engine:run:254 | 发送给LLM的提示词:
+2026-02-20 23:19:07 | DEBUG | agents.agent_engine:run:224 | LLM响应: Thought: 用户要求下载临时记忆中的第二篇论文，我需要使用 download_arxiv_pdf 工具，并将 ref 参数设置为 2。
+Action: {"name":"download_arxiv_pdf","args":{"ref":2,"session_id":"default"}}
+2026-02-20 23:19:07 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 用户要求下载临时记忆中的第二篇论文，我需要使用 download_arxiv_pdf 工具，并将 ref 参数设置为 2。
+Action: {"name":"download_arxiv_pdf","args":{"ref":2,"session_id":"default"}}...
+2026-02-20 23:19:07 | INFO | agents.agent_engine:parse_llm_response:60 | 提取到的Action文本: {"name":"download_arxiv_pdf","args":{"ref":2,"session_id":"default"}}
+2026-02-20 23:19:07 | INFO | agents.agent_engine:parse_llm_response:84 | 解析成功: 工具=download_arxiv_pdf, 参数={'ref': 2, 'session_id': 'default'}
+2026-02-20 23:19:07 | INFO | agents.agent_engine:run:228 | Thought: 用户要求下载临时记忆中的第二篇论文，我需要使用 download_arxiv_pdf 工具，并将 ref 参数设置为 2。
+2026-02-20 23:19:07 | INFO | agents.agent_engine:execute_action:126 | 执行工具: download_arxiv_pdf, 参数: {'ref': 2, 'session_id': 'default'}
+2026-02-20 23:19:08 | INFO | agents.agent_engine:run:236 | Observation: {'session_id': 'demo1', 'paper_id': '2602.17663v1', 'pdf_url': 'https://arxiv.org/pdf/2602.17663v1.p...
+2026-02-20 23:19:08 | INFO | agents.agent_engine:run:200 | 第 2 次迭代
+2026-02-20 23:19:08 | DEBUG | agents.agent_engine:run:208 | 发送给LLM的提示词:
 你是一个AI研究助手,可以获取最新的arXiv计算机科学论文。你有以下工具可以使用：
 
 - get_recently_submitted_cs_papers: 获取最近提交的计算机科学领域论文列表，支持按子领域筛选
@@ -213,16 +228,16 @@ Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"demo1","forc
     output_path (string): 可选：保存到指定文件路径；不传则用项目 output/recent_cs_papers.txt, 默认: 无默认值
     save_to_file (boolean): 是否将论文列表写入文件, 默认: True
 
-- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引
+- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
-    session_id (string): 会话ID，用于从短期记忆中解析 ref, 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    session_id (string): 会话ID，用于从短期记忆中解析 ref 或读取 last_active_paper_id, 默认: default
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): 是否强制重新下载（覆盖本地文件）, 默认: False
 
-- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引
+- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): , 默认: False
     service (string): 翻译服务，如 bing/deepl/google, 默认: bing
     threads (integer): 线程数, 默认: 4
@@ -231,13 +246,13 @@ Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"demo1","forc
     pdf_url (string): 可选：直接指定 pdf_url（不依赖 session）, 默认: 无默认值
     input_pdf_path (string): 可选：直接指定本地 PDF 路径（不依赖 session）, 默认: 无默认值
 
-- get_paper_cache_status: 查询某篇论文的本地缓存状态（是否已下载raw、是否已翻译mono），用于避免重复下载/翻译
+- get_paper_cache_status: 查询某篇论文的本地缓存状态(是否已下载raw、是否已翻译mono), 用于避免重复下载/翻译（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): , 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     paper_id (string): , 默认: 无默认值
 
-当前任务：请下载临时记忆中的第一篇论文
+当前任务：请下载临时记忆中的第二篇论文
 请按照ReAct框架的格式思考和行动:
 Thought: 分析当前情况和下一步需要做什么
 Action: {"name":"工具名称","args":{参数对象}}
@@ -250,27 +265,32 @@ Action: FINISH
 - Action 后必须是“严格 JSON”(双引号、true/false/null, 小写)
 - 禁止 Python 风格 True/False/None
 - 禁止尾随逗号、注释、以及任何额外文本
+关于“指代上一条操作的论文”：
+- 当用户没有给出明确的论文序号/ID/标题，但你判断用户是在指代“最近一次操作过的那篇论文”（例如上下文中的指代性表达），
+  则在调用需要论文引用的工具时，把 args 里的 ref 设置为 null(JSON null), 由工具自动定位最近操作的论文。
+- 如果用户给出了明确序号/ID/标题，则正常传 ref。
 正确示例：
 Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"demo1","force":false,"service":"bing","threads":4,"keep_dual":false}}
+Action: {"name":"download_arxiv_pdf","args":{"ref":null,"session_id":"demo1","force":false}}
 现在开始执行任务：
-Thought: 未提供思考过程
-Action: {"name": "download_arxiv_pdf", "args": {"ref": 1, "session_id": "demo1"}}
-Observation: {'session_id': 'demo1', 'paper_id': '2602.16518v1', 'pdf_url': 'https://arxiv.org/pdf/2602.16518v1.pdf', 'local_path': '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.16518v1.pdf', 'status': 'READY', 'existed': False, 'size_bytes': 1090045, 'sha256': '7f12f324cf574e9fefafe5350b1fff628ad57b166785c4326ac3f1da8566cd74'}
+Thought: 用户要求下载临时记忆中的第二篇论文，我需要使用 download_arxiv_pdf 工具，并将 ref 参数设置为 2。
+Action: {"name": "download_arxiv_pdf", "args": {"ref": 2, "session_id": "demo1"}}
+Observation: {'session_id': 'demo1', 'paper_id': '2602.17663v1', 'pdf_url': 'https://arxiv.org/pdf/2602.17663v1.pdf', 'local_path': '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17663v1.pdf', 'status': 'READY', 'existed': False, 'size_bytes': 570423, 'sha256': 'de1329a6bbbe28a49625608eb8aa30b924a147ab8defc351320bf7ce1c1e4fe3'}
 
-2026-02-20 02:18:29 | DEBUG | agents.agent_engine:run:272 | LLM响应: Thought: 任务已完成，第一篇论文（ref: 1）已成功下载到本地路径 '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.16518v1.pdf'。
+2026-02-20 23:19:31 | DEBUG | agents.agent_engine:run:224 | LLM响应: Thought: 任务已完成
 Action: FINISH
-2026-02-20 02:18:29 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 任务已完成，第一篇论文（ref: 1）已成功下载到本地路径 '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.16518v1.pdf'。
+2026-02-20 23:19:31 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 任务已完成
 Action: FINISH...
-2026-02-20 02:18:29 | INFO | agents.agent_engine:parse_llm_response:62 | 提取到的Action文本: FINISH
-2026-02-20 02:18:29 | INFO | agents.agent_engine:parse_llm_response:66 | Agent决定结束任务
-2026-02-20 02:18:29 | INFO | agents.agent_engine:run:278 | Thought: 任务已完成，第一篇论文（ref: 1）已成功下载到本地路径 '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.16518v1.pdf'。
-2026-02-20 02:18:29 | INFO | agents.agent_engine:run:282 | 任务完成
-2026-02-20 02:18:29 | INFO | agents.agent_engine:run:314 | 任务执行完成，共 2 步
-2026-02-20 02:18:29 | INFO | agents.agent_engine:run:315 | --------------------------------------------------
-2026-02-20 02:19:24 | INFO | agents.agent_engine:__init__:36 | 已导入工具模块，注册了 4 个工具
-2026-02-20 02:19:24 | INFO | agents.agent_engine:run:230 | 开始执行任务: 请翻译临时记忆中的第二篇论文
-2026-02-20 02:19:24 | INFO | agents.agent_engine:run:245 | 第 1 次迭代
-2026-02-20 02:19:24 | DEBUG | agents.agent_engine:run:254 | 发送给LLM的提示词:
+2026-02-20 23:19:31 | INFO | agents.agent_engine:parse_llm_response:60 | 提取到的Action文本: FINISH
+2026-02-20 23:19:31 | INFO | agents.agent_engine:parse_llm_response:63 | Agent决定结束任务
+2026-02-20 23:19:31 | INFO | agents.agent_engine:run:228 | Thought: 任务已完成
+2026-02-20 23:19:31 | INFO | agents.agent_engine:run:231 | 任务完成
+2026-02-20 23:19:31 | INFO | agents.agent_engine:run:257 | 任务执行完成，共 2 步
+2026-02-20 23:19:31 | INFO | agents.agent_engine:run:258 | --------------------------------------------------
+2026-02-20 23:24:27 | INFO | agents.agent_engine:__init__:36 | 已导入工具模块，注册了 4 个工具
+2026-02-20 23:24:27 | INFO | agents.agent_engine:run:188 | 开始执行任务: 请翻译这篇论文
+2026-02-20 23:24:27 | INFO | agents.agent_engine:run:200 | 第 1 次迭代
+2026-02-20 23:24:27 | DEBUG | agents.agent_engine:run:208 | 发送给LLM的提示词:
 你是一个AI研究助手,可以获取最新的arXiv计算机科学论文。你有以下工具可以使用：
 
 - get_recently_submitted_cs_papers: 获取最近提交的计算机科学领域论文列表，支持按子领域筛选
@@ -281,16 +301,16 @@ Action: FINISH...
     output_path (string): 可选：保存到指定文件路径；不传则用项目 output/recent_cs_papers.txt, 默认: 无默认值
     save_to_file (boolean): 是否将论文列表写入文件, 默认: True
 
-- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引
+- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
-    session_id (string): 会话ID，用于从短期记忆中解析 ref, 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    session_id (string): 会话ID，用于从短期记忆中解析 ref 或读取 last_active_paper_id, 默认: default
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): 是否强制重新下载（覆盖本地文件）, 默认: False
 
-- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引
+- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): , 默认: False
     service (string): 翻译服务，如 bing/deepl/google, 默认: bing
     threads (integer): 线程数, 默认: 4
@@ -299,13 +319,13 @@ Action: FINISH...
     pdf_url (string): 可选：直接指定 pdf_url（不依赖 session）, 默认: 无默认值
     input_pdf_path (string): 可选：直接指定本地 PDF 路径（不依赖 session）, 默认: 无默认值
 
-- get_paper_cache_status: 查询某篇论文的本地缓存状态（是否已下载raw、是否已翻译mono），用于避免重复下载/翻译
+- get_paper_cache_status: 查询某篇论文的本地缓存状态(是否已下载raw、是否已翻译mono), 用于避免重复下载/翻译（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): , 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     paper_id (string): , 默认: 无默认值
 
-当前任务：请翻译临时记忆中的第二篇论文
+当前任务：请翻译这篇论文
 请按照ReAct框架的格式思考和行动:
 Thought: 分析当前情况和下一步需要做什么
 Action: {"name":"工具名称","args":{参数对象}}
@@ -318,25 +338,28 @@ Action: FINISH
 - Action 后必须是“严格 JSON”(双引号、true/false/null, 小写)
 - 禁止 Python 风格 True/False/None
 - 禁止尾随逗号、注释、以及任何额外文本
+关于“指代上一条操作的论文”：
+- 当用户没有给出明确的论文序号/ID/标题，但你判断用户是在指代“最近一次操作过的那篇论文”（例如上下文中的指代性表达），
+  则在调用需要论文引用的工具时，把 args 里的 ref 设置为 null(JSON null), 由工具自动定位最近操作的论文。
+- 如果用户给出了明确序号/ID/标题，则正常传 ref。
 正确示例：
 Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"demo1","force":false,"service":"bing","threads":4,"keep_dual":false}}
+Action: {"name":"download_arxiv_pdf","args":{"ref":null,"session_id":"demo1","force":false}}
 现在开始执行任务：
 
 
-2026-02-20 02:19:48 | DEBUG | agents.agent_engine:run:272 | LLM响应: Thought: 用户想要翻译临时记忆列表中的第二篇论文。我将使用 `translate_arxiv_pdf` 工具，将 `ref` 设置为 2。假设会话 ID 为默认值 "default"。
-
-Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"default","service":"bing","threads":4,"keep_dual":false}}
-2026-02-20 02:19:48 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 用户想要翻译临时记忆列表中的第二篇论文。我将使用 `translate_arxiv_pdf` 工具，将 `ref` 设置为 2。假设会话 ID 为默认值 "default"。
-
-Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"default","service":"bing","threads...
-2026-02-20 02:19:48 | INFO | agents.agent_engine:parse_llm_response:62 | 提取到的Action文本: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"default","service":"bing","threads":4,"keep_dual":false}}
-2026-02-20 02:19:48 | INFO | agents.agent_engine:parse_llm_response:93 | 解析成功: 工具=translate_arxiv_pdf, 参数={'ref': 2, 'session_id': 'default', 'service': 'bing', 'threads': 4, 'keep_dual': False}
-2026-02-20 02:19:48 | INFO | agents.agent_engine:run:278 | Thought: 用户想要翻译临时记忆列表中的第二篇论文。我将使用 `translate_arxiv_pdf` 工具，将 `ref` 设置为 2。假设会话 ID 为默认值 "default"。
-2026-02-20 02:19:48 | INFO | agents.agent_engine:execute_action:142 | 执行工具: translate_arxiv_pdf, 参数: {'ref': 2, 'session_id': 'default', 'service': 'bing', 'threads': 4, 'keep_dual': False}
-2026-02-20 02:19:49 | INFO | utils.pdf_translator:run_pdf2zh_translate:72 | Run pdf2zh: /home/dev/miniconda3/envs/agent/bin/pdf2zh /home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.16306v1.pdf -s bing -o /home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated -t 4
-2026-02-20 02:24:34 | INFO | agents.agent_engine:run:288 | Observation: {'session_id': 'demo1', 'paper_id': '2602.16306v1', 'input_pdf_path': '/home/dev/AgenticDemo/Agentic...
-2026-02-20 02:24:34 | INFO | agents.agent_engine:run:245 | 第 2 次迭代
-2026-02-20 02:24:34 | DEBUG | agents.agent_engine:run:254 | 发送给LLM的提示词:
+2026-02-20 23:24:46 | DEBUG | agents.agent_engine:run:224 | LLM响应: Thought: 用户要求翻译“这篇论文”，没有提供具体的论文ID或序号，说明是指代最近一次操作的论文。我需要调用 `translate_arxiv_pdf` 工具，并将 `ref` 参数设置为 `null`。
+Action: {"name":"translate_arxiv_pdf","args":{"ref":null,"session_id":"default"}}
+2026-02-20 23:24:46 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 用户要求翻译“这篇论文”，没有提供具体的论文ID或序号，说明是指代最近一次操作的论文。我需要调用 `translate_arxiv_pdf` 工具，并将 `ref` 参数设置为 `null`。
+Action: {"name":"translate_arxiv_pdf","args":{"ref":null,"session_id":"default"}}...
+2026-02-20 23:24:46 | INFO | agents.agent_engine:parse_llm_response:60 | 提取到的Action文本: {"name":"translate_arxiv_pdf","args":{"ref":null,"session_id":"default"}}
+2026-02-20 23:24:46 | INFO | agents.agent_engine:parse_llm_response:84 | 解析成功: 工具=translate_arxiv_pdf, 参数={'ref': None, 'session_id': 'default'}
+2026-02-20 23:24:46 | INFO | agents.agent_engine:run:228 | Thought: 用户要求翻译“这篇论文”，没有提供具体的论文ID或序号，说明是指代最近一次操作的论文。我需要调用 `translate_arxiv_pdf` 工具，并将 `ref` 参数设置为 `null`。
+2026-02-20 23:24:46 | INFO | agents.agent_engine:execute_action:126 | 执行工具: translate_arxiv_pdf, 参数: {'ref': None, 'session_id': 'default'}
+2026-02-20 23:24:46 | INFO | utils.pdf_translator:run_pdf2zh_translate:72 | Run pdf2zh: /home/dev/miniconda3/envs/agent/bin/pdf2zh /home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17663v1.pdf -s bing -o /home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated -t 4
+2026-02-20 23:26:06 | INFO | agents.agent_engine:run:236 | Observation: {'session_id': 'demo1', 'paper_id': '2602.17663v1', 'input_pdf_path': '/home/dev/AgenticDemo/Agentic...
+2026-02-20 23:26:06 | INFO | agents.agent_engine:run:200 | 第 2 次迭代
+2026-02-20 23:26:06 | DEBUG | agents.agent_engine:run:208 | 发送给LLM的提示词:
 你是一个AI研究助手,可以获取最新的arXiv计算机科学论文。你有以下工具可以使用：
 
 - get_recently_submitted_cs_papers: 获取最近提交的计算机科学领域论文列表，支持按子领域筛选
@@ -347,16 +370,16 @@ Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"default","se
     output_path (string): 可选：保存到指定文件路径；不传则用项目 output/recent_cs_papers.txt, 默认: 无默认值
     save_to_file (boolean): 是否将论文列表写入文件, 默认: True
 
-- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引
+- download_arxiv_pdf: 根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
-    session_id (string): 会话ID，用于从短期记忆中解析 ref, 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    session_id (string): 会话ID，用于从短期记忆中解析 ref 或读取 last_active_paper_id, 默认: default
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): 是否强制重新下载（覆盖本地文件）, 默认: False
 
-- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引
+- translate_arxiv_pdf: 调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串, 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     force (boolean): , 默认: False
     service (string): 翻译服务，如 bing/deepl/google, 默认: bing
     threads (integer): 线程数, 默认: 4
@@ -365,13 +388,13 @@ Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"default","se
     pdf_url (string): 可选：直接指定 pdf_url（不依赖 session）, 默认: 无默认值
     input_pdf_path (string): 可选：直接指定本地 PDF 路径（不依赖 session）, 默认: 无默认值
 
-- get_paper_cache_status: 查询某篇论文的本地缓存状态（是否已下载raw、是否已翻译mono），用于避免重复下载/翻译
+- get_paper_cache_status: 查询某篇论文的本地缓存状态(是否已下载raw、是否已翻译mono), 用于避免重复下载/翻译（ref 支持 null 指代最近操作论文）
   参数:
     session_id (string): , 默认: default
-    ref (unknown): , 默认: 无默认值
+    ref (unknown): 论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文, 默认: 无默认值
     paper_id (string): , 默认: 无默认值
 
-当前任务：请翻译临时记忆中的第二篇论文
+当前任务：请翻译这篇论文
 请按照ReAct框架的格式思考和行动:
 Thought: 分析当前情况和下一步需要做什么
 Action: {"name":"工具名称","args":{参数对象}}
@@ -384,20 +407,25 @@ Action: FINISH
 - Action 后必须是“严格 JSON”(双引号、true/false/null, 小写)
 - 禁止 Python 风格 True/False/None
 - 禁止尾随逗号、注释、以及任何额外文本
+关于“指代上一条操作的论文”：
+- 当用户没有给出明确的论文序号/ID/标题，但你判断用户是在指代“最近一次操作过的那篇论文”（例如上下文中的指代性表达），
+  则在调用需要论文引用的工具时，把 args 里的 ref 设置为 null(JSON null), 由工具自动定位最近操作的论文。
+- 如果用户给出了明确序号/ID/标题，则正常传 ref。
 正确示例：
 Action: {"name":"translate_arxiv_pdf","args":{"ref":2,"session_id":"demo1","force":false,"service":"bing","threads":4,"keep_dual":false}}
+Action: {"name":"download_arxiv_pdf","args":{"ref":null,"session_id":"demo1","force":false}}
 现在开始执行任务：
-Thought: 用户想要翻译临时记忆列表中的第二篇论文。我将使用 `translate_arxiv_pdf` 工具，将 `ref` 设置为 2。假设会话 ID 为默认值 "default"。
-Action: {"name": "translate_arxiv_pdf", "args": {"ref": 2, "session_id": "demo1", "service": "bing", "threads": 4, "keep_dual": false}}
-Observation: {'session_id': 'demo1', 'paper_id': '2602.16306v1', 'input_pdf_path': '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.16306v1.pdf', 'output_pdf_path': '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.16306v1-mono.pdf', 'status': 'READY', 'existed': False, 'service': 'bing', 'threads': 4, 'log_path': '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated_log/2602.16306v1.pdf2zh.log'}
+Thought: 用户要求翻译“这篇论文”，没有提供具体的论文ID或序号，说明是指代最近一次操作的论文。我需要调用 `translate_arxiv_pdf` 工具，并将 `ref` 参数设置为 `null`。
+Action: {"name": "translate_arxiv_pdf", "args": {"ref": null, "session_id": "demo1"}}
+Observation: {'session_id': 'demo1', 'paper_id': '2602.17663v1', 'input_pdf_path': '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17663v1.pdf', 'output_pdf_path': '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17663v1-mono.pdf', 'status': 'READY', 'existed': False, 'service': 'bing', 'threads': 4, 'log_path': '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated_log/2602.17663v1.pdf2zh.log'}
 
-2026-02-20 02:24:45 | DEBUG | agents.agent_engine:run:272 | LLM响应: Thought: 翻译工具已成功执行，返回了翻译后的文件路径。任务已完成。
+2026-02-20 23:26:20 | DEBUG | agents.agent_engine:run:224 | LLM响应: Thought: 任务已完成，论文（ID: 2602.17663v1）已成功翻译，翻译后的中文单语 PDF 文件已保存在 `/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17663v1-mono.pdf`。
 Action: FINISH
-2026-02-20 02:24:45 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 翻译工具已成功执行，返回了翻译后的文件路径。任务已完成。
+2026-02-20 23:26:20 | DEBUG | agents.agent_engine:parse_llm_response:48 | 解析LLM响应: Thought: 任务已完成，论文（ID: 2602.17663v1）已成功翻译，翻译后的中文单语 PDF 文件已保存在 `/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17663v1-mono.pdf`。
 Action: FINISH...
-2026-02-20 02:24:45 | INFO | agents.agent_engine:parse_llm_response:62 | 提取到的Action文本: FINISH
-2026-02-20 02:24:45 | INFO | agents.agent_engine:parse_llm_response:66 | Agent决定结束任务
-2026-02-20 02:24:45 | INFO | agents.agent_engine:run:278 | Thought: 翻译工具已成功执行，返回了翻译后的文件路径。任务已完成。
-2026-02-20 02:24:45 | INFO | agents.agent_engine:run:282 | 任务完成
-2026-02-20 02:24:45 | INFO | agents.agent_engine:run:314 | 任务执行完成，共 2 步
-2026-02-20 02:24:45 | INFO | agents.agent_engine:run:315 | --------------------------------------------------
+2026-02-20 23:26:20 | INFO | agents.agent_engine:parse_llm_response:60 | 提取到的Action文本: FINISH
+2026-02-20 23:26:20 | INFO | agents.agent_engine:parse_llm_response:63 | Agent决定结束任务
+2026-02-20 23:26:20 | INFO | agents.agent_engine:run:228 | Thought: 任务已完成，论文（ID: 2602.17663v1）已成功翻译，翻译后的中文单语 PDF 文件已保存在 `/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17663v1-mono.pdf`。
+2026-02-20 23:26:20 | INFO | agents.agent_engine:run:231 | 任务完成
+2026-02-20 23:26:20 | INFO | agents.agent_engine:run:257 | 任务执行完成，共 2 步
+2026-02-20 23:26:20 | INFO | agents.agent_engine:run:258 | --------------------------------------------------

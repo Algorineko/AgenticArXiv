@@ -25,20 +25,37 @@ def _fallback_pdf_url(paper_id: str) -> str:
 
 def download_arxiv_pdf(
     session_id: str = "default",
-    ref: Union[str, int] = 1,
+    ref: Union[str, int, None] = 1,
     force: bool = False,
 ) -> Dict[str, Any]:
     """
     按 session 的短期记忆 + ref(1-based/arxiv id/title子串) 下载 PDF 到 settings.pdf_raw_path
+    支持 ref = None（JSON null）：表示“最近一次操作的论文”
     文件命名：{paper.id}.pdf （canonical）
     同时更新 output/pdf_cache.json
     """
-    paper: Optional[Paper] = store.resolve_paper(session_id, ref)
-    if paper is None:
-        raise ValueError("未找到论文：请先调用 /arxiv/recent 写入 session 记忆，或检查 ref 是否正确")
+    paper: Optional[Paper] = None
+    paper_id: Optional[str] = None
+    pdf_url: Optional[str] = None
 
-    paper_id = paper.id
-    pdf_url = paper.pdf_url or _fallback_pdf_url(paper_id)
+    if ref is None:
+        # 指代：最近一次操作的论文
+        last_id = store.get_last_active_paper_id(session_id)
+        if not last_id:
+            raise ValueError("未找到指代对象：请先下载/翻译/查状态某篇论文，或明确提供 ref（序号/id/标题）")
+        paper_id = last_id
+        paper = store.resolve_paper(session_id, paper_id)  # 可能为 None（last_papers 过期）
+        pdf_url = (paper.pdf_url if paper else None) or _fallback_pdf_url(paper_id)
+    else:
+        paper = store.resolve_paper(session_id, ref)
+        if paper is None:
+            raise ValueError("未找到论文：请先调用 /arxiv/recent 写入 session 记忆，或检查 ref 是否正确")
+        paper_id = paper.id
+        pdf_url = paper.pdf_url or _fallback_pdf_url(paper_id)
+
+    # 一旦确定 paper_id，就更新 last_active（不区分下载/翻译，只要“操作了”就更新）
+    store.set_last_active_paper_id(session_id, paper_id)
+
     pdf_url = normalize_arxiv_pdf_url(pdf_url)
 
     filename = safe_filename(paper_id) + ".pdf"
@@ -143,12 +160,12 @@ PDF_DOWNLOAD_TOOL_SCHEMA = {
     "properties": {
         "session_id": {
             "type": "string",
-            "description": "会话ID，用于从短期记忆中解析 ref",
+            "description": "会话ID，用于从短期记忆中解析 ref 或读取 last_active_paper_id",
             "default": "default",
         },
         "ref": {
-            "description": "论文引用：1-based序号 或 arxiv id 或 title子串",
-            "anyOf": [{"type": "integer"}, {"type": "string"}],
+            "description": "论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文",
+            "anyOf": [{"type": "integer"}, {"type": "string"}, {"type": "null"}],
         },
         "force": {
             "type": "boolean",
@@ -156,12 +173,12 @@ PDF_DOWNLOAD_TOOL_SCHEMA = {
             "default": False,
         },
     },
-    "required": ["ref"],
+    "required": [],
 }
 
 registry.register_tool(
     name="download_arxiv_pdf",
-    description="根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引",
+    description="根据 session 的短期记忆和 ref 下载 arXiv 论文 PDF，并维护 pdf_cache.json 索引（ref 支持 null 指代最近操作论文）",
     parameter_schema=PDF_DOWNLOAD_TOOL_SCHEMA,
     func=download_arxiv_pdf,
 )

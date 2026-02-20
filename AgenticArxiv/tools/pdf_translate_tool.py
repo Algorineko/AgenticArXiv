@@ -121,11 +121,31 @@ def translate_arxiv_pdf(
     翻译 PDF(全文)，输出到 settings.pdf_translated_path
     默认只保留 mono(中文单语), dual 会被删除(除非 keep_dual=True)
     并维护 translate_cache.json
+
+    支持 ref = None（JSON null）：表示“最近一次操作的论文”
     """
     service = service or settings.pdf2zh_service
     threads = int(threads or settings.pdf2zh_threads)
+
+    # 允许三种入口：
+    # 1) input_pdf_path
+    # 2) paper_id/pdf_url
+    # 3) ref（含 ref=null -> last_active）
     if ref is None and not paper_id and not input_pdf_path:
-        raise ValueError("translate_arxiv_pdf 必须提供 ref 或 paper_id 或 input_pdf_path")
+        # 指代：最近一次操作的论文
+        last_id = store.get_last_active_paper_id(session_id)
+        if not last_id:
+            raise ValueError("未找到指代对象：请先下载/翻译/查状态某篇论文，或明确提供 ref（序号/id/标题）")
+        paper_id = last_id
+
+        # 尝试从 cache/短期记忆拿到更准确的 pdf_url
+        pdf_asset = store.get_pdf_asset(paper_id)
+        if pdf_asset and pdf_asset.pdf_url:
+            pdf_url = pdf_asset.pdf_url
+        else:
+            paper = store.resolve_paper(session_id, paper_id)  # 可能 None（last_papers 过期）
+            pdf_url = (paper.pdf_url if paper else None) or _fallback_pdf_url(paper_id)
+
     # 1) 确定 paper_id / pdf_url / input_pdf_path
     if input_pdf_path and os.path.exists(input_pdf_path):
         in_path = input_pdf_path
@@ -143,6 +163,9 @@ def translate_arxiv_pdf(
             pdf_url = paper.pdf_url or _fallback_pdf_url(paper_id)
 
         in_path = _ensure_pdf_downloaded_by_id(paper_id, pdf_url, force=force)
+
+    # 一旦确定 paper_id，就更新 last_active（不区分下载/翻译，只要“操作了”就更新）
+    store.set_last_active_paper_id(session_id, paper_id)
 
     # 2) 计算输出路径
     os.makedirs(settings.pdf_translated_path, exist_ok=True)
@@ -234,7 +257,6 @@ def translate_arxiv_pdf(
 
         # pdf2zh 实际输出名可能是 stem-mono / stem-zh，这里统一成 {paper_id}-mono.pdf
         if res.mono_path != mono_path:
-            # 覆盖/替换到 canonical 名称
             if os.path.exists(mono_path):
                 os.remove(mono_path)
             os.replace(res.mono_path, mono_path)
@@ -281,8 +303,8 @@ PDF_TRANSLATE_TOOL_SCHEMA = {
     "properties": {
         "session_id": {"type": "string", "default": "default"},
         "ref": {
-            "description": "论文引用：1-based序号 或 arxiv id 或 title子串",
-            "anyOf": [{"type": "integer"}, {"type": "string"}],
+            "description": "论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文",
+            "anyOf": [{"type": "integer"}, {"type": "string"}, {"type": "null"}],
         },
         "force": {"type": "boolean", "default": False},
         "service": {"type": "string", "description": "翻译服务，如 bing/deepl/google", "default": "bing"},
@@ -297,7 +319,7 @@ PDF_TRANSLATE_TOOL_SCHEMA = {
 
 registry.register_tool(
     name="translate_arxiv_pdf",
-    description="调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引",
+    description="调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引（ref 支持 null 指代最近操作论文）",
     parameter_schema=PDF_TRANSLATE_TOOL_SCHEMA,
     func=translate_arxiv_pdf,
 )

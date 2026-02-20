@@ -1,88 +1,90 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-02-20 02:15:36
+生成时间: 2026-02-20 23:18:15
 论文数量: 5
 ================================================================================
 
-论文 1: Improved Bounds for Discrete Voronoi Games
+论文 1: Sink-Aware Pruning for Diffusion Language Models
 ------------------------------------------------------------
-ID: 2602.16518v1
-作者: Mark de Berg, Geert van Wordragen
-发表时间: 2026-02-18 15:05:12
-更新时间: 2026-02-18 15:05:12
-主要分类: cs.CG
-所有分类: cs.CG
-PDF链接: https://arxiv.org/pdf/2602.16518v1
-摘要: In the planar one-round discrete Voronoi game, two players $\mathcal{P}$ and $\mathcal{Q}$ compete over a set $V$ of $n$ voters represented by points in $\mathbb{R}^2$. First, $\mathcal{P}$ places a s...
+ID: 2602.17664v1
+作者: Aidar Myrzakhan, Tianyi Li, Bowei Guo, Shengkun Tang, Zhiqiang Shen
+发表时间: 2026-02-19 18:59:50
+更新时间: 2026-02-19 18:59:50
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2602.17664v1
+备注: Code at: https://github.com/VILA-Lab/Sink-Aware-Pruning
+摘要: Diffusion Language Models (DLMs) incur high inference cost due to iterative denoising, motivating efficient pruning. Existing pruning heuristics largely inherited from autoregressive (AR) LLMs, typica...
 相关链接:
-  - https://arxiv.org/abs/2602.16518v1
-  - https://arxiv.org/pdf/2602.16518v1
+  - https://arxiv.org/abs/2602.17664v1
+  - https://arxiv.org/pdf/2602.17664v1
 
 ================================================================================
 
-论文 2: Dynamic and Streaming Algorithms for Union Volume Estimation
+论文 2: CLEF HIPE-2026: Evaluating Accurate and Efficient Person-Place Relation Extraction from Multilingual Historical Texts
 ------------------------------------------------------------
-ID: 2602.16306v1
-作者: Sujoy Bhore, Karl Bringmann, Timothy M. Chan, Yanheng Wang
-发表时间: 2026-02-18 09:37:20
-更新时间: 2026-02-18 09:37:20
-主要分类: cs.CG
-所有分类: cs.CG, cs.DS
-PDF链接: https://arxiv.org/pdf/2602.16306v1
-备注: 27 pages; accepted at SoCG 2026
-摘要: The union volume estimation problem asks to $(1\pm\varepsilon)$-approximate the volume of the union of $n$ given objects $X_1,\ldots,X_n \subset \mathbb{R}^d$. In their seminal work in 1989, Karp, Lub...
+ID: 2602.17663v1
+作者: Juri Opitz, Corina Raclé, Emanuela Boros, Andrianos Michail, Matteo Romanello, Maud Ehrmann, Simon Clematide
+发表时间: 2026-02-19 18:59:44
+更新时间: 2026-02-19 18:59:44
+主要分类: cs.AI
+所有分类: cs.AI, cs.CL, cs.IR
+PDF链接: https://arxiv.org/pdf/2602.17663v1
+备注: ECIR 2026. CLEF Evaluation Lab. Registration DL: 2026/04/23. Task Homepage at https://hipe-eval.github.io/HIPE-2026/
+摘要: HIPE-2026 is a CLEF evaluation lab dedicated to person-place relation extraction from noisy, multilingual historical texts. Building on the HIPE-2020 and HIPE-2022 campaigns, it extends the series tow...
 相关链接:
-  - https://arxiv.org/abs/2602.16306v1
-  - https://arxiv.org/pdf/2602.16306v1
+  - https://arxiv.org/abs/2602.17663v1
+  - https://arxiv.org/pdf/2602.17663v1
 
 ================================================================================
 
-论文 3: Ratio Covers of Convex Sets and Optimal Mixture Density Estimation
+论文 3: MARS: Margin-Aware Reward-Modeling with Self-Refinement
 ------------------------------------------------------------
-ID: 2602.16142v1
-作者: Spencer Compton, Gábor Lugosi, Jaouad Mourtada, Jian Qian, Nikita Zhivotovskiy
-发表时间: 2026-02-18 02:25:18
-更新时间: 2026-02-18 02:25:18
-主要分类: math.ST
-所有分类: math.ST, cs.CG, cs.LG
-PDF链接: https://arxiv.org/pdf/2602.16142v1
-备注: 45 pages
-摘要: We study density estimation in Kullback-Leibler divergence: given an i.i.d. sample from an unknown density $p$, the goal is to construct an estimator $\widehat p$ such that $\mathrm{KL}(p,\widehat p)$...
+ID: 2602.17658v1
+作者: Payel Bhattacharjee, Osvaldo Simeone, Ravi Tandon
+发表时间: 2026-02-19 18:59:03
+更新时间: 2026-02-19 18:59:03
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, cs.IT
+PDF链接: https://arxiv.org/pdf/2602.17658v1
+摘要: Reward modeling is a core component of modern alignment pipelines including RLHF and RLAIF, underpinning policy optimization methods including PPO and TRPO. However, training reliable reward models re...
 相关链接:
-  - https://arxiv.org/abs/2602.16142v1
-  - https://arxiv.org/pdf/2602.16142v1
+  - https://arxiv.org/abs/2602.17658v1
+  - https://arxiv.org/pdf/2602.17658v1
 
 ================================================================================
 
-论文 4: Morphing of and writing with a scissor linkage mechanism
+论文 4: Pushing the Frontier of Black-Box LVLM Attacks via Fine-Grained Detail Targeting
 ------------------------------------------------------------
-ID: 2602.14958v1
-作者: Mohanraj A, S Ganga Prasath
-发表时间: 2026-02-16 17:37:43
-更新时间: 2026-02-16 17:37:43
-主要分类: cs.RO
-所有分类: cs.RO, cs.CG
-PDF链接: https://arxiv.org/pdf/2602.14958v1
-摘要: Kinematics of mechanisms is intricately coupled to their geometry and their utility often arises out of the ability to perform reproducible motion with fewer actuating degrees of freedom. In this arti...
+ID: 2602.17645v1
+作者: Xiaohan Zhao, Zhaoyi Li, Yaxin Luo, Jiacheng Cui, Zhiqiang Shen
+发表时间: 2026-02-19 18:54:32
+更新时间: 2026-02-19 18:54:32
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, cs.CL, cs.CV
+PDF链接: https://arxiv.org/pdf/2602.17645v1
+备注: Code at: https://github.com/vila-lab/M-Attack-V2
+摘要: Black-box adversarial attacks on Large Vision-Language Models (LVLMs) are challenging due to missing gradients and complex multimodal boundaries. While prior state-of-the-art transfer-based approaches...
 相关链接:
-  - https://arxiv.org/abs/2602.14958v1
-  - https://arxiv.org/pdf/2602.14958v1
+  - https://arxiv.org/abs/2602.17645v1
+  - https://arxiv.org/pdf/2602.17645v1
 
 ================================================================================
 
-论文 5: Lower Estimates for $L_1$-Distortion of Transportation Cost Spaces
+论文 5: FAMOSE: A ReAct Approach to Automated Feature Discovery
 ------------------------------------------------------------
-ID: 2602.14852v1
-作者: Chris Gartland, Mikhail Ostrovskii
-发表时间: 2026-02-16 15:49:06
-更新时间: 2026-02-16 15:49:06
-主要分类: math.FA
-所有分类: math.FA, cs.CG, math.CO, math.MG
-PDF链接: https://arxiv.org/pdf/2602.14852v1
-摘要: Quantifying the degree of dissimilarity between two probability distributions on a finite metric space is a fundamental task in Computer Science and Computer Vision. A natural dissimilarity measure ba...
+ID: 2602.17641v1
+作者: Keith Burghardt, Jienan Liu, Sadman Sakib, Yuning Hao, Bo Li
+发表时间: 2026-02-19 18:53:15
+更新时间: 2026-02-19 18:53:15
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI
+PDF链接: https://arxiv.org/pdf/2602.17641v1
+备注: 23 pages, 6 figures
+摘要: Feature engineering remains a critical yet challenging bottleneck in machine learning, particularly for tabular data, as identifying optimal features from an exponentially large feature space traditio...
 相关链接:
-  - https://arxiv.org/abs/2602.14852v1
-  - https://arxiv.org/pdf/2602.14852v1
+  - https://arxiv.org/abs/2602.17641v1
+  - https://arxiv.org/pdf/2602.17641v1
 
 ================================================================================
 
