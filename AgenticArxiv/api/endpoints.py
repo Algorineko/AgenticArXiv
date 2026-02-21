@@ -1,7 +1,10 @@
 # AgenticArxiv/api/endpoints.py
 from __future__ import annotations
 
-from fastapi import APIRouter, HTTPException
+import json
+import queue
+from fastapi import APIRouter, HTTPException, Query
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from typing import Any, Dict, List, Optional
 
@@ -11,6 +14,8 @@ from models.store import store
 from models.pdf_cache import PdfAsset
 from models.translate_cache import TranslateAsset
 from utils.logger import log
+
+from services.runtime import event_bus, translate_runner
 
 
 router = APIRouter()
@@ -69,6 +74,12 @@ class CreateTranslateTaskRequest(BaseModel):
         default=None,
         description="论文引用: 1-based序号 或 arxiv id 或 title子串; 也支持 null 表示最近一次操作的论文",
     )
+    force: bool = Field(default=False, description="是否强制重新翻译")
+    service: str = Field(default="bing", description="翻译服务，如 bing/deepl/google")
+    threads: int = Field(default=4, ge=1, le=32, description="线程数")
+    keep_dual: bool = Field(
+        default=False, description="是否保留双语 PDF（默认否，只保留中文）"
+    )
 
 
 class CreateTranslateTaskResponse(BaseModel):
@@ -119,8 +130,12 @@ class TranslatePdfRequest(BaseModel):
     )
     force: bool = Field(default=False, description="是否强制重新翻译（覆盖本地 mono）")
     service: str = Field(default="bing", description="翻译服务，如 bing/deepl/google")
-    threads: int = Field(default=4, ge=1, le=32, description="线程数（服务器 4 核可设 4）")
-    keep_dual: bool = Field(default=False, description="是否保留双语 PDF（默认否，只保留中文）")
+    threads: int = Field(
+        default=4, ge=1, le=32, description="线程数（服务器 4 核可设 4）"
+    )
+    keep_dual: bool = Field(
+        default=False, description="是否保留双语 PDF（默认否，只保留中文）"
+    )
 
 
 class TranslatePdfResponse(BaseModel):
@@ -149,6 +164,9 @@ class ChatResponse(BaseModel):
     papers: List[Paper]
     pdf_assets: List[PdfAsset]
     translate_assets: List[TranslateAsset]
+    tasks: List[TranslateTask] = Field(
+        default_factory=list, description="该 session 的最近任务（可选）"
+    )
 
 
 class PdfAssetsResponse(BaseModel):
@@ -159,6 +177,57 @@ class TranslateAssetsResponse(BaseModel):
     assets: List[TranslateAsset]
 
 
+# ---------------- SSE ----------------
+def _sse_pack(event_json: str) -> str:
+    """
+    event_json 是 JSON 字符串，内部需含 type 字段：
+      {"type":"task_succeeded", ...}
+    """
+    try:
+        obj = json.loads(event_json)
+        et = obj.get("type", "message")
+    except Exception:
+        et = "message"
+    return f"event: {et}\ndata: {event_json}\n\n"
+
+
+@router.get("/events")
+def events(session_id: str = Query(default="default")):
+    """
+    SSE 订阅：用于推送翻译任务状态变化
+    前端：EventSource(`/events?session_id=xxx`)
+    """
+    sid = session_id or "default"
+    sub_id, q = event_bus.subscribe(sid)
+
+    def gen():
+        try:
+            # 连接确认 + 可选：把当前任务快照发一份
+            hello = json.dumps(
+                {"type": "connected", "session_id": sid}, ensure_ascii=False
+            )
+            yield _sse_pack(hello)
+
+            while True:
+                try:
+                    data = q.get(timeout=15)
+                    yield _sse_pack(data)
+                except queue.Empty:
+                    # keep-alive（SSE comment 行）
+                    yield ": ping\n\n"
+        finally:
+            event_bus.unsubscribe(sid, sub_id)
+
+    headers = {
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        # Nginx 反代时建议关缓冲：X-Accel-Buffering: no
+        "X-Accel-Buffering": "no",
+    }
+    return StreamingResponse(gen(), media_type="text/event-stream", headers=headers)
+
+
+# ---------------- basic ----------------
 @router.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
     return HealthResponse(status="ok")
@@ -219,21 +288,26 @@ def get_session_papers(session_id: str) -> SessionPapersResponse:
     return SessionPapersResponse(session_id=session_id, papers=papers)
 
 
+# ---------------- translate tasks (create -> auto-run) ----------------
 @router.post("/translate/tasks", response_model=CreateTranslateTaskResponse)
-def create_translate_task(req: CreateTranslateTaskRequest) -> CreateTranslateTaskResponse:
-    paper = store.resolve_paper(req.session_id, req.ref)
-    if paper is None:
-        # ref 可能是 null 但 last_papers 过期：此处不做 fallback（因为 task 需要 paper 元信息）
-        raise HTTPException(
-            status_code=404,
-            detail="未找到论文：请先调用 /arxiv/recent 写入 session 记忆，或检查 ref 是否正确",
+def create_translate_task(
+    req: CreateTranslateTaskRequest,
+) -> CreateTranslateTaskResponse:
+    try:
+        # enqueue 会自行 resolve ref / last_active
+        t = translate_runner.enqueue(
+            session_id=req.session_id,
+            ref=req.ref,
+            force=req.force,
+            service=req.service,
+            threads=req.threads,
+            keep_dual=req.keep_dual,
         )
-
-    # 更新 last_active（创建任务算操作）
-    store.set_last_active_paper_id(req.session_id, paper.id)
-
-    t = store.create_translate_task(req.session_id, paper)
-    return CreateTranslateTaskResponse(task=t)
+        return CreateTranslateTaskResponse(task=t)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建翻译任务失败: {str(e)}")
 
 
 @router.get("/translate/tasks/{task_id}", response_model=GetTaskResponse)
@@ -244,6 +318,7 @@ def get_translate_task(task_id: str) -> GetTaskResponse:
     return GetTaskResponse(task=t)
 
 
+# ---------------- agent ----------------
 @router.post("/agent/run", response_model=AgentRunResponse)
 def run_agent(req: AgentRunRequest) -> AgentRunResponse:
     try:
@@ -252,13 +327,16 @@ def run_agent(req: AgentRunRequest) -> AgentRunResponse:
 
         llm_client = get_env_llm_client()
         agent = ReActAgent(llm_client)
-        result = agent.run(task=req.task, agent_model=req.agent_model, session_id=req.session_id)
+        result = agent.run(
+            task=req.task, agent_model=req.agent_model, session_id=req.session_id
+        )
         return AgentRunResponse(**result)
     except Exception as e:
         log.error(f"Agent运行失败: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Agent运行失败: {str(e)}")
 
 
+# ---------------- pdf download ----------------
 @router.post("/pdf/download", response_model=DownloadPdfResponse)
 def pdf_download(req: DownloadPdfRequest) -> DownloadPdfResponse:
     tool_name = "download_arxiv_pdf"
@@ -276,8 +354,13 @@ def pdf_download(req: DownloadPdfRequest) -> DownloadPdfResponse:
         raise HTTPException(status_code=500, detail=f"下载PDF失败: {str(e)}")
 
 
+# ---------------- pdf translate (sync 保留) ----------------
 @router.post("/pdf/translate", response_model=TranslatePdfResponse)
 def pdf_translate(req: TranslatePdfRequest) -> TranslatePdfResponse:
+    """
+    保留原同步接口（可能耗时较长）。
+    推荐前端改用 /pdf/translate/async + /events SSE
+    """
     tool_name = "translate_arxiv_pdf"
     try:
         result = registry.execute_tool(
@@ -300,6 +383,30 @@ def pdf_translate(req: TranslatePdfRequest) -> TranslatePdfResponse:
         raise HTTPException(status_code=500, detail=f"翻译PDF失败: {str(e)}")
 
 
+@router.post("/pdf/translate/async", response_model=CreateTranslateTaskResponse)
+def pdf_translate_async(req: TranslatePdfRequest) -> CreateTranslateTaskResponse:
+    """
+    新增：异步翻译接口
+    - 立即返回 task
+    - 任务进度/完成由 /events SSE 推送
+    """
+    try:
+        t = translate_runner.enqueue(
+            session_id=req.session_id,
+            ref=req.ref,
+            force=req.force,
+            service=req.service,
+            threads=req.threads,
+            keep_dual=req.keep_dual,
+        )
+        return CreateTranslateTaskResponse(task=t)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建异步翻译任务失败: {str(e)}")
+
+
+# ---------------- chat ----------------
 @router.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest) -> ChatResponse:
     try:
@@ -316,8 +423,15 @@ def chat(req: ChatRequest) -> ChatResponse:
         )
 
         papers = store.get_last_papers(req.session_id)
-        pdf_assets = sorted(store.pdf_cache.assets.values(), key=lambda x: x.updated_at, reverse=True)
-        translate_assets = sorted(store.translate_cache.assets.values(), key=lambda x: x.updated_at, reverse=True)
+        pdf_assets = sorted(
+            store.pdf_cache.assets.values(), key=lambda x: x.updated_at, reverse=True
+        )
+        translate_assets = sorted(
+            store.translate_cache.assets.values(),
+            key=lambda x: x.updated_at,
+            reverse=True,
+        )
+        tasks = store.list_tasks(session_id=req.session_id, limit=50)
 
         reply = ""
         for step in reversed(result.get("history", [])):
@@ -334,6 +448,7 @@ def chat(req: ChatRequest) -> ChatResponse:
             papers=papers,
             pdf_assets=list(pdf_assets),
             translate_assets=list(translate_assets),
+            tasks=tasks,
         )
 
     except Exception as e:
@@ -343,11 +458,15 @@ def chat(req: ChatRequest) -> ChatResponse:
 
 @router.get("/pdf/assets", response_model=PdfAssetsResponse)
 def list_pdf_assets() -> PdfAssetsResponse:
-    assets = sorted(store.pdf_cache.assets.values(), key=lambda x: x.updated_at, reverse=True)
+    assets = sorted(
+        store.pdf_cache.assets.values(), key=lambda x: x.updated_at, reverse=True
+    )
     return PdfAssetsResponse(assets=list(assets))
 
 
 @router.get("/translate/assets", response_model=TranslateAssetsResponse)
 def list_translate_assets() -> TranslateAssetsResponse:
-    assets = sorted(store.translate_cache.assets.values(), key=lambda x: x.updated_at, reverse=True)
+    assets = sorted(
+        store.translate_cache.assets.values(), key=lambda x: x.updated_at, reverse=True
+    )
     return TranslateAssetsResponse(assets=list(assets))

@@ -2,6 +2,7 @@
   <section class="card chat">
     <header class="card-header">
       <div class="title">对话区</div>
+
       <div class="row">
         <label class="label">Session:</label>
         <input class="input" v-model="sessionDraft" @change="applySession" placeholder="demo1" />
@@ -18,6 +19,14 @@
         <span class="muted">API: {{ store.apiBase }}</span>
       </div>
 
+      <div class="row">
+        <label class="label">SSE:</label>
+        <span class="pill" :class="store.sseStatus">{{ store.sseStatus }}</span>
+        <span class="muted" v-if="store.sseLastEvent">
+          last={{ store.sseLastEvent }} · {{ fmt(store.sseLastEventTs) }}
+        </span>
+      </div>
+
       <p v-if="store.lastError" class="error">⚠ {{ store.lastError }}</p>
     </header>
 
@@ -26,12 +35,7 @@
         你可以直接说：<code>获取最近7天内AI(cs.AI)方向论文，最多5篇</code>
       </div>
 
-      <div
-        v-for="(m, idx) in store.messages"
-        :key="idx"
-        class="msg"
-        :class="m.role"
-      >
+      <div v-for="(m, idx) in store.messages" :key="idx" class="msg" :class="m.role">
         <div class="meta">
           <span class="role">{{ m.role === "user" ? "你" : "Agent" }}</span>
           <span class="time">{{ fmt(m.ts) }}</span>
@@ -52,7 +56,9 @@
         <button class="btn primary" @click="send" :disabled="store.loading || !draft.trim()">
           {{ store.loading ? "发送中…" : "发送" }}
         </button>
-        <button class="btn" @click="quick('获取最近7天内AI(cs.AI)方向论文，最多5篇')">快捷：拉取AI 5篇</button>
+        <button class="btn" @click="quick('获取最近7天内AI(cs.AI)方向论文，最多5篇')">
+          快捷：拉取AI 5篇
+        </button>
       </div>
 
       <details class="debug" v-if="store.lastHistory.length">
@@ -80,8 +86,8 @@ const sessionDraft = ref(store.sessionId);
 const msgBox = ref<HTMLDivElement | null>(null);
 
 function fmt(ts: number) {
-  const d = new Date(ts);
-  return d.toLocaleString();
+  if (!ts) return "-";
+  return new Date(ts).toLocaleString();
 }
 
 function applySession() {
@@ -106,6 +112,7 @@ async function refresh() {
 }
 
 onMounted(() => {
+  store.ensureSse();
   store.refreshSnapshot();
 });
 
@@ -138,6 +145,21 @@ watch(
 .error { color: #ff6b6b; margin: 6px 0 0; }
 .toggle { display:flex; gap:6px; align-items:center; }
 .muted { color: var(--muted); }
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+}
+.pill.idle { opacity: .7; }
+.pill.connecting { border-color: rgba(255,200,0,.35); }
+.pill.connected { border-color: rgba(0,255,153,.35); }
+.pill.error { border-color: rgba(255,107,107,.35); }
+
 .debug { margin-top: 10px; color: var(--muted); }
 .history { padding: 8px 0; }
 .step { border:1px dashed var(--border); border-radius: 10px; padding: 8px; margin: 8px 0; background: var(--bg2); }

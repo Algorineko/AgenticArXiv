@@ -3,11 +3,35 @@
     <header class="card-header">
       <div class="title">下载/翻译缓存</div>
       <p class="muted">
-        PDF: {{ pdfList.length }} 条 · 翻译: {{ trList.length }} 条
+        PDF: {{ pdfList.length }} 条 · 翻译: {{ trList.length }} 条 · 任务: {{ store.tasks.length }} 条
       </p>
     </header>
 
     <div class="lists">
+      <!-- 任务区（最近翻译任务） -->
+      <div class="block">
+        <div class="block-title">最近翻译任务（SSE）</div>
+        <div class="list-scroll">
+          <div v-if="!taskList.length" class="empty">暂无任务（发起“翻译第N篇”后这里会实时更新）</div>
+
+          <div v-for="t in taskList" :key="t.task_id" class="item">
+            <div class="item-top">
+              <div class="mono id">{{ t.paper_id }}</div>
+              <span class="pill" :class="statusClass(t.status)">{{ t.status }}</span>
+            </div>
+
+            <div class="sub mono">task_id: {{ t.task_id }}</div>
+
+            <div class="sub" v-if="typeof t.progress === 'number'">
+              progress: {{ Math.round(t.progress * 100) }}%
+            </div>
+
+            <div class="sub mono" v-if="t.output_pdf_path">out: {{ t.output_pdf_path }}</div>
+            <div class="sub err" v-if="t.error">error: {{ t.error }}</div>
+          </div>
+        </div>
+      </div>
+
       <!-- 已下载 -->
       <div class="block">
         <div class="block-title">已下载（READY）</div>
@@ -58,27 +82,37 @@ import { useAppStore } from "@/stores/appStore";
 
 const store = useAppStore();
 
+const taskList = computed(() => (store.tasks || []).slice(0, 10));
+
 const pdfList = computed(() => {
   const arr = Array.from(store.pdfMap.values()).filter((x) => x.status === "READY");
-  // 新的在前
-  return arr.sort((a, b) => (b.updated_at || "").localeCompare(a.updated_at || ""));
+  return arr.sort((a, b) => (String(b.updated_at || "")).localeCompare(String(a.updated_at || "")));
 });
 
 const trList = computed(() => {
   const arr = Array.from(store.translateMap.values()).filter((x) => x.status === "READY");
-  return arr.sort((a, b) => (b.updated_at || "").localeCompare(a.updated_at || ""));
+  return arr.sort((a, b) => (String(b.updated_at || "")).localeCompare(String(a.updated_at || "")));
 });
 
-function formatBytes(n: number) {
-  if (!Number.isFinite(n) || n <= 0) return "0 B";
+function formatBytes(n: number | null | undefined) {
+  const v0 = Number(n || 0);
+  if (!Number.isFinite(v0) || v0 <= 0) return "0 B";
   const units = ["B", "KB", "MB", "GB", "TB"];
-  let v = n;
+  let v = v0;
   let i = 0;
   while (v >= 1024 && i < units.length - 1) {
     v /= 1024;
     i++;
   }
   return `${v.toFixed(i === 0 ? 0 : 2)} ${units[i]}`;
+}
+
+function statusClass(s: string) {
+  const x = (s || "").toUpperCase();
+  if (x.includes("SUCC")) return "ok";
+  if (x.includes("FAIL")) return "bad";
+  if (x.includes("RUN")) return "warn";
+  return "neutral";
 }
 </script>
 
@@ -99,12 +133,12 @@ function formatBytes(n: number) {
 .title { font-weight: 700; margin-bottom: 6px; }
 .muted { color: var(--muted); margin: 0; font-size: 12px; }
 
-/* 两块列表：各占一半高度 */
+/* 三块列表：任务 + 下载 + 翻译 */
 .lists {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   gap: 12px;
 }
 
@@ -125,7 +159,6 @@ function formatBytes(n: number) {
   margin-bottom: 8px;
 }
 
-/* ✅ 每个列表独立滚动条 */
 .list-scroll {
   flex: 1;
   min-height: 0;
@@ -152,6 +185,7 @@ function formatBytes(n: number) {
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 .id { font-weight: 700; }
 .sub { color: var(--muted); font-size: 12px; line-height: 1.35; margin-top: 2px; }
+.sub.err { color: #ff6b6b; }
 
 .pill {
   display: inline-flex;
@@ -163,7 +197,11 @@ function formatBytes(n: number) {
   font-size: 12px;
   user-select: none;
 }
+
 .pill.ok { border-color: rgba(0,255,153,.35); }
+.pill.bad { border-color: rgba(255,107,107,.35); }
+.pill.warn { border-color: rgba(255,200,0,.35); }
+.pill.neutral { opacity: .75; }
 
 .empty { color: var(--muted); font-size: 12px; padding: 6px 2px; }
 </style>

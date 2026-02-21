@@ -2,6 +2,8 @@
 启动脚本(前后端)
 ```sh
 ./bin/start.sh --logs
+# 若服务未正常关闭而占用端口, 查看并kill其进程
+sudo lsof -i :8000 | grep LISTEN
 ```
 ### TODO:
-- 翻译工具需制作为异步，当前会timeout
+- 翻译工具需制作为异步

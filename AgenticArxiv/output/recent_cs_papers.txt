@@ -1,90 +1,88 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-02-20 23:18:15
+生成时间: 2026-02-22 01:58:17
 论文数量: 5
 ================================================================================
 
-论文 1: Sink-Aware Pruning for Diffusion Language Models
+论文 1: Non-Trivial Zero-Knowledge Implies One-Way Functions
 ------------------------------------------------------------
-ID: 2602.17664v1
-作者: Aidar Myrzakhan, Tianyi Li, Bowei Guo, Shengkun Tang, Zhiqiang Shen
-发表时间: 2026-02-19 18:59:50
-更新时间: 2026-02-19 18:59:50
-主要分类: cs.CL
-所有分类: cs.CL, cs.AI, cs.LG
-PDF链接: https://arxiv.org/pdf/2602.17664v1
-备注: Code at: https://github.com/VILA-Lab/Sink-Aware-Pruning
-摘要: Diffusion Language Models (DLMs) incur high inference cost due to iterative denoising, motivating efficient pruning. Existing pruning heuristics largely inherited from autoregressive (AR) LLMs, typica...
+ID: 2602.17651v1
+作者: Suvradip Chakraborty, James Hulett, Dakshita Khurana, Kabir Tomer
+发表时间: 2026-02-19 18:56:24
+更新时间: 2026-02-19 18:56:24
+主要分类: cs.CR
+所有分类: cs.CR
+PDF链接: https://arxiv.org/pdf/2602.17651v1
+摘要: A recent breakthrough [Hirahara and Nanashima, STOC'2024] established that if $\mathsf{NP} \not \subseteq \mathsf{ioP/poly}$, the existence of zero-knowledge with negligible errors for $\mathsf{NP}$ i...
 相关链接:
-  - https://arxiv.org/abs/2602.17664v1
-  - https://arxiv.org/pdf/2602.17664v1
+  - https://arxiv.org/abs/2602.17651v1
+  - https://arxiv.org/pdf/2602.17651v1
 
 ================================================================================
 
-论文 2: CLEF HIPE-2026: Evaluating Accurate and Efficient Person-Place Relation Extraction from Multilingual Historical Texts
+论文 2: What Makes a Good LLM Agent for Real-world Penetration Testing?
 ------------------------------------------------------------
-ID: 2602.17663v1
-作者: Juri Opitz, Corina Raclé, Emanuela Boros, Andrianos Michail, Matteo Romanello, Maud Ehrmann, Simon Clematide
-发表时间: 2026-02-19 18:59:44
-更新时间: 2026-02-19 18:59:44
-主要分类: cs.AI
-所有分类: cs.AI, cs.CL, cs.IR
-PDF链接: https://arxiv.org/pdf/2602.17663v1
-备注: ECIR 2026. CLEF Evaluation Lab. Registration DL: 2026/04/23. Task Homepage at https://hipe-eval.github.io/HIPE-2026/
-摘要: HIPE-2026 is a CLEF evaluation lab dedicated to person-place relation extraction from noisy, multilingual historical texts. Building on the HIPE-2020 and HIPE-2022 campaigns, it extends the series tow...
+ID: 2602.17622v1
+作者: Gelei Deng, Yi Liu, Yuekang Li, Ruozhao Yang, Xiaofei Xie, Jie Zhang, Han Qiu, Tianwei Zhang
+发表时间: 2026-02-19 18:42:40
+更新时间: 2026-02-19 18:42:40
+主要分类: cs.CR
+所有分类: cs.CR, cs.SE
+PDF链接: https://arxiv.org/pdf/2602.17622v1
+摘要: LLM-based agents show promise for automating penetration testing, yet reported performance varies widely across systems and benchmarks. We analyze 28 LLM-based penetration testing systems and evaluate...
 相关链接:
-  - https://arxiv.org/abs/2602.17663v1
-  - https://arxiv.org/pdf/2602.17663v1
+  - https://arxiv.org/abs/2602.17622v1
+  - https://arxiv.org/pdf/2602.17622v1
 
 ================================================================================
 
-论文 3: MARS: Margin-Aware Reward-Modeling with Self-Refinement
+论文 3: BMC4TimeSec: Verification Of Timed Security Protocols
 ------------------------------------------------------------
-ID: 2602.17658v1
-作者: Payel Bhattacharjee, Osvaldo Simeone, Ravi Tandon
-发表时间: 2026-02-19 18:59:03
-更新时间: 2026-02-19 18:59:03
-主要分类: cs.LG
-所有分类: cs.LG, cs.AI, cs.IT
-PDF链接: https://arxiv.org/pdf/2602.17658v1
-摘要: Reward modeling is a core component of modern alignment pipelines including RLHF and RLAIF, underpinning policy optimization methods including PPO and TRPO. However, training reliable reward models re...
+ID: 2602.17590v1
+作者: Agnieszka M. Zbrzezny
+发表时间: 2026-02-19 18:12:01
+更新时间: 2026-02-19 18:12:01
+主要分类: cs.CR
+所有分类: cs.CR, cs.MA
+PDF链接: https://arxiv.org/pdf/2602.17590v1
+备注: To appear in the Proceedings of the 25th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2026), May 25 - 29, 2026, Paphos, Cyprus
+摘要: We present BMC4TimeSec, an end-to-end tool for verifying Timed Security Protocols (TSP) based on SMT-based bounded model checking and multi-agent modelling in the form of Timed Interpreted Systems (TI...
 相关链接:
-  - https://arxiv.org/abs/2602.17658v1
-  - https://arxiv.org/pdf/2602.17658v1
+  - https://arxiv.org/abs/2602.17590v1
+  - https://arxiv.org/pdf/2602.17590v1
 
 ================================================================================
 
-论文 4: Pushing the Frontier of Black-Box LVLM Attacks via Fine-Grained Detail Targeting
+论文 4: Coin selection by Random Draw according to the Boltzmann distribution
 ------------------------------------------------------------
-ID: 2602.17645v1
-作者: Xiaohan Zhao, Zhaoyi Li, Yaxin Luo, Jiacheng Cui, Zhiqiang Shen
-发表时间: 2026-02-19 18:54:32
-更新时间: 2026-02-19 18:54:32
-主要分类: cs.LG
-所有分类: cs.LG, cs.AI, cs.CL, cs.CV
-PDF链接: https://arxiv.org/pdf/2602.17645v1
-备注: Code at: https://github.com/vila-lab/M-Attack-V2
-摘要: Black-box adversarial attacks on Large Vision-Language Models (LVLMs) are challenging due to missing gradients and complex multimodal boundaries. While prior state-of-the-art transfer-based approaches...
+ID: 2602.17490v1
+作者: Jan Lennart Bönsel, Michael Maurer, Silvio Petriconi, Andrea Tundis, Marc Winstel
+发表时间: 2026-02-19 16:00:21
+更新时间: 2026-02-19 16:00:21
+主要分类: cs.CR
+所有分类: cs.CR
+PDF链接: https://arxiv.org/pdf/2602.17490v1
+备注: 11 pages, 8 figures, 1 table
+摘要: Coin selection refers to the problem of choosing a set of tokens to fund a transaction in token-based payment systems such as, e.g., cryptocurrencies or central bank digital currencies (CBDCs). In thi...
 相关链接:
-  - https://arxiv.org/abs/2602.17645v1
-  - https://arxiv.org/pdf/2602.17645v1
+  - https://arxiv.org/abs/2602.17490v1
+  - https://arxiv.org/pdf/2602.17490v1
 
 ================================================================================
 
-论文 5: FAMOSE: A ReAct Approach to Automated Feature Discovery
+论文 5: Computational Hardness of Private Coreset
 ------------------------------------------------------------
-ID: 2602.17641v1
-作者: Keith Burghardt, Jienan Liu, Sadman Sakib, Yuning Hao, Bo Li
-发表时间: 2026-02-19 18:53:15
-更新时间: 2026-02-19 18:53:15
-主要分类: cs.LG
-所有分类: cs.LG, cs.AI
-PDF链接: https://arxiv.org/pdf/2602.17641v1
-备注: 23 pages, 6 figures
-摘要: Feature engineering remains a critical yet challenging bottleneck in machine learning, particularly for tabular data, as identifying optimal features from an exponentially large feature space traditio...
+ID: 2602.17488v1
+作者: Badih Ghazi, Cristóbal Guzmán, Pritish Kamath, Alexander Knop, Ravi Kumar, Pasin Manurangsi
+发表时间: 2026-02-19 15:58:49
+更新时间: 2026-02-19 15:58:49
+主要分类: cs.CG
+所有分类: cs.CG, cs.CR, cs.DS
+PDF链接: https://arxiv.org/pdf/2602.17488v1
+摘要: We study the problem of differentially private (DP) computation of coreset for the $k$-means objective. For a given input set of points, a coreset is another set of points such that the $k$-means obje...
 相关链接:
-  - https://arxiv.org/abs/2602.17641v1
-  - https://arxiv.org/pdf/2602.17641v1
+  - https://arxiv.org/abs/2602.17488v1
+  - https://arxiv.org/pdf/2602.17488v1
 
 ================================================================================
 

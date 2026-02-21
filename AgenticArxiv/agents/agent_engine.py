@@ -16,6 +16,8 @@ from agents.prompt_templates import get_react_prompt, format_tool_description
 from utils.logger import log
 from config import settings
 
+from services.runtime import translate_runner  # <-- 新增
+
 
 class ReActAgent:
     """基于ReAct模式的Agent引擎"""
@@ -23,10 +25,9 @@ class ReActAgent:
     def __init__(self, llm_client: LLMClient):
         self.llm_client = llm_client
         self.context = ContextManager()
-        self.max_iterations = 5  # 最大迭代次数
+        self.max_iterations = 5
         self.session_id = "default"
 
-        # 确保工具被注册 - 导入工具模块
         try:
             import tools.arxiv_tool  # noqa: F401
             import tools.pdf_download_tool  # noqa: F401
@@ -38,13 +39,6 @@ class ReActAgent:
             log.warning(f"导入工具模块失败: {e}")
 
     def parse_llm_response(self, response: str) -> Tuple[str, Optional[Dict[str, Any]]]:
-        """
-        解析LLM的响应,提取Thought和Action
-
-        Returns:
-            Tuple[thought, action_dict]
-            action_dict为None表示FINISH
-        """
         log.debug(f"解析LLM响应: {response[:200]}...")
 
         thought_match = re.search(
@@ -115,7 +109,7 @@ class ReActAgent:
                 return thought, {"name": tool_name, "args": args}
 
         log.error(f"无法解析Action: {action_text}")
-        return thought, None  # FINISH
+        return thought, None
 
     def execute_action(self, action_dict: Dict[str, Any]) -> str:
         """执行动作并返回观察结果"""
@@ -139,6 +133,27 @@ class ReActAgent:
                 available_tools_str = ", ".join(available_tools)
                 return f"错误: 工具 '{tool_name}' 不存在。可用工具包括: {available_tools_str}"
 
+            # --- 关键：翻译工具改为异步 enqueue（不阻塞 /chat） ---
+            if tool_name == "translate_arxiv_pdf":
+                # 兼容工具参数（ref/paper_id/pdf_url/input_pdf_path）
+                t = translate_runner.enqueue(
+                    session_id=self.session_id,
+                    ref=args.get("ref", None),
+                    force=bool(args.get("force", False)),
+                    service=args.get("service") or settings.pdf2zh_service,
+                    threads=int(args.get("threads") or settings.pdf2zh_threads),
+                    keep_dual=bool(args.get("keep_dual", False)),
+                    paper_id=args.get("paper_id"),
+                    pdf_url=args.get("pdf_url"),
+                    input_pdf_path=args.get("input_pdf_path"),
+                )
+                return (
+                    f"已创建翻译任务 task_id={t.task_id}, paper_id={t.paper_id}，状态={t.status}。"
+                    f"前端可订阅 SSE: /events?session_id={self.session_id}，"
+                    f"任务完成后刷新 /translate/assets 或 /pdf/assets。"
+                )
+
+            # 其它工具仍同步执行
             result = registry.execute_tool(tool_name, args)
 
             # 加固：如果工具返回 paper_id，则同步写入 last_active_paper_id
@@ -157,15 +172,21 @@ class ReActAgent:
                         store.set_last_papers(self.session_id, papers_obj)
 
                         papers_count = len(result)
-                        paper_titles = [paper.get("title", "无标题") for paper in result[:3]]
-                        titles_str = "\n".join([f"  - {title}" for title in paper_titles])
+                        paper_titles = [
+                            paper.get("title", "无标题") for paper in result[:3]
+                        ]
+                        titles_str = "\n".join(
+                            [f"  - {title}" for title in paper_titles]
+                        )
 
                         if papers_count > 3:
                             return f"成功获取 {papers_count} 篇论文。示例论文:\n{titles_str}\n  ... 还有 {papers_count - 3} 篇论文"
                         else:
                             return f"成功获取 {papers_count} 篇论文:\n{titles_str}"
                     else:
-                        return "未获取到任何论文记录，请尝试调整搜索参数（如增加天数范围）"
+                        return (
+                            "未获取到任何论文记录，请尝试调整搜索参数（如增加天数范围）"
+                        )
                 else:
                     return f"工具返回结果格式异常: {type(result)}"
 
@@ -184,7 +205,9 @@ class ReActAgent:
             log.error(error_msg, exc_info=True)
             return error_msg
 
-    def run(self, task: str, agent_model: str = None, session_id: str = "default") -> Dict[str, Any]:
+    def run(
+        self, task: str, agent_model: str = None, session_id: str = "default"
+    ) -> Dict[str, Any]:
         log.info(f"开始执行任务: {task}")
         self.session_id = session_id
 
@@ -233,9 +256,13 @@ class ReActAgent:
                     break
 
                 observation = self.execute_action(action_dict)
-                log.info(f"Observation: {observation[:100]}...")
+                log.info(f"Observation: {observation[:200]}...")
 
-                self.context.add_step(thought, json.dumps(action_dict, ensure_ascii=False), observation)
+                self.context.add_step(
+                    thought,
+                    json.dumps(action_dict, ensure_ascii=False),
+                    observation,
+                )
 
                 if iteration == self.max_iterations - 1:
                     log.warning("达到最大迭代次数，强制结束")
@@ -251,9 +278,11 @@ class ReActAgent:
         result = {
             "task": task,
             "history": self.context.get_full_history(),
-            "final_observation": self.context.history[-1].observation if self.context.history else "无执行结果",
+            "final_observation": self.context.history[-1].observation
+            if self.context.history
+            else "无执行结果",
         }
 
         log.info(f"任务执行完成，共 {len(self.context.history)} 步")
-        log.info("-" * 50)
+        log.info("-" * 80)
         return result
