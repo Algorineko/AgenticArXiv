@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import os
 from datetime import datetime
-from typing import Dict, Any, Optional, Union
+from typing import Dict, Any, Optional, Union, Callable
 
 from tools.tool_registry import registry
 from models.store import store
@@ -18,7 +18,6 @@ from utils.pdf_downloader import (
 )
 from utils.pdf_translator import run_pdf2zh_translate
 from config import settings
-from utils.logger import log
 
 
 def _fallback_pdf_url(paper_id: str) -> str:
@@ -116,6 +115,8 @@ def translate_arxiv_pdf(
     paper_id: Optional[str] = None,
     pdf_url: Optional[str] = None,
     input_pdf_path: Optional[str] = None,
+    # ✅ 新增：内部进度回调（异步任务用；HTTP 同步接口不传也不影响）
+    progress_cb: Optional[Callable[[float, Optional[Dict[str, Any]]], None]] = None,
 ) -> Dict[str, Any]:
     """
     翻译 PDF(全文)，输出到 settings.pdf_translated_path
@@ -127,23 +128,35 @@ def translate_arxiv_pdf(
     service = service or settings.pdf2zh_service
     threads = int(threads or settings.pdf2zh_threads)
 
+    def _emit(p: float, detail: Optional[Dict[str, Any]] = None) -> None:
+        if not progress_cb:
+            return
+        try:
+            if p < 0:
+                p = 0.0
+            if p > 1:
+                p = 1.0
+            progress_cb(float(p), detail or {})
+        except Exception:
+            pass
+
+    _emit(0.02, {"stage": "prepare", "msg": "start resolve inputs"})
+
     # 允许三种入口：
     # 1) input_pdf_path
     # 2) paper_id/pdf_url
     # 3) ref（含 ref=null -> last_active）
     if ref is None and not paper_id and not input_pdf_path:
-        # 指代：最近一次操作的论文
         last_id = store.get_last_active_paper_id(session_id)
         if not last_id:
             raise ValueError("未找到指代对象：请先下载/翻译/查状态某篇论文，或明确提供 ref（序号/id/标题）")
         paper_id = last_id
 
-        # 尝试从 cache/短期记忆拿到更准确的 pdf_url
         pdf_asset = store.get_pdf_asset(paper_id)
         if pdf_asset and pdf_asset.pdf_url:
             pdf_url = pdf_asset.pdf_url
         else:
-            paper = store.resolve_paper(session_id, paper_id)  # 可能 None（last_papers 过期）
+            paper = store.resolve_paper(session_id, paper_id)
             pdf_url = (paper.pdf_url if paper else None) or _fallback_pdf_url(paper_id)
 
     # 1) 确定 paper_id / pdf_url / input_pdf_path
@@ -151,9 +164,9 @@ def translate_arxiv_pdf(
         in_path = input_pdf_path
         if not paper_id:
             paper_id = os.path.splitext(os.path.basename(in_path))[0]
+        _emit(0.10, {"stage": "pdf_ready", "msg": "use local input_pdf_path"})
     else:
         if not paper_id:
-            # 依赖 session 短期记忆解析 ref
             paper = store.resolve_paper(session_id, ref)
             if paper is None:
                 raise ValueError(
@@ -162,12 +175,13 @@ def translate_arxiv_pdf(
             paper_id = paper.id
             pdf_url = paper.pdf_url or _fallback_pdf_url(paper_id)
 
+        _emit(0.05, {"stage": "downloading", "msg": "ensure raw pdf"})
         in_path = _ensure_pdf_downloaded_by_id(paper_id, pdf_url, force=force)
+        _emit(0.10, {"stage": "pdf_ready", "msg": "raw pdf ready"})
 
-    # 一旦确定 paper_id，就更新 last_active（不区分下载/翻译，只要“操作了”就更新）
     store.set_last_active_paper_id(session_id, paper_id)
 
-    # 2) 计算输出路径
+    # 2) 输出路径
     os.makedirs(settings.pdf_translated_path, exist_ok=True)
     mono_path = os.path.join(settings.pdf_translated_path, f"{paper_id}-mono.pdf")
     dual_path = os.path.join(settings.pdf_translated_path, f"{paper_id}-dual.pdf")
@@ -204,6 +218,7 @@ def translate_arxiv_pdf(
                 translated_at=asset.translated_at or datetime.now(),
                 error=None,
             )
+        _emit(1.0, {"stage": "done", "msg": "cache hit"})
         return {
             "session_id": session_id,
             "paper_id": paper_id,
@@ -244,7 +259,24 @@ def translate_arxiv_pdf(
                 error=None,
             )
 
-        # 调 pdf2zh（输出目录固定为 settings.pdf_translated_path）
+        _emit(0.12, {"stage": "translating", "msg": "pdf2zh start"})
+
+        # 把 pdf2zh 的 0~1 映射到任务总体进度：0.12 ~ 0.98
+        def _on_pdf2zh(p: float, detail: Optional[Dict[str, Any]] = None) -> None:
+            # clamp
+            try:
+                pp = float(p)
+            except Exception:
+                return
+            if pp < 0:
+                pp = 0.0
+            if pp > 1:
+                pp = 1.0
+            overall = 0.12 + 0.86 * pp
+            d = detail or {}
+            d.setdefault("stage", "translating")
+            _emit(overall, d)
+
         res = run_pdf2zh_translate(
             pdf2zh_bin=settings.pdf2zh_bin,
             input_pdf=in_path,
@@ -253,7 +285,10 @@ def translate_arxiv_pdf(
             threads=threads,
             keep_dual=keep_dual,
             log_path=log_path,
+            progress_cb=_on_pdf2zh,
         )
+
+        _emit(0.985, {"stage": "finalizing", "msg": "rename outputs"})
 
         # pdf2zh 实际输出名可能是 stem-mono / stem-zh，这里统一成 {paper_id}-mono.pdf
         if res.mono_path != mono_path:
@@ -278,6 +313,8 @@ def translate_arxiv_pdf(
             translated_at=datetime.now(),
             error=None,
         )
+
+        _emit(0.99, {"stage": "finalizing", "msg": "done"})
 
         return {
             "session_id": session_id,

@@ -3,15 +3,13 @@ from __future__ import annotations
 
 import os
 import threading
-from typing import Optional, Union, Dict, Any
+import time
+from typing import Optional, Union, Dict, Any, Callable
 
 from models.store import store
 from models.schemas import TranslateTask, Paper
 from config import settings
 from utils.logger import log
-
-# 直接调用工具实现（同步函数），放到后台线程跑
-from tools.pdf_translate_tool import translate_arxiv_pdf
 
 
 def _fallback_pdf_url(paper_id: str) -> str:
@@ -111,10 +109,9 @@ class TranslateRunner:
         purl: Optional[str] = resolved["pdf_url"]
         in_path: Optional[str] = resolved["input_pdf_path"]
 
-        # 更新 last_active（创建任务也算操作）
         store.set_last_active_paper_id(sid, pid)
 
-        # 若已经 READY 且不 force：直接创建一个 SUCCEEDED 任务并发事件（不启动线程）
+        # READY 且不 force：fast-path
         asset = store.get_translate_asset(pid)
         if (
             (not force)
@@ -146,23 +143,15 @@ class TranslateRunner:
             task_obj = store.get_task(t.task_id)
             self.event_bus.publish(
                 sid,
-                {
-                    "type": "task_created",
-                    "kind": "translate",
-                    "task": task_obj.model_dump(),
-                },
+                {"type": "task_created", "kind": "translate", "task": task_obj.model_dump()},
             )
             self.event_bus.publish(
                 sid,
-                {
-                    "type": "task_succeeded",
-                    "kind": "translate",
-                    "task": task_obj.model_dump(),
-                },
+                {"type": "task_succeeded", "kind": "translate", "task": task_obj.model_dump()},
             )
             return task_obj
 
-        # 正常创建 PENDING 任务
+        # 正常创建 PENDING
         t = store.create_translate_task(
             session_id=sid,
             paper_id=pid,
@@ -178,14 +167,9 @@ class TranslateRunner:
         task_obj = store.get_task(t.task_id)
         self.event_bus.publish(
             sid,
-            {
-                "type": "task_created",
-                "kind": "translate",
-                "task": task_obj.model_dump(),
-            },
+            {"type": "task_created", "kind": "translate", "task": task_obj.model_dump()},
         )
 
-        # 启动后台线程
         th = threading.Thread(
             target=self._run_task_thread,
             kwargs=dict(
@@ -220,19 +204,62 @@ class TranslateRunner:
         keep_dual: bool,
     ) -> None:
         sid = session_id or "default"
+
+        # ✅ 每个任务独立节流，避免 SSE 太密
+        last_sent_p = 0.0
+        last_sent_t = 0.0
+
+        def publish_progress(p: float, detail: Optional[Dict[str, Any]] = None) -> None:
+            """
+            p: 0~1 的绝对进度（我们在 translate_arxiv_pdf 内部映射好阶段）
+            """
+            nonlocal last_sent_p, last_sent_t
+
+            try:
+                pp = float(p)
+            except Exception:
+                return
+            if pp < 0:
+                pp = 0.0
+            if pp > 0.99:
+                pp = 0.99  # SUCCEEDED 再设 1.0
+
+            now = time.time()
+            # 至少提升 1% 或者间隔>=0.5s 才推送（两者满足其一）
+            if (pp - last_sent_p) < 0.01 and (now - last_sent_t) < 0.5:
+                return
+            if pp <= last_sent_p and (now - last_sent_t) < 1.5:
+                return
+
+            last_sent_p = max(last_sent_p, pp)
+            last_sent_t = now
+
+            try:
+                store.update_task(task_id, status="RUNNING", progress=last_sent_p, error=None)
+                cur = store.get_task(task_id)
+                self.event_bus.publish(
+                    sid,
+                    {
+                        "type": "task_progress",
+                        "kind": "translate",
+                        "task": cur.model_dump(),
+                        "detail": detail or {},
+                    },
+                )
+            except Exception:
+                return
+
         try:
             store.update_task(task_id, status="RUNNING", progress=0.01, error=None)
             started = store.get_task(task_id)
             self.event_bus.publish(
                 sid,
-                {
-                    "type": "task_started",
-                    "kind": "translate",
-                    "task": started.model_dump(),
-                },
+                {"type": "task_started", "kind": "translate", "task": started.model_dump()},
             )
 
-            # 真正执行翻译（同步函数，在线程里跑）
+            # ✅ 关键：把 progress_cb 传给 translate_arxiv_pdf（由它从子进程输出解析进度）
+            from tools.pdf_translate_tool import translate_arxiv_pdf
+
             res = translate_arxiv_pdf(
                 session_id=sid,
                 ref=None,
@@ -243,6 +270,7 @@ class TranslateRunner:
                 paper_id=paper_id,
                 pdf_url=pdf_url,
                 input_pdf_path=input_pdf_path,
+                progress_cb=publish_progress,
             )
 
             store.update_task(
@@ -254,14 +282,9 @@ class TranslateRunner:
                 error=None,
             )
             done = store.get_task(task_id)
-
             self.event_bus.publish(
                 sid,
-                {
-                    "type": "task_succeeded",
-                    "kind": "translate",
-                    "task": done.model_dump(),
-                },
+                {"type": "task_succeeded", "kind": "translate", "task": done.model_dump()},
             )
 
         except Exception as e:
@@ -270,11 +293,7 @@ class TranslateRunner:
             failed = store.get_task(task_id)
             self.event_bus.publish(
                 sid,
-                {
-                    "type": "task_failed",
-                    "kind": "translate",
-                    "task": failed.model_dump(),
-                },
+                {"type": "task_failed", "kind": "translate", "task": failed.model_dump()},
             )
 
         finally:

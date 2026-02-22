@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "updated_at": "2026-02-22T02:02:35.600485",
+  "updated_at": "2026-02-22T23:43:08.132668",
   "assets": {
-    "2602.16306v1": {
-      "paper_id": "2602.16306v1",
-      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.16306v1.pdf",
-      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.16306v1-mono.pdf",
+    "2602.17664v1": {
+      "paper_id": "2602.17664v1",
+      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17664v1.pdf",
+      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17664v1-mono.pdf",
       "output_dual_path": null,
       "status": "READY",
       "service": "bing",
       "threads": 4,
-      "translated_at": "2026-02-20T02:24:34.292767",
-      "updated_at": "2026-02-20T02:24:34.292833",
+      "translated_at": "2026-02-22T23:21:03.735677",
+      "updated_at": "2026-02-22T23:21:03.735737",
       "error": null
     },
     "2602.17663v1": {
@@ -22,20 +22,8 @@
       "status": "READY",
       "service": "bing",
       "threads": 4,
-      "translated_at": "2026-02-20T23:26:06.687002",
-      "updated_at": "2026-02-20T23:26:06.687082",
-      "error": null
-    },
-    "2602.17664v1": {
-      "paper_id": "2602.17664v1",
-      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17664v1.pdf",
-      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17664v1-mono.pdf",
-      "output_dual_path": null,
-      "status": "READY",
-      "service": "bing",
-      "threads": 4,
-      "translated_at": "2026-02-21T02:15:15.879190",
-      "updated_at": "2026-02-21T02:15:15.879265",
+      "translated_at": "2026-02-22T23:24:27.768603",
+      "updated_at": "2026-02-22T23:24:27.768617",
       "error": null
     },
     "2602.17658v1": {
@@ -46,32 +34,8 @@
       "status": "READY",
       "service": "bing",
       "threads": 4,
-      "translated_at": "2026-02-21T15:37:55.617178",
-      "updated_at": "2026-02-21T15:37:55.617253",
-      "error": null
-    },
-    "2602.17645v1": {
-      "paper_id": "2602.17645v1",
-      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17645v1.pdf",
-      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17645v1-mono.pdf",
-      "output_dual_path": null,
-      "status": "FAILED",
-      "service": "bing",
-      "threads": 4,
-      "translated_at": null,
-      "updated_at": "2026-02-22T01:49:47.323779",
-      "error": "Command '['/home/dev/miniconda3/envs/agent/bin/pdf2zh', '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17645v1.pdf', '-s', 'bing', '-o', '/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated', '-t', '4']' returned non-zero exit status 1."
-    },
-    "2602.17651v1": {
-      "paper_id": "2602.17651v1",
-      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17651v1.pdf",
-      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17651v1-mono.pdf",
-      "output_dual_path": null,
-      "status": "READY",
-      "service": "bing",
-      "threads": 4,
-      "translated_at": "2026-02-22T02:02:35.600396",
-      "updated_at": "2026-02-22T02:02:35.600478",
+      "translated_at": "2026-02-22T23:43:08.132654",
+      "updated_at": "2026-02-22T23:43:08.132666",
       "error": null
     }
   }

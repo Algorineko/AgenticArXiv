@@ -41,13 +41,15 @@ export function openEventsSse(apiBase: string, sessionId: string, opts: OpenSseO
     }
   };
 
-  // 你的后端 _sse_pack 会把 obj.type 作为 event 名
+  // 后端 _sse_pack 会把 obj.type 作为 event 名
   const eventNames = [
     "connected",
     "task_created",
     "task_started",
+    "task_progress",
     "task_succeeded",
     "task_failed",
+    "event_bus_error",
     "error",
     "message",
   ];
