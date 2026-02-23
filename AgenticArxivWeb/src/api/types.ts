@@ -103,13 +103,29 @@ export interface TranslateAssetsResponse {
   assets: TranslateAsset[];
 }
 
+// 删除接口返回
+export type DeleteKind = "pdf" | "translate";
+
+export interface DeleteAssetResponse {
+  kind: DeleteKind;
+  paper_id: string;
+  removed_cache: boolean;
+  deleted_files: string[];
+  warnings: string[];
+}
+
 // SSE envelope：event_bus.publish 的结构
 export interface SseEnvelope {
-  type: string; // connected / task_created / task_started / task_succeeded / task_failed / ...
+  type: string; // connected / task_created / task_started / task_succeeded / task_failed / asset_deleted / ...
   session_id?: string;
 
-  kind?: string; // translate
+  kind?: string; // translate / pdf / ...
   task?: TranslateTask;
+
+  // 删除事件（asset_deleted）会用到
+  paper_id?: string;
+  deleted_files?: string[];
+  warnings?: string[];
 
   message?: string;
   [k: string]: any;

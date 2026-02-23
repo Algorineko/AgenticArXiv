@@ -74,7 +74,7 @@
       </div>
     </footer>
 
-    <!-- ✅ 弹出框展示调试详情 -->
+    <!-- 弹出框展示调试详情 -->
     <Modal
       :open="showDebug"
       title="调试：最近一次 ReAct history"

@@ -11,6 +11,7 @@ import type {
   ReactStep,
   TranslateTask,
   SseEnvelope,
+  DeleteAssetResponse,
 } from "@/api/types";
 
 export interface ChatMessage {
@@ -170,6 +171,13 @@ export const useAppStore = defineStore("app", {
       if (this.tasks.length > 50) this.tasks.length = 50;
     },
 
+    _removePdfAssetLocal(paperId: string) {
+      this.pdfAssets = (this.pdfAssets || []).filter((x) => x.paper_id !== paperId);
+    },
+    _removeTranslateAssetLocal(paperId: string) {
+      this.translateAssets = (this.translateAssets || []).filter((x) => x.paper_id !== paperId);
+    },
+
     async _handleSseEvent(evt: SseEnvelope) {
       if (!evt || typeof evt !== "object") return;
 
@@ -178,6 +186,14 @@ export const useAppStore = defineStore("app", {
 
       if (evt.type === "connected") {
         this.sseStatus = "connected";
+        return;
+      }
+
+      // 删除事件：尽量本地移除，必要时再刷新一次
+      if (evt.type === "asset_deleted" && evt.paper_id) {
+        const kind = String(evt.kind || "").toLowerCase();
+        if (kind === "pdf") this._removePdfAssetLocal(evt.paper_id);
+        if (kind === "translate") this._removeTranslateAssetLocal(evt.paper_id);
         return;
       }
 
@@ -251,7 +267,7 @@ export const useAppStore = defineStore("app", {
         this.pdfAssets = data.pdf_assets || [];
         this.translateAssets = data.translate_assets || [];
 
-        // ✅ /chat 返回 tasks 快照：用于兜底（即使 SSE 短暂未连上也能看到任务）
+        // /chat 返回 tasks 快照：用于兜底（即使 SSE 短暂未连上也能看到任务）
         if (Array.isArray(data.tasks)) {
           for (const t of data.tasks) this._upsertTask(t);
         }
@@ -279,6 +295,56 @@ export const useAppStore = defineStore("app", {
         this.translateAssets = resp.data?.assets || [];
       } catch {
         // ignore
+      }
+    },
+
+    // ---------------- 删除功能 ----------------
+    async deletePdfAsset(paperId: string) {
+      const pid = (paperId || "").trim();
+      if (!pid) return;
+
+      this.lastError = "";
+
+      try {
+        // axios.delete 的第二参是 config
+        const resp = await api.delete<DeleteAssetResponse>(`/pdf/assets/${encodeURIComponent(pid)}`, {
+          params: { session_id: this.sessionId },
+        });
+
+        // 本地先移除（更丝滑）
+        this._removePdfAssetLocal(pid);
+
+        // 再拉一次，以防后端同步删了别的（如 .part/.lock）
+        await this.fetchPdfAssets();
+
+        return resp.data;
+      } catch (e: any) {
+        const msg = e?.response?.data?.detail || e?.message || String(e);
+        this.lastError = msg;
+        throw new Error(msg);
+      }
+    },
+
+    async deleteTranslateAsset(paperId: string) {
+      const pid = (paperId || "").trim();
+      if (!pid) return;
+
+      this.lastError = "";
+
+      try {
+        const resp = await api.delete<DeleteAssetResponse>(
+          `/translate/assets/${encodeURIComponent(pid)}`,
+          { params: { session_id: this.sessionId } }
+        );
+
+        this._removeTranslateAssetLocal(pid);
+        await this.fetchTranslateAssets();
+
+        return resp.data;
+      } catch (e: any) {
+        const msg = e?.response?.data?.detail || e?.message || String(e);
+        this.lastError = msg;
+        throw new Error(msg);
       }
     },
 
@@ -310,13 +376,13 @@ export const useAppStore = defineStore("app", {
     async translatePaper(refIndex1based: number) {
       const tip = `准备翻译第${refIndex1based}篇论文（若未下载将自动先下载再翻译）`;
 
-      // ✅ preferAgent：走 /chat（后端已把 translate_arxiv_pdf 改为 enqueue 异步）
+      // preferAgent：走 /chat（后端已把 translate_arxiv_pdf 改为 enqueue 异步）
       if (this.preferAgent) {
         await this.sendChat(`${tip}。请开始翻译并输出中文PDF。`);
         return;
       }
 
-      // ✅ 不走 agent：直接调用 /pdf/translate/async（立即返回 task，进度靠 SSE）
+      // 不走 agent：直接调用 /pdf/translate/async（立即返回 task，进度靠 SSE）
       this.ensureSse();
 
       this.loading = true;

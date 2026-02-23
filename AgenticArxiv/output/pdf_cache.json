@@ -1,40 +1,7 @@
 {
   "version": 1,
-  "updated_at": "2026-02-23T17:57:58.810358",
+  "updated_at": "2026-02-23T21:53:34.521259",
   "assets": {
-    "2602.17664v1": {
-      "paper_id": "2602.17664v1",
-      "pdf_url": "https://arxiv.org/pdf/2602.17664v1.pdf",
-      "local_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17664v1.pdf",
-      "status": "READY",
-      "size_bytes": 678010,
-      "sha256": "120360e43c2cc80c1e15a331de9b8c21a639c78c3411567c6a2de3614a074752",
-      "downloaded_at": "2026-02-22T23:20:32.408663",
-      "updated_at": "2026-02-22T23:20:32.408728",
-      "error": null
-    },
-    "2602.17663v1": {
-      "paper_id": "2602.17663v1",
-      "pdf_url": "https://arxiv.org/pdf/2602.17663v1.pdf",
-      "local_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17663v1.pdf",
-      "status": "READY",
-      "size_bytes": 570423,
-      "sha256": "de1329a6bbbe28a49625608eb8aa30b924a147ab8defc351320bf7ce1c1e4fe3",
-      "downloaded_at": "2026-02-22T23:24:12.184624",
-      "updated_at": "2026-02-22T23:24:12.184656",
-      "error": null
-    },
-    "2602.17658v1": {
-      "paper_id": "2602.17658v1",
-      "pdf_url": "https://arxiv.org/pdf/2602.17658v1.pdf",
-      "local_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17658v1.pdf",
-      "status": "READY",
-      "size_bytes": 5037466,
-      "sha256": "b66f56258a42af28a71776fad53e3bdd2759c9200fadadd67580efb2fb8ef0cc",
-      "downloaded_at": "2026-02-22T23:42:36.654427",
-      "updated_at": "2026-02-22T23:42:36.654453",
-      "error": null
-    },
     "2602.18409v1": {
       "paper_id": "2602.18409v1",
       "pdf_url": "https://arxiv.org/pdf/2602.18409v1.pdf",
@@ -42,8 +9,8 @@
       "status": "READY",
       "size_bytes": 441796,
       "sha256": "07f2adbf6f6adbf11a827a3d2118ec32fa3516378e2d6d0ffe547f1e4e43afca",
-      "downloaded_at": "2026-02-23T17:57:58.810290",
-      "updated_at": "2026-02-23T17:57:58.810354",
+      "downloaded_at": "2026-02-23T21:53:34.521194",
+      "updated_at": "2026-02-23T21:53:34.521256",
       "error": null
     }
   }

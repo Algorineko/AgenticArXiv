@@ -49,6 +49,7 @@ export function openEventsSse(apiBase: string, sessionId: string, opts: OpenSseO
     "task_progress",
     "task_succeeded",
     "task_failed",
+    "asset_deleted",
     "event_bus_error",
     "error",
     "message",

@@ -1,41 +1,17 @@
 {
   "version": 1,
-  "updated_at": "2026-02-22T23:43:08.132668",
+  "updated_at": "2026-02-23T21:56:40.691324",
   "assets": {
-    "2602.17664v1": {
-      "paper_id": "2602.17664v1",
-      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17664v1.pdf",
-      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17664v1-mono.pdf",
+    "2602.18409v1": {
+      "paper_id": "2602.18409v1",
+      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.18409v1.pdf",
+      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.18409v1-mono.pdf",
       "output_dual_path": null,
       "status": "READY",
       "service": "bing",
       "threads": 4,
-      "translated_at": "2026-02-22T23:21:03.735677",
-      "updated_at": "2026-02-22T23:21:03.735737",
-      "error": null
-    },
-    "2602.17663v1": {
-      "paper_id": "2602.17663v1",
-      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17663v1.pdf",
-      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17663v1-mono.pdf",
-      "output_dual_path": null,
-      "status": "READY",
-      "service": "bing",
-      "threads": 4,
-      "translated_at": "2026-02-22T23:24:27.768603",
-      "updated_at": "2026-02-22T23:24:27.768617",
-      "error": null
-    },
-    "2602.17658v1": {
-      "paper_id": "2602.17658v1",
-      "input_pdf_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_raw/2602.17658v1.pdf",
-      "output_mono_path": "/home/dev/AgenticDemo/AgenticArxiv/output/pdf_translated/2602.17658v1-mono.pdf",
-      "output_dual_path": null,
-      "status": "READY",
-      "service": "bing",
-      "threads": 4,
-      "translated_at": "2026-02-22T23:43:08.132654",
-      "updated_at": "2026-02-22T23:43:08.132666",
+      "translated_at": "2026-02-23T21:56:40.691265",
+      "updated_at": "2026-02-23T21:56:40.691320",
       "error": null
     }
   }

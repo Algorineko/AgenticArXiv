@@ -149,6 +149,10 @@ class InMemoryStore:
         with self._lock:
             return self.pdf_cache.update(paper_id, save=True, **kwargs)
 
+    def delete_pdf_asset(self, paper_id: str) -> bool:
+        with self._lock:
+            return self.pdf_cache.delete(paper_id, save=True)
+
     # -------- Translate cache (thread-safe wrapper) --------
     def get_translate_asset(self, paper_id: str) -> Optional[TranslateAsset]:
         with self._lock:
@@ -163,6 +167,10 @@ class InMemoryStore:
     ) -> Optional[TranslateAsset]:
         with self._lock:
             return self.translate_cache.update(paper_id, save=True, **kwargs)
+
+    def delete_translate_asset(self, paper_id: str) -> bool:
+        with self._lock:
+            return self.translate_cache.delete(paper_id, save=True)
 
     # -------- tasks --------
     def create_translate_task(

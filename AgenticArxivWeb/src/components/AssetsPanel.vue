@@ -1,10 +1,20 @@
 <template>
   <section class="card assets">
     <header class="card-header">
-      <div class="title">下载/翻译缓存</div>
-      <p class="muted">
-        PDF: {{ pdfList.length }} 条 · 翻译: {{ trList.length }} 条 · 任务: {{ store.tasks.length }} 条
-      </p>
+      <div class="head">
+        <div>
+          <div class="title">下载/翻译缓存</div>
+          <p class="muted">
+            PDF: {{ pdfList.length }} 条 · 翻译: {{ trList.length }} 条 · 任务: {{ store.tasks.length }} 条
+          </p>
+        </div>
+
+        <div class="head-actions">
+          <button class="btn" @click="store.refreshSnapshot()" :disabled="store.loading">刷新</button>
+        </div>
+      </div>
+
+      <p v-if="store.lastError" class="errline">⚠ {{ store.lastError }}</p>
     </header>
 
     <div class="lists">
@@ -41,8 +51,31 @@
           <div v-for="a in pdfList" :key="a.paper_id" class="item">
             <div class="item-top">
               <div class="mono id">{{ a.paper_id }}</div>
-              <span class="pill ok">READY</span>
+
+              <div class="right-actions">
+                <span class="pill ok">READY</span>
+
+                <!-- 删除已下载 -->
+                <button
+                  class="btn icon small danger"
+                  title="删除已下载 PDF（raw）"
+                  aria-label="删除已下载 PDF"
+                  :disabled="store.loading"
+                  @click="onDeletePdf(a.paper_id)"
+                >
+                  <!-- trash icon -->
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18"></path>
+                    <path d="M8 6V4h8v2"></path>
+                    <path d="M6 6l1 16h10l1-16"></path>
+                    <path d="M10 11v6"></path>
+                    <path d="M14 11v6"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
+
             <div class="sub mono">path: {{ a.local_path }}</div>
             <div class="sub">
               size: {{ formatBytes(a.size_bytes) }} · updated: {{ a.updated_at }}
@@ -60,8 +93,31 @@
           <div v-for="t in trList" :key="t.paper_id" class="item">
             <div class="item-top">
               <div class="mono id">{{ t.paper_id }}</div>
-              <span class="pill ok">READY</span>
+
+              <div class="right-actions">
+                <span class="pill ok">READY</span>
+
+                <!-- 删除已翻译 -->
+                <button
+                  class="btn icon small danger"
+                  title="删除已翻译 PDF（mono/dual/log）"
+                  aria-label="删除已翻译 PDF"
+                  :disabled="store.loading"
+                  @click="onDeleteTranslate(t.paper_id)"
+                >
+                  <!-- trash icon -->
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18"></path>
+                    <path d="M8 6V4h8v2"></path>
+                    <path d="M6 6l1 16h10l1-16"></path>
+                    <path d="M10 11v6"></path>
+                    <path d="M14 11v6"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
+
             <div class="sub mono">out: {{ t.output_mono_path }}</div>
             <div class="sub">
               threads: {{ t.threads }} · updated: {{ t.updated_at }}
@@ -114,6 +170,28 @@ function statusClass(s: string) {
   if (x.includes("RUN")) return "warn";
   return "neutral";
 }
+
+async function onDeletePdf(paperId: string) {
+  const ok = window.confirm(`确认删除已下载 PDF？\n\npaper_id=${paperId}\n\n(只删除 raw PDF 与 pdf_cache.json 记录，不删除翻译结果)`);
+  if (!ok) return;
+
+  try {
+    await store.deletePdfAsset(paperId);
+  } catch {
+    // store.lastError 已写入
+  }
+}
+
+async function onDeleteTranslate(paperId: string) {
+  const ok = window.confirm(`确认删除已翻译 PDF？\n\npaper_id=${paperId}\n\n(会删除 mono/dual/log 与 translate_cache.json 记录，不删除 raw PDF)`);
+  if (!ok) return;
+
+  try {
+    await store.deleteTranslateAsset(paperId);
+  } catch {
+    // store.lastError 已写入
+  }
+}
 </script>
 
 <style scoped>
@@ -130,8 +208,27 @@ function statusClass(s: string) {
   border-bottom: 1px solid var(--border);
 }
 
+.head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 12px;
+}
+
+.head-actions{
+  display:flex;
+  gap: 8px;
+  align-items:center;
+}
+
 .title { font-weight: 700; margin-bottom: 6px; }
 .muted { color: var(--muted); margin: 0; font-size: 12px; }
+
+.errline{
+  margin: 8px 0 0;
+  color: #ff6b6b;
+  font-size: 12px;
+}
 
 /* 三块列表：任务 + 下载 + 翻译 */
 .lists {
@@ -180,6 +277,12 @@ function statusClass(s: string) {
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 4px;
+}
+
+.right-actions{
+  display:flex;
+  align-items:center;
+  gap: 8px;
 }
 
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }

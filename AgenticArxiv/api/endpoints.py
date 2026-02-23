@@ -2,11 +2,12 @@
 from __future__ import annotations
 
 import json
+import os
 import queue
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Literal
 
 from tools.tool_registry import registry
 from models.schemas import Paper, TranslateTask
@@ -16,6 +17,7 @@ from models.translate_cache import TranslateAsset
 from utils.logger import log
 
 from services.runtime import event_bus, translate_runner
+from config import settings
 
 
 router = APIRouter()
@@ -175,6 +177,17 @@ class PdfAssetsResponse(BaseModel):
 
 class TranslateAssetsResponse(BaseModel):
     assets: List[TranslateAsset]
+
+
+DeleteKind = Literal["pdf", "translate"]
+
+
+class DeleteAssetResponse(BaseModel):
+    kind: DeleteKind
+    paper_id: str
+    removed_cache: bool
+    deleted_files: List[str] = Field(default_factory=list)
+    warnings: List[str] = Field(default_factory=list)
 
 
 # ---------------- SSE ----------------
@@ -470,3 +483,192 @@ def list_translate_assets() -> TranslateAssetsResponse:
         store.translate_cache.assets.values(), key=lambda x: x.updated_at, reverse=True
     )
     return TranslateAssetsResponse(assets=list(assets))
+
+
+# ---------------- delete helpers ----------------
+def _is_under_root(path: str, root: str) -> bool:
+    ap = os.path.abspath(path)
+    ar = os.path.abspath(root)
+    try:
+        return os.path.commonpath([ap, ar]) == ar
+    except Exception:
+        return False
+
+
+def _safe_remove_file(
+    path: Optional[str], root: str, deleted: List[str], warnings: List[str]
+) -> None:
+    if not path:
+        return
+    ap = os.path.abspath(path)
+    if not _is_under_root(ap, root):
+        raise HTTPException(
+            status_code=400, detail=f"拒绝删除：路径不在允许目录内: {ap}"
+        )
+    if not os.path.exists(ap):
+        return
+    try:
+        if os.path.isdir(ap):
+            raise HTTPException(
+                status_code=400, detail=f"拒绝删除目录（仅允许文件）: {ap}"
+            )
+        os.remove(ap)
+        deleted.append(ap)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"删除文件失败: {ap}, err={e}")
+
+
+def _has_active_task_for_paper(paper_id: str) -> bool:
+    # 尽量覆盖：active = PENDING/RUNNING
+    tasks = store.list_tasks(session_id=None, limit=10000)
+    for t in tasks:
+        if t.paper_id == paper_id and t.status in ("PENDING", "RUNNING"):
+            return True
+    return False
+
+
+# ---------------- delete endpoints (not tools) ----------------
+@router.delete("/pdf/assets/{paper_id}", response_model=DeleteAssetResponse)
+def delete_pdf_asset(
+    paper_id: str,
+    session_id: str = Query(
+        default="default", description="用于 SSE 广播删除事件（可选）"
+    ),
+) -> DeleteAssetResponse:
+    """
+    删除已下载 raw PDF：
+    - 删除文件（pdf_raw 下的 *.pdf 以及可能遗留的 .part/.lock）
+    - 从 pdf_cache.json 移除该 paper_id 记录
+    注意：默认不级联删除已翻译 PDF（翻译列表单独删）。
+    """
+    sid = session_id or "default"
+
+    asset = store.get_pdf_asset(paper_id)
+    if asset is None:
+        raise HTTPException(status_code=404, detail="pdf asset 不存在")
+
+    if asset.status == "DOWNLOADING" or _has_active_task_for_paper(paper_id):
+        raise HTTPException(
+            status_code=409, detail="该论文存在下载/翻译任务进行中，暂不可删除"
+        )
+
+    local_path = asset.local_path
+    lock_path = (local_path or "") + ".lock"
+    part_path = (local_path or "") + ".part"
+
+    if lock_path and os.path.exists(lock_path):
+        raise HTTPException(
+            status_code=409, detail="检测到锁文件，可能仍在下载/处理中，暂不可删除"
+        )
+
+    deleted_files: List[str] = []
+    warnings: List[str] = []
+
+    # 删 raw pdf + 遗留文件
+    _safe_remove_file(local_path, settings.pdf_raw_path, deleted_files, warnings)
+    _safe_remove_file(part_path, settings.pdf_raw_path, deleted_files, warnings)
+    _safe_remove_file(lock_path, settings.pdf_raw_path, deleted_files, warnings)
+
+    removed_cache = store.delete_pdf_asset(paper_id)
+
+    # 可选：推送 SSE 事件，便于前端实时更新
+    try:
+        event_bus.publish(
+            sid,
+            {
+                "type": "asset_deleted",
+                "kind": "pdf",
+                "paper_id": paper_id,
+                "deleted_files": deleted_files,
+            },
+        )
+    except Exception:
+        pass
+
+    return DeleteAssetResponse(
+        kind="pdf",
+        paper_id=paper_id,
+        removed_cache=bool(removed_cache),
+        deleted_files=deleted_files,
+        warnings=warnings,
+    )
+
+
+@router.delete("/translate/assets/{paper_id}", response_model=DeleteAssetResponse)
+def delete_translate_asset(
+    paper_id: str,
+    session_id: str = Query(
+        default="default", description="用于 SSE 广播删除事件（可选）"
+    ),
+) -> DeleteAssetResponse:
+    """
+    删除已翻译 PDF：
+    - 删除 mono/dual（若存在）
+    - 删除对应日志 output/pdf_translated_log/{paper_id}.pdf2zh.log
+    - 删除可能遗留的 .lock
+    - 从 translate_cache.json 移除该 paper_id 记录
+    注意：不删除 raw PDF。
+    """
+    sid = session_id or "default"
+
+    asset = store.get_translate_asset(paper_id)
+    if asset is None:
+        raise HTTPException(status_code=404, detail="translate asset 不存在")
+
+    if asset.status == "TRANSLATING" or _has_active_task_for_paper(paper_id):
+        raise HTTPException(
+            status_code=409, detail="该论文存在翻译任务进行中，暂不可删除"
+        )
+
+    mono_path = asset.output_mono_path
+    dual_path = asset.output_dual_path
+    mono_lock = (mono_path or "") + ".lock"
+
+    log_path = os.path.join(settings.pdf_translated_log_path, f"{paper_id}.pdf2zh.log")
+
+    if mono_lock and os.path.exists(mono_lock):
+        raise HTTPException(
+            status_code=409, detail="检测到锁文件，可能仍在翻译/处理中，暂不可删除"
+        )
+
+    deleted_files: List[str] = []
+    warnings: List[str] = []
+
+    # 删翻译输出（限制在 translated 目录）
+    _safe_remove_file(mono_path, settings.pdf_translated_path, deleted_files, warnings)
+    if dual_path:
+        _safe_remove_file(
+            dual_path, settings.pdf_translated_path, deleted_files, warnings
+        )
+    _safe_remove_file(mono_lock, settings.pdf_translated_path, deleted_files, warnings)
+
+    # 删日志（限制在 translated_log 目录）
+    _safe_remove_file(
+        log_path, settings.pdf_translated_log_path, deleted_files, warnings
+    )
+
+    removed_cache = store.delete_translate_asset(paper_id)
+
+    # SSE 通知（可选）
+    try:
+        event_bus.publish(
+            sid,
+            {
+                "type": "asset_deleted",
+                "kind": "translate",
+                "paper_id": paper_id,
+                "deleted_files": deleted_files,
+            },
+        )
+    except Exception:
+        pass
+
+    return DeleteAssetResponse(
+        kind="translate",
+        paper_id=paper_id,
+        removed_cache=bool(removed_cache),
+        deleted_files=deleted_files,
+        warnings=warnings,
+    )

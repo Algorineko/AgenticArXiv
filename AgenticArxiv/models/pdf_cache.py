@@ -95,3 +95,14 @@ class PdfCacheIndex:
         if save:
             self.save()
         return a
+
+    def delete(self, paper_id: str, save: bool = True) -> bool:
+        """
+        从索引中删除一条记录（不负责删文件，只维护 json）。
+        """
+        if paper_id not in self.assets:
+            return False
+        self.assets.pop(paper_id, None)
+        if save:
+            self.save()
+        return True

@@ -10,7 +10,7 @@
           </div>
         </div>
 
-        <!-- ✅ 顶栏按钮：只显示右侧两个面板中的一个 -->
+        <!-- 顶栏按钮：只显示右侧两个面板中的一个 -->
         <div class="nav-actions" role="tablist" aria-label="Right panel toggle">
           <button
             class="btn tab"
@@ -39,7 +39,7 @@
       <ChatPanel />
 
       <div class="right">
-        <!-- ✅ 动态组件 + KeepAlive：只渲染一个，但切换会保留状态 -->
+        <!-- 动态组件 + KeepAlive：只渲染一个，但切换会保留状态 -->
         <KeepAlive>
           <component :is="rightComponent" class="right-panel" />
         </KeepAlive>
@@ -113,7 +113,7 @@ const rightComponent = computed(() => {
   height: calc(100vh - 64px);
 }
 
-/* ✅ 右侧变成“单面板占满” */
+/* 右侧变成“单面板占满” */
 .right {
   min-height: 0;
   display: flex;
