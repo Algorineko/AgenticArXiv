@@ -14,7 +14,7 @@
         <label class="label">按钮操作:</label>
         <label class="toggle">
           <input type="checkbox" v-model="store.preferAgent" />
-          <span>优先走 Agent（/chat）</span>
+          <span>下载/翻译 使用Agent/直接调用API</span>
         </label>
         <span class="muted">API: {{ store.apiBase }}</span>
       </div>
@@ -32,7 +32,7 @@
 
     <div class="messages" ref="msgBox">
       <div v-if="store.messages.length === 0" class="empty">
-        你可以直接说：<code>获取最近7天内AI(cs.AI)方向论文，最多5篇</code>
+        示例: <code>获取最近7天内AI(cs.AI)方向论文，最多5篇</code>
       </div>
 
       <div v-for="(m, idx) in store.messages" :key="idx" class="msg" :class="m.role">

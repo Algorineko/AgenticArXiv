@@ -205,7 +205,7 @@ class TranslateRunner:
     ) -> None:
         sid = session_id or "default"
 
-        # ✅ 每个任务独立节流，避免 SSE 太密
+        #  每个任务独立节流，避免 SSE 太密
         last_sent_p = 0.0
         last_sent_t = 0.0
 
@@ -257,7 +257,7 @@ class TranslateRunner:
                 {"type": "task_started", "kind": "translate", "task": started.model_dump()},
             )
 
-            # ✅ 关键：把 progress_cb 传给 translate_arxiv_pdf（由它从子进程输出解析进度）
+            #  关键：把 progress_cb 传给 translate_arxiv_pdf（由它从子进程输出解析进度）
             from tools.pdf_translate_tool import translate_arxiv_pdf
 
             res = translate_arxiv_pdf(

@@ -386,7 +386,7 @@ def pdf_translate(req: TranslatePdfRequest) -> TranslatePdfResponse:
 @router.post("/pdf/translate/async", response_model=CreateTranslateTaskResponse)
 def pdf_translate_async(req: TranslatePdfRequest) -> CreateTranslateTaskResponse:
     """
-    新增：异步翻译接口
+    异步翻译接口
     - 立即返回 task
     - 任务进度/完成由 /events SSE 推送
     """

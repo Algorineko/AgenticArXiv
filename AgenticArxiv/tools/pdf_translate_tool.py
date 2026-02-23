@@ -111,11 +111,11 @@ def translate_arxiv_pdf(
     service: str = None,
     threads: int = None,
     keep_dual: bool = False,
-    # 可选：不依赖 session 的参数（用于 TranslateTask 执行）
+    # 依赖 session 的参数（用于 TranslateTask 执行）
     paper_id: Optional[str] = None,
     pdf_url: Optional[str] = None,
     input_pdf_path: Optional[str] = None,
-    # ✅ 新增：内部进度回调（异步任务用；HTTP 同步接口不传也不影响）
+    #  内部进度回调（异步任务用；HTTP 同步接口不传也不影响）
     progress_cb: Optional[Callable[[float, Optional[Dict[str, Any]]], None]] = None,
 ) -> Dict[str, Any]:
     """

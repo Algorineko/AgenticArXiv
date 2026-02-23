@@ -97,7 +97,7 @@ onBeforeUnmount(() => {
   box-shadow: 0 18px 60px rgba(0,0,0,0.55);
   overflow: hidden;
 
-  /* ✅ 关键：Teleport 到 body 后，显式设定颜色，避免默认黑字 */
+  /* 关键：Teleport 到 body 后，显式设定颜色，避免默认黑字 */
   color: var(--fg);
 }
 

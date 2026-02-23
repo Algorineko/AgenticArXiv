@@ -196,7 +196,7 @@ def run_pdf2zh_translate(
     threads: int = 4,
     keep_dual: bool = False,
     log_path: Optional[str] = None,
-    # ✅ 新增：进度回调（p: 0~1），detail 里可带 stage/line 等
+    # 进度回调（p: 0~1），detail 里可带 stage/line 等
     progress_cb: Optional[Callable[[float, Optional[Dict[str, Any]]], None]] = None,
 ) -> Pdf2ZhResult:
     """

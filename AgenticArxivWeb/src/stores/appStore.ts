@@ -49,7 +49,7 @@ export const useAppStore = defineStore("app", {
     pdfAssets: [] as PdfAsset[],
     translateAssets: [] as TranslateAsset[],
 
-    // ✅ 翻译任务列表（来自 /chat.tasks 或 SSE）
+    // 翻译任务列表（来自 /chat.tasks 或 SSE）
     tasks: [] as TranslateTask[],
 
     lastHistory: [] as ReactStep[],

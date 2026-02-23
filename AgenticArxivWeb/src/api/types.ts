@@ -91,7 +91,7 @@ export interface ChatResponse {
   pdf_assets: PdfAsset[];
   translate_assets: TranslateAsset[];
 
-  // ✅ 后端已新增 tasks
+  // 后端新增 tasks
   tasks?: TranslateTask[];
 }
 

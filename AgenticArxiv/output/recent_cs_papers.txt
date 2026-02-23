@@ -1,90 +1,87 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-02-22 23:19:41
+生成时间: 2026-02-23 17:57:32
 论文数量: 5
 ================================================================================
 
-论文 1: Sink-Aware Pruning for Diffusion Language Models
+论文 1: Unifying approach to uniform expressivity of graph neural networks
 ------------------------------------------------------------
-ID: 2602.17664v1
-作者: Aidar Myrzakhan, Tianyi Li, Bowei Guo, Shengkun Tang, Zhiqiang Shen
-发表时间: 2026-02-19 18:59:50
-更新时间: 2026-02-19 18:59:50
-主要分类: cs.CL
-所有分类: cs.CL, cs.AI, cs.LG
-PDF链接: https://arxiv.org/pdf/2602.17664v1
-备注: Code at: https://github.com/VILA-Lab/Sink-Aware-Pruning
-摘要: Diffusion Language Models (DLMs) incur high inference cost due to iterative denoising, motivating efficient pruning. Existing pruning heuristics largely inherited from autoregressive (AR) LLMs, typica...
-相关链接:
-  - https://arxiv.org/abs/2602.17664v1
-  - https://arxiv.org/pdf/2602.17664v1
-
-================================================================================
-
-论文 2: CLEF HIPE-2026: Evaluating Accurate and Efficient Person-Place Relation Extraction from Multilingual Historical Texts
-------------------------------------------------------------
-ID: 2602.17663v1
-作者: Juri Opitz, Corina Raclé, Emanuela Boros, Andrianos Michail, Matteo Romanello, Maud Ehrmann, Simon Clematide
-发表时间: 2026-02-19 18:59:44
-更新时间: 2026-02-19 18:59:44
-主要分类: cs.AI
-所有分类: cs.AI, cs.CL, cs.IR
-PDF链接: https://arxiv.org/pdf/2602.17663v1
-备注: ECIR 2026. CLEF Evaluation Lab. Registration DL: 2026/04/23. Task Homepage at https://hipe-eval.github.io/HIPE-2026/
-摘要: HIPE-2026 is a CLEF evaluation lab dedicated to person-place relation extraction from noisy, multilingual historical texts. Building on the HIPE-2020 and HIPE-2022 campaigns, it extends the series tow...
-相关链接:
-  - https://arxiv.org/abs/2602.17663v1
-  - https://arxiv.org/pdf/2602.17663v1
-
-================================================================================
-
-论文 3: MARS: Margin-Aware Reward-Modeling with Self-Refinement
-------------------------------------------------------------
-ID: 2602.17658v1
-作者: Payel Bhattacharjee, Osvaldo Simeone, Ravi Tandon
-发表时间: 2026-02-19 18:59:03
-更新时间: 2026-02-19 18:59:03
+ID: 2602.18409v1
+作者: Huan Luo, Jonni Virtema
+发表时间: 2026-02-20 18:18:48
+更新时间: 2026-02-20 18:18:48
 主要分类: cs.LG
-所有分类: cs.LG, cs.AI, cs.IT
-PDF链接: https://arxiv.org/pdf/2602.17658v1
-摘要: Reward modeling is a core component of modern alignment pipelines including RLHF and RLAIF, underpinning policy optimization methods including PPO and TRPO. However, training reliable reward models re...
+所有分类: cs.LG, cs.AI, cs.LO
+PDF链接: https://arxiv.org/pdf/2602.18409v1
+摘要: The expressive power of Graph Neural Networks (GNNs) is often analysed via correspondence to the Weisfeiler-Leman (WL) algorithm and fragments of first-order logic. Standard GNNs are limited to perfor...
 相关链接:
-  - https://arxiv.org/abs/2602.17658v1
-  - https://arxiv.org/pdf/2602.17658v1
+  - https://arxiv.org/abs/2602.18409v1
+  - https://arxiv.org/pdf/2602.18409v1
 
 ================================================================================
 
-论文 4: Pushing the Frontier of Black-Box LVLM Attacks via Fine-Grained Detail Targeting
+论文 2: Leakage and Second-Order Dynamics Improve Hippocampal RNN Replay
 ------------------------------------------------------------
-ID: 2602.17645v1
-作者: Xiaohan Zhao, Zhaoyi Li, Yaxin Luo, Jiacheng Cui, Zhiqiang Shen
-发表时间: 2026-02-19 18:54:32
-更新时间: 2026-02-19 18:54:32
+ID: 2602.18401v1
+作者: Josue Casco-Rodriguez, Nanda H. Krishna, Richard G. Baraniuk
+发表时间: 2026-02-20 18:07:09
+更新时间: 2026-02-20 18:07:09
 主要分类: cs.LG
-所有分类: cs.LG, cs.AI, cs.CL, cs.CV
-PDF链接: https://arxiv.org/pdf/2602.17645v1
-备注: Code at: https://github.com/vila-lab/M-Attack-V2
-摘要: Black-box adversarial attacks on Large Vision-Language Models (LVLMs) are challenging due to missing gradients and complex multimodal boundaries. While prior state-of-the-art transfer-based approaches...
+所有分类: cs.LG, cs.AI, q-bio.NC, stat.ML
+PDF链接: https://arxiv.org/pdf/2602.18401v1
+摘要: Biological neural networks (like the hippocampus) can internally generate "replay" resembling stimulus-driven activity. Recent computational models of replay use noisy recurrent neural networks (RNNs)...
 相关链接:
-  - https://arxiv.org/abs/2602.17645v1
-  - https://arxiv.org/pdf/2602.17645v1
+  - https://arxiv.org/abs/2602.18401v1
+  - https://arxiv.org/pdf/2602.18401v1
 
 ================================================================================
 
-论文 5: FAMOSE: A ReAct Approach to Automated Feature Discovery
+论文 3: Learning to Tune Pure Pursuit in Autonomous Racing: Joint Lookahead and Steering-Gain Control with PPO
 ------------------------------------------------------------
-ID: 2602.17641v1
-作者: Keith Burghardt, Jienan Liu, Sadman Sakib, Yuning Hao, Bo Li
-发表时间: 2026-02-19 18:53:15
-更新时间: 2026-02-19 18:53:15
+ID: 2602.18386v1
+作者: Mohamed Elgouhary, Amr S. El-Wakeel
+发表时间: 2026-02-20 17:48:21
+更新时间: 2026-02-20 17:48:21
+主要分类: cs.RO
+所有分类: cs.RO, cs.AI, cs.LG, eess.SY
+PDF链接: https://arxiv.org/pdf/2602.18386v1
+摘要: Pure Pursuit (PP) is widely used in autonomous racing for real-time path tracking due to its efficiency and geometric clarity, yet performance is highly sensitive to how key parameters-lookahead dista...
+相关链接:
+  - https://arxiv.org/abs/2602.18386v1
+  - https://arxiv.org/pdf/2602.18386v1
+
+================================================================================
+
+论文 4: FedZMG: Efficient Client-Side Optimization in Federated Learning
+------------------------------------------------------------
+ID: 2602.18384v1
+作者: Fotios Zantalis, Evangelos Zervas, Grigorios Koulouras
+发表时间: 2026-02-20 17:45:28
+更新时间: 2026-02-20 17:45:28
 主要分类: cs.LG
 所有分类: cs.LG, cs.AI
-PDF链接: https://arxiv.org/pdf/2602.17641v1
-备注: 23 pages, 6 figures
-摘要: Feature engineering remains a critical yet challenging bottleneck in machine learning, particularly for tabular data, as identifying optimal features from an exponentially large feature space traditio...
+PDF链接: https://arxiv.org/pdf/2602.18384v1
+摘要: Federated Learning (FL) enables distributed model training on edge devices while preserving data privacy. However, clients tend to have non-Independent and Identically Distributed (non-IID) data, whic...
 相关链接:
-  - https://arxiv.org/abs/2602.17641v1
-  - https://arxiv.org/pdf/2602.17641v1
+  - https://arxiv.org/abs/2602.18384v1
+  - https://arxiv.org/pdf/2602.18384v1
+
+================================================================================
+
+论文 5: Zero-shot Interactive Perception
+------------------------------------------------------------
+ID: 2602.18374v1
+作者: Venkatesh Sripada, Frank Guerin, Amir Ghalamzan
+发表时间: 2026-02-20 17:30:25
+更新时间: 2026-02-20 17:30:25
+主要分类: cs.RO
+所有分类: cs.RO, cs.AI
+PDF链接: https://arxiv.org/pdf/2602.18374v1
+备注: Original manuscript submitted on April 24, 2025. Timestamped and publicly available on OpenReview: https://openreview.net/forum?id=7MhpFcr5Nx
+摘要: Interactive perception (IP) enables robots to extract hidden information in their workspace and execute manipulation plans by physically interacting with objects and altering the state of the environm...
+相关链接:
+  - https://arxiv.org/abs/2602.18374v1
+  - https://arxiv.org/pdf/2602.18374v1
 
 ================================================================================
 
