@@ -18,6 +18,8 @@ export interface ChatMessage {
   role: Role;
   content: string;
   ts: number;
+  taskId?: string;
+  history?: ReactStep[];
 }
 
 function nowTs() {
@@ -53,6 +55,16 @@ export const useAppStore = defineStore("app", {
     lastHistory: [] as ReactStep[],
 
     preferAgent: true,
+
+    thinkingSteps: [] as any[],
+    isThinking: false,
+
+    // Track task_ids created via SSE during the current sendChat() call
+    _newTaskIds: new Set<string>() as Set<string>,
+    // TaskId created during thinking phase (for showing progress in thinking card)
+    thinkingTaskId: "" as string,
+    // Latest detail line per task (e.g. " 83% 20/24 [01:16<00:17]")
+    taskDetailLine: {} as Record<string, string>,
 
     sseStatus: "idle" as "idle" | "connecting" | "connected" | "error",
     sseLastEvent: "" as string,
@@ -119,11 +131,22 @@ export const useAppStore = defineStore("app", {
       this.ensureSse();
     },
 
+    newSession() {
+      const id = "session-" + crypto.randomUUID().slice(0, 8);
+      this.clearChat();
+      this.papers = [];
+      this.pdfAssets = [];
+      this.translateAssets = [];
+      this.tasks = [];
+      this.setSessionId(id);
+      this.refreshSnapshot();
+    },
+
     pushUser(content: string) {
       this.messages.push({ role: "user", content, ts: nowTs() });
     },
-    pushAssistant(content: string) {
-      this.messages.push({ role: "assistant", content, ts: nowTs() });
+    pushAssistant(content: string, opts?: { taskId?: string; history?: ReactStep[] }) {
+      this.messages.push({ role: "assistant", content, ts: nowTs(), ...opts });
     },
 
     ensureSse() {
@@ -210,6 +233,11 @@ export const useAppStore = defineStore("app", {
         return;
       }
 
+      if (evt.type === "agent_step" && evt.step) {
+        this.thinkingSteps.push(evt.step);
+        return;
+      }
+
       if (evt.type === "asset_deleted" && evt.paper_id) {
         const kind = String(evt.kind || "").toLowerCase();
         if (kind === "pdf") this._removePdfAssetLocal(evt.paper_id);
@@ -219,6 +247,19 @@ export const useAppStore = defineStore("app", {
 
       if (evt.kind === "translate" && evt.task) {
         this._upsertTask(evt.task);
+        // Store detail line for debugging (e.g. " 83% 20/24 [01:16<00:17]")
+        const line = evt.detail?.line;
+        if (line && evt.task.task_id) {
+          this.taskDetailLine[evt.task.task_id] = String(line).trim();
+        }
+      }
+
+      // Track new tasks created during sendChat (for Issue 1 & 2)
+      if (evt.type === "task_created" && evt.kind === "translate" && evt.task?.task_id) {
+        if (this.loading) {
+          this._newTaskIds.add(evt.task.task_id);
+          this.thinkingTaskId = evt.task.task_id;
+        }
       }
 
       if ((evt.type === "task_created" || evt.type === "task_started") && evt.kind === "translate") {
@@ -260,6 +301,10 @@ export const useAppStore = defineStore("app", {
       this.ensureSse();
 
       this.loading = true;
+      this.isThinking = true;
+      this.thinkingSteps = [];
+      this._newTaskIds = new Set();
+      this.thinkingTaskId = "";
       this.lastError = "";
       this.pushUser(text);
 
@@ -270,8 +315,13 @@ export const useAppStore = defineStore("app", {
         });
 
         const data = res.data;
-        this.pushAssistant(data.reply || "(空回复)");
-        this.lastHistory = data.history || [];
+        const history = data.history || [];
+        // Only assign taskId if a new task was created during THIS chat interaction
+        const taskId = Array.isArray(data.tasks)
+          ? data.tasks.find((t) => this._newTaskIds.has(t.task_id))?.task_id
+          : undefined;
+        this.pushAssistant(data.reply || "(空回复)", { history, taskId });
+        this.lastHistory = history;
 
         this.papers = data.papers || [];
         this.pdfAssets = data.pdf_assets || [];
@@ -286,6 +336,10 @@ export const useAppStore = defineStore("app", {
         this.pushAssistant(`请求失败：${msg}`);
       } finally {
         this.loading = false;
+        this.isThinking = false;
+        this.thinkingSteps = [];
+        this._newTaskIds = new Set();
+        this.thinkingTaskId = "";
       }
     },
 

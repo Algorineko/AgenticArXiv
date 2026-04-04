@@ -1,0 +1,1657 @@
+================================================================================
+ArXiv 计算机科学论文列表
+生成时间: 2026-04-04 14:49:12
+论文数量: 100
+================================================================================
+
+论文 1: Grounded Token Initialization for New Vocabulary in LMs for Generative Recommendation
+------------------------------------------------------------
+ID: 2604.02324v1
+作者: Daiwei Chen, Zhoutong Fu, Chengming Jiang, Haichao Zhang, Ran Zhou, Tan Wang, Chunnan Yao, Guoyao Li, Rui Cai, Yihan Cao, Ruijie Jiang, Fedor Borisyuk, Jianqiang Shen, Jingwei Wu, Ramya Korlakai Vinayak
+发表时间: 2026-04-02 17:59:19
+更新时间: 2026-04-02 17:59:19
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.02324v1
+摘要: Language models (LMs) are increasingly extended with new learnable vocabulary tokens for domain-specific tasks, such as Semantic-ID tokens in generative recommendation. The standard practice initializ...
+相关链接:
+  - https://arxiv.org/abs/2604.02324v1
+  - https://arxiv.org/pdf/2604.02324v1
+
+================================================================================
+
+论文 2: Batched Contextual Reinforcement: A Task-Scaling Law for Efficient Reasoning
+------------------------------------------------------------
+ID: 2604.02322v1
+作者: Bangji Yang, Hongbo Ma, Jiajun Fan, Ge Liu
+发表时间: 2026-04-02 17:58:50
+更新时间: 2026-04-02 17:58:50
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02322v1
+备注: 43 pages, 5 figures, 24 tables
+摘要: Large Language Models employing Chain-of-Thought reasoning achieve strong performance but suffer from excessive token consumption that inflates inference costs. Existing efficiency methods such as exp...
+相关链接:
+  - https://arxiv.org/abs/2604.02322v1
+  - https://arxiv.org/pdf/2604.02322v1
+
+================================================================================
+
+论文 3: No Single Best Model for Diversity: Learning a Router for Sample Diversity
+------------------------------------------------------------
+ID: 2604.02319v1
+作者: Yuhan Liu, Fangyuan Xu, Vishakh Padmakumar, Daphne Ippolito, Eunsol Choi
+发表时间: 2026-04-02 17:58:37
+更新时间: 2026-04-02 17:58:37
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02319v1
+备注: under review at COLM 2026
+摘要: When posed with prompts that permit a large number of valid answers, comprehensively generating them is the first step towards satisfying a wide range of users. In this paper, we study methods to elic...
+相关链接:
+  - https://arxiv.org/abs/2604.02319v1
+  - https://arxiv.org/pdf/2604.02319v1
+
+================================================================================
+
+论文 4: go-$m$HC: Direct Parameterization of Manifold-Constrained Hyper-Connections via Generalized Orthostochastic Matrices
+------------------------------------------------------------
+ID: 2604.02309v1
+作者: Torque Dandachi, Sophia Diggs-Galligan
+发表时间: 2026-04-02 17:51:19
+更新时间: 2026-04-02 17:51:19
+主要分类: cs.LG
+所有分类: cs.LG, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02309v1
+备注: 29 pages, 30 figures, 9 tables. Includes supplementary material
+摘要: Doubly stochastic matrices enable learned mixing across residual streams, but parameterizing the set of doubly stochastic matrices (the Birkhoff polytope) exactly and efficiently remains an open chall...
+相关链接:
+  - https://arxiv.org/abs/2604.02309v1
+  - https://arxiv.org/pdf/2604.02309v1
+
+================================================================================
+
+论文 5: De Jure: Iterative LLM Self-Refinement for Structured Extraction of Regulatory Rules
+------------------------------------------------------------
+ID: 2604.02276v1
+作者: Keerat Guliani, Deepkamal Gill, David Landsman, Nima Eshraghi, Krishna Kumar, Lovedeep Gondara
+发表时间: 2026-04-02 17:06:50
+更新时间: 2026-04-02 17:06:50
+主要分类: cs.AI
+所有分类: cs.AI, cs.CL, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.02276v1
+摘要: Regulatory documents encode legally binding obligations that LLM-based systems must respect. Yet converting dense, hierarchically structured legal text into machine-readable rules remains a costly, ex...
+相关链接:
+  - https://arxiv.org/abs/2604.02276v1
+  - https://arxiv.org/pdf/2604.02276v1
+
+================================================================================
+
+论文 6: VISTA: Visualization of Token Attribution via Efficient Analysis
+------------------------------------------------------------
+ID: 2604.02217v1
+作者: Syed Ahmed, Bharathi Vokkaliga Ganesh, Jagadish Babu P, Karthick Selvaraj, Praneeth Talluri, Sanket Hingne, Anubhav Kumar, Anushka Yadav, Pratham Kumar Verma, Kiranmayee Janardhan, Mandanna A N
+发表时间: 2026-04-02 16:09:13
+更新时间: 2026-04-02 16:09:13
+主要分类: cs.AI
+所有分类: cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02217v1
+备注: 12 pages, 3 figures
+摘要: Understanding how Large Language Models (LLMs) process information from prompts remains a significant challenge. To shed light on this "black box," attention visualization techniques have been develop...
+相关链接:
+  - https://arxiv.org/abs/2604.02217v1
+  - https://arxiv.org/pdf/2604.02217v1
+
+================================================================================
+
+论文 7: CV-18 NER: Augmented Common Voice for Named Entity Recognition from Arabic Speech
+------------------------------------------------------------
+ID: 2604.02209v1
+作者: Youssef Saidi, Haroun Elleuch, Fethi Bougares
+发表时间: 2026-04-02 16:02:20
+更新时间: 2026-04-02 16:02:20
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02209v1
+备注: Accepted at OSACT 2026
+摘要: End-to-end speech Named Entity Recognition (NER) aims to directly extract entities from speech. Prior work has shown that end-to-end (E2E) approaches can outperform cascaded pipelines for English, Fre...
+相关链接:
+  - https://arxiv.org/abs/2604.02209v1
+  - https://arxiv.org/pdf/2604.02209v1
+
+================================================================================
+
+论文 8: Blinded Radiologist and LLM-Based Evaluation of LLM-Generated Japanese Translations of Chest CT Reports: Comparative Study
+------------------------------------------------------------
+ID: 2604.02207v1
+作者: Yosuke Yamagishi, Atsushi Takamatsu, Yasunori Hamaguchi, Tomohiro Kikuchi, Shouhei Hanaoka, Takeharu Yoshikawa, Osamu Abe
+发表时间: 2026-04-02 15:59:40
+更新时间: 2026-04-02 15:59:40
+主要分类: cs.AI
+所有分类: cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02207v1
+备注: 25 pages, 4 figures
+摘要: Background: Accurate translation of radiology reports is important for multilingual research, clinical communication, and radiology education, but the validity of LLM-based evaluation remains unclear....
+相关链接:
+  - https://arxiv.org/abs/2604.02207v1
+  - https://arxiv.org/pdf/2604.02207v1
+
+================================================================================
+
+论文 9: Towards Position-Robust Talent Recommendation via Large Language Models
+------------------------------------------------------------
+ID: 2604.02200v1
+作者: Silin Du, Hongyan Liu
+发表时间: 2026-04-02 15:54:03
+更新时间: 2026-04-02 15:54:03
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02200v1
+摘要: Talent recruitment is a critical, yet costly process for many industries, with high recruitment costs and long hiring cycles. Existing talent recommendation systems increasingly adopt large language m...
+相关链接:
+  - https://arxiv.org/abs/2604.02200v1
+  - https://arxiv.org/pdf/2604.02200v1
+
+================================================================================
+
+论文 10: Neuro-RIT: Neuron-Guided Instruction Tuning for Robust Retrieval-Augmented Language Model
+------------------------------------------------------------
+ID: 2604.02194v1
+作者: Jaemin Kim, Jae O Lee, Sumyeong Ahn, Seo Yeon Park
+发表时间: 2026-04-02 15:49:50
+更新时间: 2026-04-02 15:49:50
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.02194v1
+摘要: Retrieval-Augmented Language Models (RALMs) have demonstrated significant potential in knowledge-intensive tasks; however, they remain vulnerable to performance degradation when presented with irrelev...
+相关链接:
+  - https://arxiv.org/abs/2604.02194v1
+  - https://arxiv.org/pdf/2604.02194v1
+
+================================================================================
+
+论文 11: The Expert Strikes Back: Interpreting Mixture-of-Experts Language Models at Expert Level
+------------------------------------------------------------
+ID: 2604.02178v1
+作者: Jeremy Herbst, Jae Hee Lee, Stefan Wermter
+发表时间: 2026-04-02 15:41:24
+更新时间: 2026-04-02 15:41:24
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.02178v1
+摘要: Mixture-of-Experts (MoE) architectures have become the dominant choice for scaling Large Language Models (LLMs), activating only a subset of parameters per token. While MoE architectures are primarily...
+相关链接:
+  - https://arxiv.org/abs/2604.02178v1
+  - https://arxiv.org/pdf/2604.02178v1
+
+================================================================================
+
+论文 12: Adam's Law: Textual Frequency Law on Large Language Models
+------------------------------------------------------------
+ID: 2604.02176v1
+作者: Hongyuan Adam Lu, Z. L., Victor Wei, Zefan Zhang, Zhao Hong, Qiqi Xiang, Bowen Cao, Wai Lam
+发表时间: 2026-04-02 15:39:25
+更新时间: 2026-04-02 15:39:25
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02176v1
+摘要: While textual frequency has been validated as relevant to human cognition in reading speed, its relatedness to Large Language Models (LLMs) is seldom studied. We propose a novel research direction in ...
+相关链接:
+  - https://arxiv.org/abs/2604.02176v1
+  - https://arxiv.org/pdf/2604.02176v1
+
+================================================================================
+
+论文 13: Do Lexical and Contextual Coreference Resolution Systems Degrade Differently under Mention Noise? An Empirical Study on Scientific Software Mentions
+------------------------------------------------------------
+ID: 2604.02171v1
+作者: Atilla Kaan Alkan, Felix Grezes, Jennifer Lynn Bartlett, Anna Kelbert, Kelly Lockhart, Alberto Accomazzi
+发表时间: 2026-04-02 15:37:03
+更新时间: 2026-04-02 15:37:03
+主要分类: cs.CL
+所有分类: cs.CL, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.02171v1
+备注: 8 pages
+摘要: We present our participation in the SOMD 2026 shared task on cross-document software mention coreference resolution, where our systems ranked second across all three subtasks. We compare two fine-tuni...
+相关链接:
+  - https://arxiv.org/abs/2604.02171v1
+  - https://arxiv.org/pdf/2604.02171v1
+
+================================================================================
+
+论文 14: AstroConcepts: A Large-Scale Multi-Label Classification Corpus for Astrophysics
+------------------------------------------------------------
+ID: 2604.02156v1
+作者: Atilla Kaan Alkan, Felix Grezes, Sergi Blanco-Cuaresma, Jennifer Lynn Bartlett, Daniel Chivvis, Anna Kelbert, Kelly Lockhart, Alberto Accomazzi
+发表时间: 2026-04-02 15:27:00
+更新时间: 2026-04-02 15:27:00
+主要分类: cs.CL
+所有分类: cs.CL, astro-ph.IM, cs.IR, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.02156v1
+备注: 9 pages, 2 figures
+摘要: Scientific multi-label text classification suffers from extreme class imbalance, where specialized terminology exhibits severe power-law distributions that challenge standard classification approaches...
+相关链接:
+  - https://arxiv.org/abs/2604.02156v1
+  - https://arxiv.org/pdf/2604.02156v1
+
+================================================================================
+
+论文 15: Brief Is Better: Non-Monotonic Chain-of-Thought Budget Effects in Function-Calling Language Agents
+------------------------------------------------------------
+ID: 2604.02155v1
+作者: Xuan Qi
+发表时间: 2026-04-02 15:25:13
+更新时间: 2026-04-02 15:25:13
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02155v1
+备注: 21 pages
+摘要: How much should a language agent think before taking action? Chain-of-thought (CoT) reasoning is widely assumed to improve agent performance, but the relationship between reasoning length and accuracy...
+相关链接:
+  - https://arxiv.org/abs/2604.02155v1
+  - https://arxiv.org/pdf/2604.02155v1
+
+================================================================================
+
+论文 16: MTI: A Behavior-Based Temperament Profiling System for AI Agents
+------------------------------------------------------------
+ID: 2604.02145v1
+作者: Jihoon Jeong
+发表时间: 2026-04-02 15:15:57
+更新时间: 2026-04-02 15:15:57
+主要分类: cs.AI
+所有分类: cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02145v1
+备注: 29 pages, 6 figures, 12 tables. Paper #3 in the Model Medicine Series (Paper #1: arXiv:2603.04722)
+摘要: AI models of equivalent capability can exhibit fundamentally different behavioral patterns, yet no standardized instrument exists to measure these dispositional differences. Existing approaches either...
+相关链接:
+  - https://arxiv.org/abs/2604.02145v1
+  - https://arxiv.org/pdf/2604.02145v1
+
+================================================================================
+
+论文 17: GaelEval: Benchmarking LLM Performance for Scottish Gaelic
+------------------------------------------------------------
+ID: 2604.02135v1
+作者: Peter Devine, William Lamb, Beatrice Alex, Ignatius Ezeani, Dawn Knight, Mícheál J. Ó Meachair, Paul Rayson, Martin Wynne
+发表时间: 2026-04-02 15:09:18
+更新时间: 2026-04-02 15:09:18
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02135v1
+备注: 13 pages, to be published in Proceedings of LLMs4SSH (workshop co-located with LREC 2026; Mallorca, Spain; May 2026)
+摘要: Multilingual large language models (LLMs) often exhibit emergent 'shadow' capabilities in languages without official support, yet their performance on these languages remains uneven and under-measured...
+相关链接:
+  - https://arxiv.org/abs/2604.02135v1
+  - https://arxiv.org/pdf/2604.02135v1
+
+================================================================================
+
+论文 18: LLM-as-a-Judge for Time Series Explanations
+------------------------------------------------------------
+ID: 2604.02118v1
+作者: Preetham Sivalingam, Murari Mandal, Saurabh Deshpande, Dhruv Kumar
+发表时间: 2026-04-02 14:55:25
+更新时间: 2026-04-02 14:55:25
+主要分类: cs.AI
+所有分类: cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02118v1
+备注: Under Review
+摘要: Evaluating factual correctness of LLM generated natural language explanations grounded in time series data remains an open challenge. Although modern models generate textual interpretations of numeric...
+相关链接:
+  - https://arxiv.org/abs/2604.02118v1
+  - https://arxiv.org/pdf/2604.02118v1
+
+================================================================================
+
+论文 19: Reliable Control-Point Selection for Steering Reasoning in Large Language Models
+------------------------------------------------------------
+ID: 2604.02113v1
+作者: Haomin Zhuang, Hojun Yoo, Xiaonan Luo, Kehan Guo, Xiangliang Zhang
+发表时间: 2026-04-02 14:48:56
+更新时间: 2026-04-02 14:48:56
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02113v1
+摘要: Steering vectors offer a training-free mechanism for controlling reasoning behaviors in large language models, but constructing effective vectors requires identifying genuine behavioral signals in the...
+相关链接:
+  - https://arxiv.org/abs/2604.02113v1
+  - https://arxiv.org/pdf/2604.02113v1
+
+================================================================================
+
+论文 20: Prosodic ABX: A Language-Agnostic Method for Measuring Prosodic Contrast in Speech Representations
+------------------------------------------------------------
+ID: 2604.02102v1
+作者: Haitong Sun, Stephen McIntosh, Kwanghee Choi, Eunjung Yeo, Daisuke Saito, Nobuaki Minematsu
+发表时间: 2026-04-02 14:28:42
+更新时间: 2026-04-02 14:28:42
+主要分类: cs.CL
+所有分类: cs.CL, cs.LG, cs.SD, eess.AS
+PDF链接: https://arxiv.org/pdf/2604.02102v1
+备注: Submitted to Interspeech 2026; 6 pages, 4 figures
+摘要: Speech representations from self-supervised speech models (S3Ms) are known to be sensitive to phonemic contrasts, but their sensitivity to prosodic contrasts has not been directly measured. The ABX di...
+相关链接:
+  - https://arxiv.org/abs/2604.02102v1
+  - https://arxiv.org/pdf/2604.02102v1
+
+================================================================================
+
+论文 21: Optimizing RAG Rerankers with LLM Feedback via Reinforcement Learning
+------------------------------------------------------------
+ID: 2604.02091v1
+作者: Yuhang Wu, Xiangqing Shen, Fanfan Wang, Cangqi Zhou, Zhen Wu, Xinyu Dai, Rui Xia
+发表时间: 2026-04-02 14:19:47
+更新时间: 2026-04-02 14:19:47
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.IR
+PDF链接: https://arxiv.org/pdf/2604.02091v1
+备注: 16 pages
+摘要: Rerankers play a pivotal role in refining retrieval results for Retrieval-Augmented Generation. However, current reranking models are typically optimized on static human annotated relevance labels in ...
+相关链接:
+  - https://arxiv.org/abs/2604.02091v1
+  - https://arxiv.org/pdf/2604.02091v1
+
+================================================================================
+
+论文 22: Ouroboros: Dynamic Weight Generation for Recursive Transformers via Input-Conditioned LoRA Modulation
+------------------------------------------------------------
+ID: 2604.02051v1
+作者: Jaber Jaber, Osama Jaber
+发表时间: 2026-04-02 13:52:32
+更新时间: 2026-04-02 13:52:32
+主要分类: cs.LG
+所有分类: cs.LG, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02051v1
+备注: 10 pages, 5 tables, 1 figure, 1 algorithm. Code: https://github.com/RightNow-AI/ouroboros
+摘要: Recursive transformers reuse a shared weight block across multiple depth steps, trading parameters for compute. A core limitation: every step applies the same transformation, preventing the model from...
+相关链接:
+  - https://arxiv.org/abs/2604.02051v1
+  - https://arxiv.org/pdf/2604.02051v1
+
+================================================================================
+
+论文 23: Goose: Anisotropic Speculation Trees for Training-Free Speculative Decoding
+------------------------------------------------------------
+ID: 2604.02047v1
+作者: Tao Jin, Phuong Minh Nguyen, Naoya Inoue
+发表时间: 2026-04-02 13:48:42
+更新时间: 2026-04-02 13:48:42
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.02047v1
+摘要: Speculative decoding accelerates large language model inference by drafting multiple candidate tokens and verifying them in a single forward pass. Candidates are organized as a tree: deeper trees acce...
+相关链接:
+  - https://arxiv.org/abs/2604.02047v1
+  - https://arxiv.org/pdf/2604.02047v1
+
+================================================================================
+
+论文 24: BidirLM: From Text to Omnimodal Bidirectional Encoders by Adapting and Composing Causal LLMs
+------------------------------------------------------------
+ID: 2604.02045v1
+作者: Nicolas Boizard, Théo Deschamps-Berger, Hippolyte Gisserot-Boukhlef, Céline Hudelot, Pierre Colombo
+发表时间: 2026-04-02 13:48:35
+更新时间: 2026-04-02 13:48:35
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.02045v1
+备注: 30 pages, 16 figures, 10 tables
+摘要: Transforming causal generative language models into bidirectional encoders offers a powerful alternative to BERT-style architectures. However, current approaches remain limited: they lack consensus on...
+相关链接:
+  - https://arxiv.org/abs/2604.02045v1
+  - https://arxiv.org/pdf/2604.02045v1
+
+================================================================================
+
+论文 25: Tracking the emergence of linguistic structure in self-supervised models learning from speech
+------------------------------------------------------------
+ID: 2604.02043v1
+作者: Marianne de Heer Kloots, Martijn Bentum, Hosein Mohebbi, Charlotte Pouw, Gaofei Shen, Willem Zuidema
+发表时间: 2026-04-02 13:48:22
+更新时间: 2026-04-02 13:48:22
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, eess.AS
+PDF链接: https://arxiv.org/pdf/2604.02043v1
+摘要: Self-supervised speech models learn effective representations of spoken language, which have been shown to reflect various aspects of linguistic structure. But when does such structure emerge in model...
+相关链接:
+  - https://arxiv.org/abs/2604.02043v1
+  - https://arxiv.org/pdf/2604.02043v1
+
+================================================================================
+
+论文 26: Why Gaussian Diffusion Models Fail on Discrete Data?
+------------------------------------------------------------
+ID: 2604.02028v1
+作者: Alexander Shabalin, Simon Elistratov, Viacheslav Meshchaninov, Ildus Sadrtdinov, Dmitry Vetrov
+发表时间: 2026-04-02 13:35:02
+更新时间: 2026-04-02 13:35:02
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02028v1
+摘要: Diffusion models have become a standard approach for generative modeling in continuous domains, yet their application to discrete data remains challenging. We investigate why Gaussian diffusion models...
+相关链接:
+  - https://arxiv.org/abs/2604.02028v1
+  - https://arxiv.org/pdf/2604.02028v1
+
+================================================================================
+
+论文 27: $k$NNProxy: Efficient Training-Free Proxy Alignment for Black-Box Zero-Shot LLM-Generated Text Detection
+------------------------------------------------------------
+ID: 2604.02008v1
+作者: Kahim Wong, Kemou Li, Haiwei Wu, Jiantao Zhou
+发表时间: 2026-04-02 13:11:06
+更新时间: 2026-04-02 13:11:06
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02008v1
+摘要: LLM-generated text (LGT) detection is essential for reliable forensic analysis and for mitigating LLM misuse. Existing LGT detectors can generally be categorized into two broad classes: learning-based...
+相关链接:
+  - https://arxiv.org/abs/2604.02008v1
+  - https://arxiv.org/pdf/2604.02008v1
+
+================================================================================
+
+论文 28: SAFE: Stepwise Atomic Feedback for Error correction in Multi-hop Reasoning
+------------------------------------------------------------
+ID: 2604.01993v1
+作者: Daeyong Kwon, Soyoung Yoon, Seung-won Hwang
+发表时间: 2026-04-02 12:59:30
+更新时间: 2026-04-02 12:59:30
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01993v1
+摘要: Multi-hop QA benchmarks frequently reward Large Language Models (LLMs) for spurious correctness, masking ungrounded or flawed reasoning steps. To shift toward rigorous reasoning, we propose SAFE, a dy...
+相关链接:
+  - https://arxiv.org/abs/2604.01993v1
+  - https://arxiv.org/pdf/2604.01993v1
+
+================================================================================
+
+论文 29: RuleForge: Automated Generation and Validation for Web Vulnerability Detection at Scale
+------------------------------------------------------------
+ID: 2604.01977v1
+作者: Ayush Garg, Sophia Hager, Jacob Montiel, Aditya Tiwari, Michael Gentile, Zach Reavis, David Magnotti, Wayne Fullen
+发表时间: 2026-04-02 12:39:26
+更新时间: 2026-04-02 12:39:26
+主要分类: cs.CR
+所有分类: cs.CR, cs.AI, cs.CL, cs.LG, cs.SE
+PDF链接: https://arxiv.org/pdf/2604.01977v1
+备注: 11 pages, 10 figures. To be submitted to CAMLIS 2026
+摘要: Security teams face a challenge: the volume of newly disclosed Common Vulnerabilities and Exposures (CVEs) far exceeds the capacity to manually develop detection mechanisms. In 2025, the National Vuln...
+相关链接:
+  - https://arxiv.org/abs/2604.01977v1
+  - https://arxiv.org/pdf/2604.01977v1
+
+================================================================================
+
+论文 30: Do We Need Bigger Models for Science? Task-Aware Retrieval with Small Language Models
+------------------------------------------------------------
+ID: 2604.01965v1
+作者: Florian Kelber, Matthias Jobst, Yuni Susanti, Michael Färber
+发表时间: 2026-04-02 12:28:51
+更新时间: 2026-04-02 12:28:51
+主要分类: cs.IR
+所有分类: cs.IR, cs.AI, cs.CL, cs.DL
+PDF链接: https://arxiv.org/pdf/2604.01965v1
+备注: Accepted at NSLP@LREC 2026
+摘要: Scientific knowledge discovery increasingly relies on large language models, yet many existing scholarly assistants depend on proprietary systems with tens or hundreds of billions of parameters. Such ...
+相关链接:
+  - https://arxiv.org/abs/2604.01965v1
+  - https://arxiv.org/pdf/2604.01965v1
+
+================================================================================
+
+论文 31: Diagnosing Translated Benchmarks: An Automated Quality Assurance Study of the EU20 Benchmark Suite
+------------------------------------------------------------
+ID: 2604.01957v1
+作者: Klaudia Thellmann, Bernhard Stadler, Michael Färber
+发表时间: 2026-04-02 12:20:16
+更新时间: 2026-04-02 12:20:16
+主要分类: cs.CL
+所有分类: cs.CL, cs.IR
+PDF链接: https://arxiv.org/pdf/2604.01957v1
+备注: Accepted at LREC 2026
+摘要: Machine-translated benchmark datasets reduce costs and offer scale, but noise, loss of structure, and uneven quality weaken confidence. What matters is not merely whether we can translate, but also wh...
+相关链接:
+  - https://arxiv.org/abs/2604.01957v1
+  - https://arxiv.org/pdf/2604.01957v1
+
+================================================================================
+
+论文 32: How to measure the optimality of word or gesture order with respect to the principle of swap distance minimization
+------------------------------------------------------------
+ID: 2604.01938v1
+作者: Ramon Ferrer-i-Cancho
+发表时间: 2026-04-02 11:58:21
+更新时间: 2026-04-02 11:58:21
+主要分类: cs.CL
+所有分类: cs.CL, cond-mat.stat-mech, physics.soc-ph
+PDF链接: https://arxiv.org/pdf/2604.01938v1
+摘要: The structure of all the permutations of a sequence can be represented as a permutohedron, a graph where vertices are permutations and two vertices are linked if a swap of adjacent elements in the per...
+相关链接:
+  - https://arxiv.org/abs/2604.01938v1
+  - https://arxiv.org/pdf/2604.01938v1
+
+================================================================================
+
+论文 33: Reliable News or Propagandist News? A Neurosymbolic Model Using Genre, Topic, and Persuasion Techniques to Improve Robustness in Classification
+------------------------------------------------------------
+ID: 2604.01936v1
+作者: Géraud Faye, Benjamin Icard, Morgane Casanova, Guillaume Gadek, Guillaume Gravier, Wassila Ouerdane, Céline Hudelot, Sylvain Gatepaille, Paul Égré
+发表时间: 2026-04-02 11:57:18
+更新时间: 2026-04-02 11:57:18
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01936v1
+摘要: Among news disorders, propagandist news are particularly insidious, because they tend to mix oriented messages with factual reports intended to look like reliable news. To detect propaganda, extant ap...
+相关链接:
+  - https://arxiv.org/abs/2604.01936v1
+  - https://arxiv.org/pdf/2604.01936v1
+
+================================================================================
+
+论文 34: ImplicitBBQ: Benchmarking Implicit Bias in Large Language Models through Characteristic Based Cues
+------------------------------------------------------------
+ID: 2604.01925v1
+作者: Bhaskara Hanuma Vedula, Darshan Anghan, Ishita Goyal, Ponnurangam Kumaraguru, Abhijnan Chakraborty
+发表时间: 2026-04-02 11:43:10
+更新时间: 2026-04-02 11:43:10
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01925v1
+摘要: Large Language Models increasingly suppress biased outputs when demographic identity is stated explicitly, yet may still exhibit implicit biases when identity is conveyed indirectly. Existing benchmar...
+相关链接:
+  - https://arxiv.org/abs/2604.01925v1
+  - https://arxiv.org/pdf/2604.01925v1
+
+================================================================================
+
+论文 35: Is Clinical Text Enough? A Multimodal Study on Mortality Prediction in Heart Failure Patients
+------------------------------------------------------------
+ID: 2604.01924v1
+作者: Oumaima El Khettari, Virgile Barthet, Guillaume Hocquet, Joconde Weller, Emmanuel Morin, Pierre Zweigenbaum
+发表时间: 2026-04-02 11:41:36
+更新时间: 2026-04-02 11:41:36
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01924v1
+备注: Accepted in LREC 2026
+摘要: Accurate short-term mortality prediction in heart failure (HF) remains challenging, particularly when relying on structured electronic health record (EHR) data alone. We evaluate transformer-based mod...
+相关链接:
+  - https://arxiv.org/abs/2604.01924v1
+  - https://arxiv.org/pdf/2604.01924v1
+
+================================================================================
+
+论文 36: SURE: Synergistic Uncertainty-aware Reasoning for Multimodal Emotion Recognition in Conversations
+------------------------------------------------------------
+ID: 2604.01916v1
+作者: Yiqiang Cai, Chengyan Wu, Bolei Ma, Bo Chen, Yun Xue, Julia Hirschberg, Ziwei Gong
+发表时间: 2026-04-02 11:32:15
+更新时间: 2026-04-02 11:32:15
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01916v1
+备注: ICASSP 2026
+摘要: Multimodal emotion recognition in conversations (MERC) requires integrating multimodal signals while being robust to noise and modeling contextual reasoning. Existing approaches often emphasize fusion...
+相关链接:
+  - https://arxiv.org/abs/2604.01916v1
+  - https://arxiv.org/pdf/2604.01916v1
+
+================================================================================
+
+论文 37: HieraVid: Hierarchical Token Pruning for Fast Video Large Language Models
+------------------------------------------------------------
+ID: 2604.01881v1
+作者: Yansong Guo, Chaoyang Zhu, Jiayi Ji, Jianghang Lin, Liujuan Cao
+发表时间: 2026-04-02 10:40:15
+更新时间: 2026-04-02 10:40:15
+主要分类: cs.CV
+所有分类: cs.CV, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01881v1
+摘要: Video Large Language Models (VideoLLMs) have demonstrated impressive capabilities in video understanding, yet the massive number of input video tokens incurs a significant computational burden for dep...
+相关链接:
+  - https://arxiv.org/abs/2604.01881v1
+  - https://arxiv.org/pdf/2604.01881v1
+
+================================================================================
+
+论文 38: Beyond Detection: Ethical Foundations for Automated Dyslexic Error Attribution
+------------------------------------------------------------
+ID: 2604.01853v1
+作者: Samuel Rose, Debarati Chakraborty
+发表时间: 2026-04-02 10:08:35
+更新时间: 2026-04-02 10:08:35
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01853v1
+摘要: Dyslexic spelling errors exhibit systematic phonological and orthographic patterns that distinguish them from the errors produced by typically developing writers. While this observation has motivated ...
+相关链接:
+  - https://arxiv.org/abs/2604.01853v1
+  - https://arxiv.org/pdf/2604.01853v1
+
+================================================================================
+
+论文 39: From Guessing to Placeholding: A Cost-Theoretic Framework for Uncertainty-Aware Code Completion
+------------------------------------------------------------
+ID: 2604.01849v1
+作者: Liang Zhu, Haolin Chen, Lidong Zhao, Xian Wu
+发表时间: 2026-04-02 10:03:32
+更新时间: 2026-04-02 10:03:32
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01849v1
+摘要: While Large Language Models (LLMs) have demonstrated exceptional proficiency in code completion, they typically adhere to a Hard Completion (HC) paradigm, compelling the generation of fully concrete c...
+相关链接:
+  - https://arxiv.org/abs/2604.01849v1
+  - https://arxiv.org/pdf/2604.01849v1
+
+================================================================================
+
+论文 40: PLOT: Enhancing Preference Learning via Optimal Transport
+------------------------------------------------------------
+ID: 2604.01837v1
+作者: Liang Zhu, Yuelin Bai, Xiankun Ren, Jiaxi Yang, Lei Zhang, Feiteng Fang, Hamid Alinejad-Rokny, Minghuan Tan, Min Yang
+发表时间: 2026-04-02 09:51:56
+更新时间: 2026-04-02 09:51:56
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01837v1
+摘要: Preference learning in Large Language Models (LLMs) has advanced significantly, yet existing methods remain limited by modest performance gains, high computational costs, hyperparameter sensitivity, a...
+相关链接:
+  - https://arxiv.org/abs/2604.01837v1
+  - https://arxiv.org/pdf/2604.01837v1
+
+================================================================================
+
+论文 41: Language-Pretraining-Induced Bias: A Strong Foundation for General Vision Tasks
+------------------------------------------------------------
+ID: 2604.01833v1
+作者: Yaxin Luo, Zhiqiang Shen
+发表时间: 2026-04-02 09:46:20
+更新时间: 2026-04-02 09:46:20
+主要分类: cs.CV
+所有分类: cs.CV, cs.CL, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.01833v1
+摘要: The ratio of outlier parameters in language pre-training models and vision pre-training models differs significantly, making cross-modality (language and vision) inherently more challenging than cross...
+相关链接:
+  - https://arxiv.org/abs/2604.01833v1
+  - https://arxiv.org/pdf/2604.01833v1
+
+================================================================================
+
+论文 42: DEFT: Distribution-guided Efficient Fine-Tuning for Human Alignment
+------------------------------------------------------------
+ID: 2604.01787v1
+作者: Liang Zhu, Feiteng Fang, Yuelin Bai, Longze Chen, Zhexiang Zhang, Minghuan Tan, Min Yang
+发表时间: 2026-04-02 08:55:53
+更新时间: 2026-04-02 08:55:53
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01787v1
+摘要: Reinforcement Learning from Human Feedback (RLHF), using algorithms like Proximal Policy Optimization (PPO), aligns Large Language Models (LLMs) with human values but is costly and unstable. Alternati...
+相关链接:
+  - https://arxiv.org/abs/2604.01787v1
+  - https://arxiv.org/pdf/2604.01787v1
+
+================================================================================
+
+论文 43: Taming CATS: Controllable Automatic Text Simplification through Instruction Fine-Tuning with Control Tokens
+------------------------------------------------------------
+ID: 2604.01779v1
+作者: Hanna Hubarava, Yingqiang Gao
+发表时间: 2026-04-02 08:44:17
+更新时间: 2026-04-02 08:44:17
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01779v1
+摘要: Controllable Automatic Text Simplification (CATS) produces user-tailored outputs, yet controllability is often treated as a decoding problem and evaluated with metrics that are not reflective to the m...
+相关链接:
+  - https://arxiv.org/abs/2604.01779v1
+  - https://arxiv.org/pdf/2604.01779v1
+
+================================================================================
+
+论文 44: FourierMoE: Fourier Mixture-of-Experts Adaptation of Large Language Models
+------------------------------------------------------------
+ID: 2604.01762v1
+作者: Juyong Jiang, Fan Wang, Hong Qi, Sunghun Kim, Jing Tang
+发表时间: 2026-04-02 08:30:06
+更新时间: 2026-04-02 08:30:06
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, cs.CL, cs.DC
+PDF链接: https://arxiv.org/pdf/2604.01762v1
+备注: The first two authors contributed equally to this work; listing order is random
+摘要: Parameter-efficient fine-tuning (PEFT) has emerged as a crucial paradigm for adapting large language models (LLMs) under constrained computational budgets. However, standard PEFT methods often struggl...
+相关链接:
+  - https://arxiv.org/abs/2604.01762v1
+  - https://arxiv.org/pdf/2604.01762v1
+
+================================================================================
+
+论文 45: LiveMathematicianBench: A Live Benchmark for Mathematician-Level Reasoning with Proof Sketches
+------------------------------------------------------------
+ID: 2604.01754v1
+作者: Linyang He, Qiyao Yu, Hanze Dong, Baohao Liao, Xinxing Xu, Micah Goldblum, Jiang Bian, Nima Mesgarani
+发表时间: 2026-04-02 08:22:17
+更新时间: 2026-04-02 08:22:17
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.01754v1
+备注: Project page: https://livemathematicianbench.github.io/
+摘要: Mathematical reasoning is a hallmark of human intelligence, and whether large language models (LLMs) can meaningfully perform it remains a central question in artificial intelligence and cognitive sci...
+相关链接:
+  - https://arxiv.org/abs/2604.01754v1
+  - https://arxiv.org/pdf/2604.01754v1
+
+================================================================================
+
+论文 46: Detecting Toxic Language: Ontology and BERT-based Approaches for Bulgarian Text
+------------------------------------------------------------
+ID: 2604.01745v1
+作者: Melania Berbatova, Tsvetoslav Vasev
+发表时间: 2026-04-02 08:06:26
+更新时间: 2026-04-02 08:06:26
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01745v1
+摘要: Toxic content detection in online communication remains a significant challenge, with current solutions often inadvertently blocking valuable information, including medical terms and text related to m...
+相关链接:
+  - https://arxiv.org/abs/2604.01745v1
+  - https://arxiv.org/pdf/2604.01745v1
+
+================================================================================
+
+论文 47: From BM25 to Corrective RAG: Benchmarking Retrieval Strategies for Text-and-Table Documents
+------------------------------------------------------------
+ID: 2604.01733v1
+作者: Meftun Akarsu, Recep Kaan Karaman, Christopher Mierbach
+发表时间: 2026-04-02 07:53:40
+更新时间: 2026-04-02 07:53:40
+主要分类: cs.IR
+所有分类: cs.IR, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01733v1
+备注: 11 pages, 6 figures, 6 tables
+摘要: Retrieval-Augmented Generation (RAG) systems critically depend on retrieval quality, yet no systematic comparison of modern retrieval methods exists for heterogeneous documents containing both text an...
+相关链接:
+  - https://arxiv.org/abs/2604.01733v1
+  - https://arxiv.org/pdf/2604.01733v1
+
+================================================================================
+
+论文 48: Human-Guided Reasoning with Large Language Models for Vietnamese Speech Emotion Recognition
+------------------------------------------------------------
+ID: 2604.01711v1
+作者: Truc Nguyen, Then Tran, Binh Truong, Phuoc Nguyen T. H
+发表时间: 2026-04-02 07:24:14
+更新时间: 2026-04-02 07:24:14
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01711v1
+备注: 6 pages, 2 figures. Dataset of 2,764 Vietnamese speech samples across three emotion classes
+摘要: Vietnamese Speech Emotion Recognition (SER) remains challenging due to ambiguous acoustic patterns and the lack of reliable annotated data, especially in real-world conditions where emotional boundari...
+相关链接:
+  - https://arxiv.org/abs/2604.01711v1
+  - https://arxiv.org/pdf/2604.01711v1
+
+================================================================================
+
+论文 49: Memory in the LLM Era: Modular Architectures and Strategies in a Unified Framework
+------------------------------------------------------------
+ID: 2604.01707v1
+作者: Yanchen Wu, Tenghui Lin, Yingli Zhou, Fangyuan Zhang, Qintian Guo, Xun Zhou, Sibo Wang, Xilin Liu, Yuchi Ma, Yixiang Fang
+发表时间: 2026-04-02 07:19:20
+更新时间: 2026-04-02 07:19:20
+主要分类: cs.CL
+所有分类: cs.CL, cs.DB
+PDF链接: https://arxiv.org/pdf/2604.01707v1
+摘要: Memory emerges as the core module in the large language model (LLM)-based agents for long-horizon complex tasks (e.g., multi-turn dialogue, game playing, scientific discovery), where memory can enable...
+相关链接:
+  - https://arxiv.org/abs/2604.01707v1
+  - https://arxiv.org/pdf/2604.01707v1
+
+================================================================================
+
+论文 50: Development and multi-center evaluation of domain-adapted speech recognition for human-AI teaming in real-world gastrointestinal endoscopy
+------------------------------------------------------------
+ID: 2604.01705v1
+作者: Ruijie Yang, Yan Zhu, Peiyao Fu, Te Luo, Zhihua Wang, Xian Yang, Quanlin Li, Pinghong Zhou, Shuo Wang
+发表时间: 2026-04-02 07:13:02
+更新时间: 2026-04-02 07:13:02
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01705v1
+备注: Under review at npj Digital Medicine
+摘要: Automatic speech recognition (ASR) is a critical interface for human-AI interaction in gastrointestinal endoscopy, yet its reliability in real-world clinical settings is limited by domain-specific ter...
+相关链接:
+  - https://arxiv.org/abs/2604.01705v1
+  - https://arxiv.org/pdf/2604.01705v1
+
+================================================================================
+
+论文 51: On the Role of Reasoning Patterns in the Generalization Discrepancy of Long Chain-of-Thought Supervised Fine-Tuning
+------------------------------------------------------------
+ID: 2604.01702v1
+作者: Zhaoyi Li, Xiangyu Xi, Zhengyu Chen, Wei Wang, Gangwei Jiang, Ranran Shen, Linqi Song, Ying Wei, Defu Lian
+发表时间: 2026-04-02 07:00:54
+更新时间: 2026-04-02 07:00:54
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01702v1
+备注: Under Review
+摘要: Supervised Fine-Tuning (SFT) on long Chain-of-Thought (CoT) trajectories has become a pivotal phase in building large reasoning models. However, how CoT trajectories from different sources influence t...
+相关链接:
+  - https://arxiv.org/abs/2604.01702v1
+  - https://arxiv.org/pdf/2604.01702v1
+
+================================================================================
+
+论文 52: MiCA Learns More Knowledge Than LoRA and Full Fine-Tuning
+------------------------------------------------------------
+ID: 2604.01694v1
+作者: Sten Rüdiger, Sebastian Raschka
+发表时间: 2026-04-02 06:52:44
+更新时间: 2026-04-02 06:52:44
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01694v1
+摘要: Minor Component Adaptation (MiCA) is a novel parameter-efficient fine-tuning method for large language models that focuses on adapting underutilized subspaces of model representations. Unlike conventi...
+相关链接:
+  - https://arxiv.org/abs/2604.01694v1
+  - https://arxiv.org/pdf/2604.01694v1
+
+================================================================================
+
+论文 53: Coupled Query-Key Dynamics for Attention
+------------------------------------------------------------
+ID: 2604.01683v1
+作者: Barak Gahtan, Alex M. Bronstein
+发表时间: 2026-04-02 06:37:05
+更新时间: 2026-04-02 06:37:05
+主要分类: cs.LG
+所有分类: cs.LG, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01683v1
+摘要: Standard scaled dot-product attention computes scores from static, independent projections of the input. We show that evolving queries and keys \emph{jointly} through shared learned dynamics before sc...
+相关链接:
+  - https://arxiv.org/abs/2604.01683v1
+  - https://arxiv.org/pdf/2604.01683v1
+
+================================================================================
+
+论文 54: PRISM: Probability Reallocation with In-Span Masking for Knowledge-Sensitive Alignment
+------------------------------------------------------------
+ID: 2604.01682v1
+作者: Chenning Xu, Mao Zheng, Mingyang Song
+发表时间: 2026-04-02 06:35:04
+更新时间: 2026-04-02 06:35:04
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01682v1
+摘要: Supervised fine-tuning (SFT) with token-level hard labels can amplify overconfident imitation of factually unsupported targets, causing hallucinations that propagate in multi-sentence generation. We s...
+相关链接:
+  - https://arxiv.org/abs/2604.01682v1
+  - https://arxiv.org/pdf/2604.01682v1
+
+================================================================================
+
+论文 55: PRCCF: A Persona-guided Retrieval and Causal-aware Cognitive Filtering Framework for Emotional Support Conversation
+------------------------------------------------------------
+ID: 2604.01671v1
+作者: Yanxin Luo, Xiaoyu Zhang, Jing Li, Yan Gao, Donghong Han
+发表时间: 2026-04-02 06:18:28
+更新时间: 2026-04-02 06:18:28
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01671v1
+备注: 14 pages, 6 figures, 5 tables. Submitted to Transactions of the Association for Computational Linguistics (TACL)
+摘要: Emotional Support Conversation (ESC) aims to alleviate individual emotional distress by generating empathetic responses. However, existing methods face challenges in effectively supporting deep contex...
+相关链接:
+  - https://arxiv.org/abs/2604.01671v1
+  - https://arxiv.org/pdf/2604.01671v1
+
+================================================================================
+
+论文 56: What Do Claim Verification Datasets Actually Test? A Reasoning Trace Analysis
+------------------------------------------------------------
+ID: 2604.01657v1
+作者: Delip Rao, Chris Callison-Burch
+发表时间: 2026-04-02 05:54:51
+更新时间: 2026-04-02 05:54:51
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01657v1
+备注: 11 pages
+摘要: Despite rapid progress in claim verification, we lack a systematic understanding of what reasoning these benchmarks actually exercise. We generate structured reasoning traces for 24K claim-verificatio...
+相关链接:
+  - https://arxiv.org/abs/2604.01657v1
+  - https://arxiv.org/pdf/2604.01657v1
+
+================================================================================
+
+论文 57: ThinknCheck: Grounded Claim Verification with Compact, Reasoning-Driven, and Interpretable Models
+------------------------------------------------------------
+ID: 2604.01652v1
+作者: Delip Rao, Feijiang Han, Chris Callison-Burch
+发表时间: 2026-04-02 05:50:21
+更新时间: 2026-04-02 05:50:21
+主要分类: cs.AI
+所有分类: cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01652v1
+备注: 15 pages
+摘要: We present ThinknCheck, a 1B-parameter verifier for grounded claim verification that first produces a short, structured rationale and then a binary verdict. We construct LLMAggreFact-Think, a 24.1k re...
+相关链接:
+  - https://arxiv.org/abs/2604.01652v1
+  - https://arxiv.org/pdf/2604.01652v1
+
+================================================================================
+
+论文 58: Fragile Reasoning: A Mechanistic Analysis of LLM Sensitivity to Meaning-Preserving Perturbations
+------------------------------------------------------------
+ID: 2604.01639v1
+作者: Shou-Tzu Han, Rodrigue Rizk, KC Santosh
+发表时间: 2026-04-02 05:30:20
+更新时间: 2026-04-02 05:30:20
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01639v1
+备注: Preprint. Under review at COLM 2026
+摘要: Large language models demonstrate strong performance on mathematical reasoning benchmarks, yet remain surprisingly fragile to meaning-preserving surface perturbations. We systematically evaluate three...
+相关链接:
+  - https://arxiv.org/abs/2604.01639v1
+  - https://arxiv.org/pdf/2604.01639v1
+
+================================================================================
+
+论文 59: CRIT: Graph-Based Automatic Data Synthesis to Enhance Cross-Modal Multi-Hop Reasoning
+------------------------------------------------------------
+ID: 2604.01634v1
+作者: Junyoung Sung, Seungwoo Lyu, Minjun Kim, Sumin An, Arsha Nagrani, Paul Hongsuck Seo
+发表时间: 2026-04-02 05:23:18
+更新时间: 2026-04-02 05:23:18
+主要分类: cs.LG
+所有分类: cs.LG, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01634v1
+备注: Accepted to CVPR 2026
+摘要: Real-world reasoning often requires combining information across modalities, connecting textual context with visual cues in a multi-hop process. Yet, most multimodal benchmarks fail to capture this ab...
+相关链接:
+  - https://arxiv.org/abs/2604.01634v1
+  - https://arxiv.org/pdf/2604.01634v1
+
+================================================================================
+
+论文 60: Grounding AI-in-Education Development in Teachers' Voices: Findings from a National Survey in Indonesia
+------------------------------------------------------------
+ID: 2604.01630v1
+作者: Nurul Aisyah, Muhammad Dehan Al Kautsar, Arif Hidayat, Fajri Koto
+发表时间: 2026-04-02 05:17:00
+更新时间: 2026-04-02 05:17:00
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01630v1
+摘要: Despite emerging use in Indonesian classrooms, there is limited large-scale, teacher-centred evidence on how AI is used in practice and what support teachers need, hindering the development of context...
+相关链接:
+  - https://arxiv.org/abs/2604.01630v1
+  - https://arxiv.org/pdf/2604.01630v1
+
+================================================================================
+
+论文 61: OSCAR: Orchestrated Self-verification and Cross-path Refinement
+------------------------------------------------------------
+ID: 2604.01624v1
+作者: Yash Shah, Abhijit Chakraborty, Naresh Kumar Devulapally, Vishnu Lokhande, Vivek Gupta
+发表时间: 2026-04-02 05:02:22
+更新时间: 2026-04-02 05:02:22
+主要分类: cs.AI
+所有分类: cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01624v1
+摘要: Diffusion language models (DLMs) expose their denoising trajectories, offering a natural handle for inference-time control; accordingly, an ideal hallucination mitigation framework should intervene du...
+相关链接:
+  - https://arxiv.org/abs/2604.01624v1
+  - https://arxiv.org/pdf/2604.01624v1
+
+================================================================================
+
+论文 62: Expert-Choice Routing Enables Adaptive Computation in Diffusion Language Models
+------------------------------------------------------------
+ID: 2604.01622v1
+作者: Shuibai Zhang, Caspian Zhuang, Chihan Cui, Zhihan Yang, Fred Zhangzhi Peng, Yanxin Zhang, Haoyue Bai, Zack Jia, Yang Zhou, Guanhua Chen, Ming Liu
+发表时间: 2026-04-02 05:01:36
+更新时间: 2026-04-02 05:01:36
+主要分类: cs.LG
+所有分类: cs.LG, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01622v1
+备注: 26 pages
+摘要: Diffusion language models (DLMs) enable parallel, non-autoregressive text generation, yet existing DLM mixture-of-experts (MoE) models inherit token-choice (TC) routing from autoregressive systems, le...
+相关链接:
+  - https://arxiv.org/abs/2604.01622v1
+  - https://arxiv.org/pdf/2604.01622v1
+
+================================================================================
+
+论文 63: Swift-SVD: Theoretical Optimality Meets Practical Efficiency in Low-Rank LLM Compression
+------------------------------------------------------------
+ID: 2604.01609v1
+作者: Ruoling Qi, Yirui Liu, Xuaner Wu, Xiangyu Wang, Ming Li, Chen Chen, Jian Chen, Yin Chen, Qizhen Weng
+发表时间: 2026-04-02 04:40:50
+更新时间: 2026-04-02 04:40:50
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01609v1
+备注: Under Review
+摘要: The deployment of Large Language Models is constrained by the memory and bandwidth demands of static weights and dynamic Key-Value cache. SVD-based compression provides a hardware-friendly solution to...
+相关链接:
+  - https://arxiv.org/abs/2604.01609v1
+  - https://arxiv.org/pdf/2604.01609v1
+
+================================================================================
+
+论文 64: Acoustic and perceptual differences between standard and accented Chinese speech and their voice clones
+------------------------------------------------------------
+ID: 2604.01562v1
+作者: Tianle Yang, Chengzhe Sun, Phil Rose, Siwei Lyu
+发表时间: 2026-04-02 03:17:41
+更新时间: 2026-04-02 03:17:41
+主要分类: cs.SD
+所有分类: cs.SD, cs.AI, cs.CL, cs.CY, cs.HC
+PDF链接: https://arxiv.org/pdf/2604.01562v1
+摘要: Voice cloning is often evaluated in terms of overall quality, but less is known about accent preservation and its perceptual consequences. We compare standard and heavily accented Mandarin speech and ...
+相关链接:
+  - https://arxiv.org/abs/2604.01562v1
+  - https://arxiv.org/pdf/2604.01562v1
+
+================================================================================
+
+论文 65: DeltaMem: Towards Agentic Memory Management via Reinforcement Learning
+------------------------------------------------------------
+ID: 2604.01560v1
+作者: Qi Zhang, Shen Huang, Chu Liu, Shouqing Yang, Junbo Zhao, Haobo Wang, Pengjun Xie
+发表时间: 2026-04-02 03:13:53
+更新时间: 2026-04-02 03:13:53
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01560v1
+备注: preprint, under review
+摘要: Recent advances in persona-centric memory have revealed the powerful capability of multi-agent systems in managing persona memory, especially in conversational scenarios. However, these complex framew...
+相关链接:
+  - https://arxiv.org/abs/2604.01560v1
+  - https://arxiv.org/pdf/2604.01560v1
+
+================================================================================
+
+论文 66: Countering Catastrophic Forgetting of Large Language Models for Better Instruction Following via Weight-Space Model Merging
+------------------------------------------------------------
+ID: 2604.01538v1
+作者: Mengxian Lyu, Cheng Peng, Ziyi Chen, Mengyuan Zhang, Jieting Li Lu, Yonghui Wu
+发表时间: 2026-04-02 02:18:49
+更新时间: 2026-04-02 02:18:49
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01538v1
+摘要: Large language models have been adopted in the medical domain for clinical documentation to reduce clinician burden. However, studies have reported that LLMs often "forget" a significant amount of ins...
+相关链接:
+  - https://arxiv.org/abs/2604.01538v1
+  - https://arxiv.org/pdf/2604.01538v1
+
+================================================================================
+
+论文 67: Read More, Think More: Revisiting Observation Reduction for Web Agents
+------------------------------------------------------------
+ID: 2604.01535v1
+作者: Masafumi Enomoto, Ryoma Obara, Haochen Zhang, Masafumi Oyamada
+发表时间: 2026-04-02 02:14:47
+更新时间: 2026-04-02 02:14:47
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01535v1
+摘要: Web agents based on large language models (LLMs) rely on observations of web pages -- commonly represented as HTML -- as the basis for identifying available actions and planning subsequent steps. Prio...
+相关链接:
+  - https://arxiv.org/abs/2604.01535v1
+  - https://arxiv.org/pdf/2604.01535v1
+
+================================================================================
+
+论文 68: Why Instruction-Based Unlearning Fails in Diffusion Models?
+------------------------------------------------------------
+ID: 2604.01514v1
+作者: Zeliang Zhang, Rui Sun, Jiani Liu, Qi Wu, Chenliang Xu
+发表时间: 2026-04-02 01:08:01
+更新时间: 2026-04-02 01:08:01
+主要分类: cs.CL
+所有分类: cs.CL, cs.CV
+PDF链接: https://arxiv.org/pdf/2604.01514v1
+摘要: Instruction-based unlearning has proven effective for modifying the behavior of large language models at inference time, but whether this paradigm extends to other generative models remains unclear. I...
+相关链接:
+  - https://arxiv.org/abs/2604.01514v1
+  - https://arxiv.org/pdf/2604.01514v1
+
+================================================================================
+
+论文 69: Magic, Madness, Heaven, Sin: LLM Output Diversity is Everything, Everywhere, All at Once
+------------------------------------------------------------
+ID: 2604.01504v1
+作者: Harnoor Dhingra
+发表时间: 2026-04-02 00:32:41
+更新时间: 2026-04-02 00:32:41
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.CY
+PDF链接: https://arxiv.org/pdf/2604.01504v1
+备注: Under review
+摘要: Research on Large Language Models (LLMs) studies output variation across generation, reasoning, alignment, and representational analysis, often under the umbrella of "diversity." Yet the terminology r...
+相关链接:
+  - https://arxiv.org/abs/2604.01504v1
+  - https://arxiv.org/pdf/2604.01504v1
+
+================================================================================
+
+论文 70: From SWE-ZERO to SWE-HERO: Execution-free to Execution-based Fine-tuning for Software Engineering Agents
+------------------------------------------------------------
+ID: 2604.01496v1
+作者: Nikolai Ludwig, Wasi Uddin Ahmad, Somshubra Majumdar, Boris Ginsburg
+发表时间: 2026-04-02 00:11:17
+更新时间: 2026-04-02 00:11:17
+主要分类: cs.SE
+所有分类: cs.SE, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01496v1
+摘要: We introduce SWE-ZERO to SWE-HERO, a two-stage SFT recipe that achieves state-of-the-art results on SWE-bench by distilling open-weight frontier LLMs. Our pipeline replaces resource-heavy dependencies...
+相关链接:
+  - https://arxiv.org/abs/2604.01496v1
+  - https://arxiv.org/pdf/2604.01496v1
+
+================================================================================
+
+论文 71: When Reward Hacking Rebounds: Understanding and Mitigating It with Representation-Level Signals
+------------------------------------------------------------
+ID: 2604.01476v1
+作者: Rui Wu, Ruixiang Tang
+发表时间: 2026-04-01 23:33:08
+更新时间: 2026-04-01 23:33:08
+主要分类: cs.LG
+所有分类: cs.LG, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01476v1
+备注: 15 pages, 8 figures
+摘要: Reinforcement learning for LLMs is vulnerable to reward hacking, where models exploit shortcuts to maximize reward without solving the intended task. We systematically study this phenomenon in coding ...
+相关链接:
+  - https://arxiv.org/abs/2604.01476v1
+  - https://arxiv.org/pdf/2604.01476v1
+
+================================================================================
+
+论文 72: A Dynamic Atlas of Persian Poetic Symbolism: Families, Fields, and the Historical Rewiring of Meaning
+------------------------------------------------------------
+ID: 2604.01467v1
+作者: Kourosh Shahnazari, Seyed Moein Ayyoubzadeh, Mohammadali Keshtparvar
+发表时间: 2026-04-01 23:24:22
+更新时间: 2026-04-01 23:24:22
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01467v1
+摘要: Persian poetry is often remembered through recurrent symbols before it is remembered through plot. Wine vessels, gardens, flames, sacred titles, bodily beauty, and courtly names return across centurie...
+相关链接:
+  - https://arxiv.org/abs/2604.01467v1
+  - https://arxiv.org/pdf/2604.01467v1
+
+================================================================================
+
+论文 73: Wired for Overconfidence: A Mechanistic Perspective on Inflated Verbalized Confidence in LLMs
+------------------------------------------------------------
+ID: 2604.01457v1
+作者: Tianyi Zhao, Yinhan He, Wendy Zheng, Yujie Zhang, Chen Chen
+发表时间: 2026-04-01 23:06:58
+更新时间: 2026-04-01 23:06:58
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01457v1
+摘要: Large language models are often not just wrong, but \emph{confidently wrong}: when they produce factually incorrect answers, they tend to verbalize overly high confidence rather than signal uncertaint...
+相关链接:
+  - https://arxiv.org/abs/2604.01457v1
+  - https://arxiv.org/pdf/2604.01457v1
+
+================================================================================
+
+论文 74: Are Finer Citations Always Better? Rethinking Granularity for Attributed Generation
+------------------------------------------------------------
+ID: 2604.01432v1
+作者: Hexuan Wang, Jingyu Zhang, Benjamin Van Durme, Daniel Khashabi
+发表时间: 2026-04-01 22:16:23
+更新时间: 2026-04-01 22:16:23
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01432v1
+摘要: Citation granularity - whether to cite individual sentences, paragraphs, or documents - is a critical design choice in attributed generation. While fine-grained citations are often preferred for preci...
+相关链接:
+  - https://arxiv.org/abs/2604.01432v1
+  - https://arxiv.org/pdf/2604.01432v1
+
+================================================================================
+
+论文 75: The power of context: Random Forest classification of near synonyms. A case study in Modern Hindi
+------------------------------------------------------------
+ID: 2604.01425v1
+作者: Jacek Bąkowski
+发表时间: 2026-04-01 21:59:58
+更新时间: 2026-04-01 21:59:58
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01425v1
+摘要: Synonymy is a widespread yet puzzling linguistic phenomenon. Absolute synonyms theoretically should not exist, as they do not expand language's expressive potential. However, it was suggested that eve...
+相关链接:
+  - https://arxiv.org/abs/2604.01425v1
+  - https://arxiv.org/pdf/2604.01425v1
+
+================================================================================
+
+论文 76: Cost-Efficient Estimation of General Abilities Across Benchmarks
+------------------------------------------------------------
+ID: 2604.01418v1
+作者: Michael Krumdick, Adam Wiemerslage, Seth Ebner, Charles Lovering, Chris Tanner
+发表时间: 2026-04-01 21:34:33
+更新时间: 2026-04-01 21:34:33
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01418v1
+摘要: Thousands of diverse benchmarks have been developed to measure the quality of large language models (LLMs). Yet prior work has demonstrated that LLM performance is often sufficiently explained by a sm...
+相关链接:
+  - https://arxiv.org/abs/2604.01418v1
+  - https://arxiv.org/pdf/2604.01418v1
+
+================================================================================
+
+论文 77: ReFormeR: Learning and Applying Explicit Query Reformulation Patterns
+------------------------------------------------------------
+ID: 2604.01417v1
+作者: Amin Bigdeli, Mert Incesu, Negar Arabzadeh, Charles L. A. Clarke, Ebrahim Bagheri
+发表时间: 2026-04-01 21:34:11
+更新时间: 2026-04-01 21:34:11
+主要分类: cs.IR
+所有分类: cs.IR, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01417v1
+摘要: We present ReFormeR, a pattern-guided approach for query reformulation. Instead of prompting a language model to generate reformulations of a query directly, ReFormeR first elicits short reformulation...
+相关链接:
+  - https://arxiv.org/abs/2604.01417v1
+  - https://arxiv.org/pdf/2604.01417v1
+  - https://doi.org/10.1007/978-3-032-21300-6_30
+
+================================================================================
+
+论文 78: Adaptive Stopping for Multi-Turn LLM Reasoning
+------------------------------------------------------------
+ID: 2604.01413v1
+作者: Xiaofan Zhou, Huy Nguyen, Bo Yu, Chenxi Liu, Lu Cheng
+发表时间: 2026-04-01 21:22:19
+更新时间: 2026-04-01 21:22:19
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01413v1
+摘要: Large Language Models (LLMs) increasingly rely on multi-turn reasoning and interaction, such as adaptive retrieval-augmented generation (RAG) and ReAct-style agents, to answer difficult questions. The...
+相关链接:
+  - https://arxiv.org/abs/2604.01413v1
+  - https://arxiv.org/pdf/2604.01413v1
+
+================================================================================
+
+论文 79: Test-Time Scaling Makes Overtraining Compute-Optimal
+------------------------------------------------------------
+ID: 2604.01411v1
+作者: Nicholas Roberts, Sungjun Cho, Zhiqi Gao, Tzu-Heng Huang, Albert Wu, Gabriel Orlanski, Avi Trost, Kelly Buchanan, Aws Albarghouthi, Frederic Sala
+发表时间: 2026-04-01 21:17:32
+更新时间: 2026-04-01 21:17:32
+主要分类: cs.LG
+所有分类: cs.LG, cs.CL, stat.ML
+PDF链接: https://arxiv.org/pdf/2604.01411v1
+摘要: Modern LLMs scale at test-time, e.g. via repeated sampling, where inference cost grows with model size and the number of samples. This creates a trade-off that pretraining scaling laws, such as Chinch...
+相关链接:
+  - https://arxiv.org/abs/2604.01411v1
+  - https://arxiv.org/pdf/2604.01411v1
+
+================================================================================
+
+论文 80: Assessing Pause Thresholds for empirical Translation Process Research
+------------------------------------------------------------
+ID: 2604.01410v1
+作者: Devi Sri Bandaru, Michael Carl, Xinyue Ren
+发表时间: 2026-04-01 21:16:44
+更新时间: 2026-04-01 21:16:44
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01410v1
+备注: Accepted for Presentation at "Translation in Transition 8, September 2026"
+摘要: Text production (and translations) proceeds in the form of stretches of typing, interrupted by keystroke pauses. It is often assumed that fast typing reflects unchallenged/automated translation produc...
+相关链接:
+  - https://arxiv.org/abs/2604.01410v1
+  - https://arxiv.org/pdf/2604.01410v1
+
+================================================================================
+
+论文 81: Friends and Grandmothers in Silico: Localizing Entity Cells in Language Models
+------------------------------------------------------------
+ID: 2604.01404v1
+作者: Itay Yona, Dan Barzilay, Michael Karasik, Mor Geva
+发表时间: 2026-04-01 21:09:06
+更新时间: 2026-04-01 21:09:06
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01404v1
+摘要: Language models can answer many entity-centric factual questions, but it remains unclear which internal mechanisms are involved in this process. We study this question across multiple language models....
+相关链接:
+  - https://arxiv.org/abs/2604.01404v1
+  - https://arxiv.org/pdf/2604.01404v1
+
+================================================================================
+
+论文 82: Open-Domain Safety Policy Construction
+------------------------------------------------------------
+ID: 2604.01354v1
+作者: Di Wu, Siyue Liu, Zixiang Ji, Ya-Liang Chang, Zhe-Yu Liu, Andrew Pleffer, Kai-Wei Chang
+发表时间: 2026-04-01 20:07:34
+更新时间: 2026-04-01 20:07:34
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01354v1
+备注: EACL 2026 (Findings)
+摘要: Moderation layers are increasingly a core component of many products built on user- or model-generated content. However, drafting and maintaining domain-specific safety policies remains costly. We pre...
+相关链接:
+  - https://arxiv.org/abs/2604.01354v1
+  - https://arxiv.org/pdf/2604.01354v1
+
+================================================================================
+
+论文 83: No Attacker Needed: Unintentional Cross-User Contamination in Shared-State LLM Agents
+------------------------------------------------------------
+ID: 2604.01350v1
+作者: Tiankai Yang, Jiate Li, Yi Nian, Shen Dong, Ruiyao Xu, Ryan Rossi, Kaize Ding, Yue Zhao
+发表时间: 2026-04-01 20:03:56
+更新时间: 2026-04-01 20:03:56
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.CR
+PDF链接: https://arxiv.org/pdf/2604.01350v1
+摘要: LLM-based agents increasingly operate across repeated sessions, maintaining task states to ensure continuity. In many deployments, a single agent serves multiple users within a team or organization, r...
+相关链接:
+  - https://arxiv.org/abs/2604.01350v1
+  - https://arxiv.org/pdf/2604.01350v1
+
+================================================================================
+
+论文 84: Procedural Knowledge at Scale Improves Reasoning
+------------------------------------------------------------
+ID: 2604.01348v1
+作者: Di Wu, Devendra Singh Sachan, Wen-tau Yih, Mingda Chen
+发表时间: 2026-04-01 20:01:47
+更新时间: 2026-04-01 20:01:47
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01348v1
+摘要: Test-time scaling has emerged as an effective way to improve language models on challenging reasoning tasks. However, most existing methods treat each problem in isolation and do not systematically re...
+相关链接:
+  - https://arxiv.org/abs/2604.01348v1
+  - https://arxiv.org/pdf/2604.01348v1
+
+================================================================================
+
+论文 85: Preference learning in shades of gray: Interpretable and bias-aware reward modeling for human preferences
+------------------------------------------------------------
+ID: 2604.01312v1
+作者: Simona-Vasilica Oprea, Adela Bâra
+发表时间: 2026-04-01 18:26:16
+更新时间: 2026-04-01 18:26:16
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01312v1
+摘要: Learning human preferences in language models remains fundamentally challenging, as reward modeling relies on subtle, subjective comparisons or shades of gray rather than clear-cut labels. This study ...
+相关链接:
+  - https://arxiv.org/abs/2604.01312v1
+  - https://arxiv.org/pdf/2604.01312v1
+
+================================================================================
+
+论文 86: M2-Verify: A Large-Scale Multidomain Benchmark for Checking Multimodal Claim Consistency
+------------------------------------------------------------
+ID: 2604.01306v1
+作者: Abolfazl Ansari, Delvin Ce Zhang, Zhuoyang Zou, Wenpeng Yin, Dongwon Lee
+发表时间: 2026-04-01 18:18:10
+更新时间: 2026-04-01 18:18:10
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01306v1
+备注: Preprint. Under Review
+摘要: Evaluating scientific arguments requires assessing the strict consistency between a claim and its underlying multimodal evidence. However, existing benchmarks lack the scale, domain diversity, and vis...
+相关链接:
+  - https://arxiv.org/abs/2604.01306v1
+  - https://arxiv.org/pdf/2604.01306v1
+
+================================================================================
+
+论文 87: Scaling Reasoning Tokens via RL and Parallel Thinking: Evidence From Competitive Programming
+------------------------------------------------------------
+ID: 2604.01302v1
+作者: Qianfan Zhang, Tianyu Guo, Xuandi Ren, Jiale Chen, Ming Ding, Ran Xin, Xia Xiao
+发表时间: 2026-04-01 18:05:49
+更新时间: 2026-04-01 18:05:49
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01302v1
+摘要: We study how to scale reasoning token budgets for competitive programming through two complementary approaches: training-time reinforcement learning (RL) and test-time parallel thinking. During RL tra...
+相关链接:
+  - https://arxiv.org/abs/2604.01302v1
+  - https://arxiv.org/pdf/2604.01302v1
+
+================================================================================
+
+论文 88: Look Twice: Training-Free Evidence Highlighting in Multimodal Large Language Models
+------------------------------------------------------------
+ID: 2604.01280v1
+作者: Marco Morini, Sara Sarto, Marcella Cornia, Lorenzo Baraldi
+发表时间: 2026-04-01 18:00:08
+更新时间: 2026-04-01 18:00:08
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01280v1
+备注: Project Page: https://aimagelab.github.io/LoT/
+摘要: Answering questions about images often requires combining visual understanding with external knowledge. Multimodal Large Language Models (MLLMs) provide a natural framework for this setting, but they ...
+相关链接:
+  - https://arxiv.org/abs/2604.01280v1
+  - https://arxiv.org/pdf/2604.01280v1
+
+================================================================================
+
+论文 89: Universal YOCO for Efficient Depth Scaling
+------------------------------------------------------------
+ID: 2604.01220v1
+作者: Yutao Sun, Li Dong, Tianzhu Ye, Shaohan Huang, Jianyong Wang, Furu Wei
+发表时间: 2026-04-01 17:58:21
+更新时间: 2026-04-01 17:58:21
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01220v1
+摘要: The rise of test-time scaling has remarkably boosted the reasoning and agentic proficiency of Large Language Models (LLMs). Yet, standard Transformers struggle to scale inference-time compute efficien...
+相关链接:
+  - https://arxiv.org/abs/2604.01220v1
+  - https://arxiv.org/pdf/2604.01220v1
+
+================================================================================
+
+论文 90: $\texttt{YC-Bench}$: Benchmarking AI Agents for Long-Term Planning and Consistent Execution
+------------------------------------------------------------
+ID: 2604.01212v1
+作者: Muyu He, Adit Jain, Anand Kumar, Vincent Tu, Soumyadeep Bakshi, Sachin Patro, Nazneen Rajani
+发表时间: 2026-04-01 17:52:19
+更新时间: 2026-04-01 17:52:19
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01212v1
+备注: 16 pages, 10 figures
+摘要: As LLM agents tackle increasingly complex tasks, a critical question is whether they can maintain strategic coherence over long horizons: planning under uncertainty, learning from delayed feedback, an...
+相关链接:
+  - https://arxiv.org/abs/2604.01212v1
+  - https://arxiv.org/pdf/2604.01212v1
+
+================================================================================
+
+论文 91: LLM REgression with a Latent Iterative State Head
+------------------------------------------------------------
+ID: 2604.01206v1
+作者: Yiheng Su, Matthew Lease
+发表时间: 2026-04-01 17:50:32
+更新时间: 2026-04-01 17:50:32
+主要分类: cs.CL
+所有分类: cs.CL, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.01206v1
+摘要: We present RELISH (REgression with a Latent Iterative State Head), a novel, lightweight architecture designed for text regression with large language models. Rather than decoding numeric targets as te...
+相关链接:
+  - https://arxiv.org/abs/2604.01206v1
+  - https://arxiv.org/pdf/2604.01206v1
+
+================================================================================
+
+论文 92: ORBIT: Scalable and Verifiable Data Generation for Search Agents on a Tight Budget
+------------------------------------------------------------
+ID: 2604.01195v2
+作者: Nandan Thakur, Zijian Chen, Xueguang Ma, Jimmy Lin
+发表时间: 2026-04-01 17:42:41
+更新时间: 2026-04-02 17:27:04
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.IR
+PDF链接: https://arxiv.org/pdf/2604.01195v2
+备注: Preprint
+摘要: Search agents, which integrate language models (LMs) with web search, are becoming crucial for answering complex user queries. Constructing training datasets for deep research tasks, involving multi-s...
+相关链接:
+  - https://arxiv.org/abs/2604.01195v2
+  - https://arxiv.org/pdf/2604.01195v2
+
+================================================================================
+
+论文 93: Embarrassingly Simple Self-Distillation Improves Code Generation
+------------------------------------------------------------
+ID: 2604.01193v1
+作者: Ruixiang Zhang, Richard He Bai, Huangjie Zheng, Navdeep Jaitly, Ronan Collobert, Yizhe Zhang
+发表时间: 2026-04-01 17:39:50
+更新时间: 2026-04-01 17:39:50
+主要分类: cs.CL
+所有分类: cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01193v1
+摘要: Can a large language model (LLM) improve at code generation using only its own raw outputs, without a verifier, a teacher model, or reinforcement learning? We answer in the affirmative with simple sel...
+相关链接:
+  - https://arxiv.org/abs/2604.01193v1
+  - https://arxiv.org/pdf/2604.01193v1
+
+================================================================================
+
+论文 94: True (VIS) Lies: Analyzing How Generative AI Recognizes Intentionality, Rhetoric, and Misleadingness in Visualization Lies
+------------------------------------------------------------
+ID: 2604.01181v1
+作者: Graziano Blasilli, Marco Angelini
+发表时间: 2026-04-01 17:33:10
+更新时间: 2026-04-01 17:33:10
+主要分类: cs.HC
+所有分类: cs.HC, cs.CL, cs.CV
+PDF链接: https://arxiv.org/pdf/2604.01181v1
+摘要: This study investigates the ability of multimodal Large Language Models (LLMs) to identify and interpret misleading visualizations, and recognize these observations along with their underlying causes ...
+相关链接:
+  - https://arxiv.org/abs/2604.01181v1
+  - https://arxiv.org/pdf/2604.01181v1
+
+================================================================================
+
+论文 95: Screening Is Enough
+------------------------------------------------------------
+ID: 2604.01178v1
+作者: Ken M. Nakanishi
+发表时间: 2026-04-01 17:29:08
+更新时间: 2026-04-01 17:29:08
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.01178v1
+备注: 21 pages, 13 figures
+摘要: A core limitation of standard softmax attention is that it does not define a notion of absolute query--key relevance: attention weights are obtained by redistributing a fixed unit mass across all keys...
+相关链接:
+  - https://arxiv.org/abs/2604.01178v1
+  - https://arxiv.org/pdf/2604.01178v1
+
+================================================================================
+
+论文 96: Online Reasoning Calibration: Test-Time Training Enables Generalizable Conformal LLM Reasoning
+------------------------------------------------------------
+ID: 2604.01170v1
+作者: Cai Zhou, Zekai Wang, Menghua Wu, Qianyu Julie Zhu, Flora C. Shi, Chenyu Wang, Ashia Wilson, Tommi Jaakkola, Stephen Bates
+发表时间: 2026-04-01 17:21:50
+更新时间: 2026-04-01 17:21:50
+主要分类: cs.LG
+所有分类: cs.LG, cs.AI, cs.CL, stat.AP, stat.ML
+PDF链接: https://arxiv.org/pdf/2604.01170v1
+备注: 20 pages
+摘要: While test-time scaling has enabled large language models to solve highly difficult tasks, state-of-the-art results come at exorbitant compute costs. These inefficiencies can be attributed to the misc...
+相关链接:
+  - https://arxiv.org/abs/2604.01170v1
+  - https://arxiv.org/pdf/2604.01170v1
+
+================================================================================
+
+论文 97: S0 Tuning: Zero-Overhead Adaptation of Hybrid Recurrent-Attention Models
+------------------------------------------------------------
+ID: 2604.01168v1
+作者: Jack Young
+发表时间: 2026-04-01 17:21:15
+更新时间: 2026-04-01 17:21:15
+主要分类: cs.CL
+所有分类: cs.CL, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.01168v1
+备注: 15 pages (10 main + 5 appendix), 3 figures, code at https://github.com/jackyoung27/s0-tuning
+摘要: Using roughly 48 execution-verified HumanEval training solutions, tuning a single initial state matrix per recurrent layer, with zero inference overhead, outperforms LoRA by +10.8 pp (p < 0.001) on Hu...
+相关链接:
+  - https://arxiv.org/abs/2604.01168v1
+  - https://arxiv.org/pdf/2604.01168v1
+
+================================================================================
+
+论文 98: Brainstacks: Cross-Domain Cognitive Capabilities via Frozen MoE-LoRA Stacks for Continual LLM Learning
+------------------------------------------------------------
+ID: 2604.01152v1
+作者: Mohammad R. Abu Ayyash
+发表时间: 2026-04-01 17:08:25
+更新时间: 2026-04-01 17:08:25
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01152v1
+备注: 26 pages, 13 figures, 4 tables
+摘要: We present Brainstacks, a modular architecture for continual multi-domain fine-tuning of large language models that packages domain expertise as frozen adapter stacks composing additively on a shared ...
+相关链接:
+  - https://arxiv.org/abs/2604.01152v1
+  - https://arxiv.org/pdf/2604.01152v1
+
+================================================================================
+
+论文 99: The Overlooked Repetitive Lengthening Form in Sentiment Analysis
+------------------------------------------------------------
+ID: 2604.01268v1
+作者: Lei Wang, Eduard Dragut
+发表时间: 2026-04-01 16:55:17
+更新时间: 2026-04-01 16:55:17
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.01268v1
+备注: Findings of EMNLP 2024
+摘要: Individuals engaging in online communication frequently express personal opinions with informal styles (e.g., memes and emojis). While Language Models (LMs) with informal communications have been wide...
+相关链接:
+  - https://arxiv.org/abs/2604.01268v1
+  - https://arxiv.org/pdf/2604.01268v1
+  - https://doi.org/10.18653/v1/2024.findings-emnlp.952
+
+================================================================================
+
+论文 100: Paper Reconstruction Evaluation: Evaluating Presentation and Hallucination in AI-written Papers
+------------------------------------------------------------
+ID: 2604.01128v1
+作者: Atsuyuki Miyai, Mashiro Toyooka, Zaiying Zhao, Kenta Watanabe, Toshihiko Yamasaki, Kiyoharu Aizawa
+发表时间: 2026-04-01 16:48:04
+更新时间: 2026-04-01 16:48:04
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.01128v1
+备注: Project Page: https://agent4science-utokyo.github.io/PaperRecon_HP/
+摘要: This paper introduces the first systematic evaluation framework for quantifying the quality and risks of papers written by modern coding agents. While AI-driven paper writing has become a growing conc...
+相关链接:
+  - https://arxiv.org/abs/2604.01128v1
+  - https://arxiv.org/pdf/2604.01128v1
+
+================================================================================
+

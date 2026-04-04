@@ -21,6 +21,10 @@ Action: FINISH
 - 当用户没有给出明确的论文序号/ID/标题，但你判断用户是在指代“最近一次操作过的那篇论文”（例如上下文中的指代性表达），
   则在调用需要论文引用的工具时，把 args 里的 ref 设置为 null(JSON null), 由工具自动定位最近操作的论文。
 - 如果用户给出了明确序号/ID/标题，则正常传 ref。
+关于异步任务（翻译）：
+- translate_arxiv_pdf 是异步任务，调用后会立即返回 task_id 和 PENDING 状态。
+- 翻译进度由前端通过 SSE 实时推送，你不需要也不应该轮询检查翻译状态。
+- 调用 translate_arxiv_pdf 之后，直接 FINISH 即可，不要再调用 get_paper_cache_status 去查看翻译是否完成。
 正确示例：
 Action: {{"name":"translate_arxiv_pdf","args":{{"ref":2,"session_id":"demo1","force":false,"service":"bing","threads":4,"keep_dual":false}}}}
 Action: {{"name":"download_arxiv_pdf","args":{{"ref":null,"session_id":"demo1","force":false}}}}

@@ -7,8 +7,7 @@ from typing import Dict, Any, Optional, Union, Callable
 
 from tools.tool_registry import registry
 from models.store import store
-from models.pdf_cache import PdfAsset
-from models.translate_cache import TranslateAsset
+from models.schemas import PdfAsset, TranslateAsset
 from utils.pdf_downloader import (
     normalize_arxiv_pdf_url,
     safe_filename,
@@ -140,7 +139,7 @@ def translate_arxiv_pdf(
         except Exception:
             pass
 
-    _emit(0.02, {"stage": "prepare", "msg": "start resolve inputs"})
+    _emit(0.0, {"stage": "prepare", "msg": "start resolve inputs"})
 
     # 允许三种入口：
     # 1) input_pdf_path
@@ -164,7 +163,7 @@ def translate_arxiv_pdf(
         in_path = input_pdf_path
         if not paper_id:
             paper_id = os.path.splitext(os.path.basename(in_path))[0]
-        _emit(0.10, {"stage": "pdf_ready", "msg": "use local input_pdf_path"})
+        _emit(0.0, {"stage": "pdf_ready", "msg": "use local input_pdf_path"})
     else:
         if not paper_id:
             paper = store.resolve_paper(session_id, ref)
@@ -175,9 +174,7 @@ def translate_arxiv_pdf(
             paper_id = paper.id
             pdf_url = paper.pdf_url or _fallback_pdf_url(paper_id)
 
-        _emit(0.05, {"stage": "downloading", "msg": "ensure raw pdf"})
         in_path = _ensure_pdf_downloaded_by_id(paper_id, pdf_url, force=force)
-        _emit(0.10, {"stage": "pdf_ready", "msg": "raw pdf ready"})
 
     store.set_last_active_paper_id(session_id, paper_id)
 
@@ -191,8 +188,8 @@ def translate_arxiv_pdf(
     existed = os.path.exists(mono_path) and os.path.getsize(mono_path) > 0
     asset = store.get_translate_asset(paper_id)
 
-    # 3) 若已存在且不强制，直接返回
-    if existed and not force:
+    # 3) 若已存在且不强制，直接返回（异步任务跳过：runner 已有 fast-path）
+    if existed and not force and not progress_cb:
         if asset is None:
             asset = TranslateAsset(
                 paper_id=paper_id,
@@ -259,23 +256,10 @@ def translate_arxiv_pdf(
                 error=None,
             )
 
-        _emit(0.12, {"stage": "translating", "msg": "pdf2zh start"})
+        _emit(0.0, {"stage": "translating", "msg": "pdf2zh start"})
 
-        # 把 pdf2zh 的 0~1 映射到任务总体进度：0.12 ~ 0.98
         def _on_pdf2zh(p: float, detail: Optional[Dict[str, Any]] = None) -> None:
-            # clamp
-            try:
-                pp = float(p)
-            except Exception:
-                return
-            if pp < 0:
-                pp = 0.0
-            if pp > 1:
-                pp = 1.0
-            overall = 0.12 + 0.86 * pp
-            d = detail or {}
-            d.setdefault("stage", "translating")
-            _emit(overall, d)
+            _emit(p, detail)
 
         res = run_pdf2zh_translate(
             pdf2zh_bin=settings.pdf2zh_bin,
@@ -288,7 +272,7 @@ def translate_arxiv_pdf(
             progress_cb=_on_pdf2zh,
         )
 
-        _emit(0.985, {"stage": "finalizing", "msg": "rename outputs"})
+        _emit(1.0, {"stage": "finalizing", "msg": "rename outputs"})
 
         # pdf2zh 实际输出名可能是 stem-mono / stem-zh，这里统一成 {paper_id}-mono.pdf
         if res.mono_path != mono_path:
@@ -313,8 +297,6 @@ def translate_arxiv_pdf(
             translated_at=datetime.now(),
             error=None,
         )
-
-        _emit(0.99, {"stage": "finalizing", "msg": "done"})
 
         return {
             "session_id": session_id,

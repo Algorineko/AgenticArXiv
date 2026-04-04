@@ -44,6 +44,12 @@ require_cmd() {
 [[ -d "${BACKEND_DIR}" ]] || { echo "[all] ERROR: backend dir not found: ${BACKEND_DIR}" >&2; exit 1; }
 [[ -d "${FRONTEND_DIR}" ]] || { echo "[all] ERROR: frontend dir not found: ${FRONTEND_DIR}" >&2; exit 1; }
 
+# activate venv if present
+VENV="${ROOT_DIR}/.venv"
+if [[ -d "${VENV}" ]]; then
+  source "${VENV}/bin/activate"
+fi
+
 require_cmd uvicorn
 require_cmd npm
 require_cmd setsid
