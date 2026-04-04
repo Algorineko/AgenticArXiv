@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { api, getApiBase } from "@/api/client";
 import { openEventsSse } from "@/api/sse";
 import type {
+  AgentType,
   ChatResponse,
   Paper,
   PdfAsset,
@@ -20,6 +21,7 @@ export interface ChatMessage {
   ts: number;
   taskId?: string;
   history?: ReactStep[];
+  agentType?: AgentType;
 }
 
 function nowTs() {
@@ -55,6 +57,7 @@ export const useAppStore = defineStore("app", {
     lastHistory: [] as ReactStep[],
 
     preferAgent: true,
+    agentType: (localStorage.getItem("agent_type") || "react_regex") as AgentType,
 
     thinkingSteps: [] as any[],
     isThinking: false,
@@ -145,7 +148,7 @@ export const useAppStore = defineStore("app", {
     pushUser(content: string) {
       this.messages.push({ role: "user", content, ts: nowTs() });
     },
-    pushAssistant(content: string, opts?: { taskId?: string; history?: ReactStep[] }) {
+    pushAssistant(content: string, opts?: { taskId?: string; history?: ReactStep[]; agentType?: AgentType }) {
       this.messages.push({ role: "assistant", content, ts: nowTs(), ...opts });
     },
 
@@ -312,6 +315,7 @@ export const useAppStore = defineStore("app", {
         const res = await api.post<ChatResponse>("/chat", {
           session_id: this.sessionId,
           message: text,
+          agent_type: this.agentType,
         });
 
         const data = res.data;
@@ -320,7 +324,8 @@ export const useAppStore = defineStore("app", {
         const taskId = Array.isArray(data.tasks)
           ? data.tasks.find((t) => this._newTaskIds.has(t.task_id))?.task_id
           : undefined;
-        this.pushAssistant(data.reply || "(空回复)", { history, taskId });
+        const agentType = (data.agent_type || this.agentType) as AgentType;
+        this.pushAssistant(data.reply || "(空回复)", { history, taskId, agentType });
         this.lastHistory = history;
 
         this.papers = data.papers || [];

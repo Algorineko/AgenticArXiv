@@ -75,10 +75,13 @@ export interface TranslateTask {
   [k: string]: any;
 }
 
+export type AgentType = "react_regex" | "mcp" | "skill_cli";
+
 export interface ChatRequest {
   session_id: string;
   message: string;
   agent_model?: string | null;
+  agent_type?: AgentType;
 }
 
 export interface ChatResponse {
@@ -93,6 +96,7 @@ export interface ChatResponse {
 
   // 后端新增 tasks
   tasks?: TranslateTask[];
+  agent_type?: AgentType;
 }
 
 export interface PdfAssetsResponse {
@@ -128,6 +132,7 @@ export interface ChatLogItem {
   role: "user" | "assistant";
   content: string | null;
   model: string | null;
+  agent_type: string | null;
   created_at: string | null;
 }
 

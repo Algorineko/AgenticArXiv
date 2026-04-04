@@ -30,6 +30,7 @@
         <div v-for="m in messages" :key="m.msg_id" class="msg-card" :class="m.role">
           <div class="msg-header">
             <span class="role-badge" :class="m.role">{{ m.role === "user" ? "用户" : "Agent" }}</span>
+            <span v-if="m.role === 'assistant' && m.agent_type" class="agent-type-tag">{{ agentLabel(m.agent_type) }}</span>
             <span class="time">{{ fmtDate(m.created_at) }}</span>
             <span v-if="m.model" class="model">{{ m.model }}</span>
             <button
@@ -87,6 +88,15 @@ const messages = ref<ChatLogItem[]>([]);
 const stepsMap = reactive<Record<string, AgentStepItem[]>>({});
 const expandedMsgIds = reactive(new Set<string>());
 const stepsLoading = reactive(new Set<string>());
+
+const agentLabelMap: Record<string, string> = {
+  react_regex: "ReAct",
+  mcp: "MCP",
+  skill_cli: "Skill/CLI",
+};
+function agentLabel(t: string): string {
+  return agentLabelMap[t] || t;
+}
 
 function fmtDate(d: string | null) {
   if (!d) return "-";
@@ -211,6 +221,15 @@ onMounted(fetchSessions);
 
 .time { color: var(--muted); font-size: 11px; }
 .model { color: var(--muted); font-size: 11px; }
+
+.agent-type-tag {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(89,153,255,0.12);
+  color: var(--accent, #59f);
+  font-weight: 600;
+}
 
 .expand-btn { font-size: 11px; height: 24px; padding: 0 8px; }
 
