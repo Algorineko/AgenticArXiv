@@ -1,5 +1,5 @@
 <template>
-  <section class="card assets">
+  <section class="assets">
     <header class="card-header">
       <div class="head">
         <div>
@@ -26,7 +26,10 @@
 
           <div v-for="t in taskList" :key="t.task_id" class="item">
             <div class="item-top">
-              <div class="mono id">{{ t.paper_id }}</div>
+              <div class="item-title-block">
+                <div class="item-title" v-if="paperTitle(t.paper_id)">{{ paperTitle(t.paper_id) }}</div>
+                <div class="mono id">{{ t.paper_id }}</div>
+              </div>
               <span class="pill" :class="statusClass(t.status)">{{ t.status }}</span>
             </div>
 
@@ -64,7 +67,10 @@
 
           <div v-for="a in pdfList" :key="a.paper_id" class="item">
             <div class="item-top">
-              <div class="mono id">{{ a.paper_id }}</div>
+              <div class="item-title-block">
+                <div class="item-title" v-if="paperTitle(a.paper_id)">{{ paperTitle(a.paper_id) }}</div>
+                <div class="mono id">{{ a.paper_id }}</div>
+              </div>
 
               <div class="right-actions">
                 <span class="pill ok">READY</span>
@@ -120,7 +126,10 @@
 
           <div v-for="t in trList" :key="t.paper_id" class="item">
             <div class="item-top">
-              <div class="mono id">{{ t.paper_id }}</div>
+              <div class="item-title-block">
+                <div class="item-title" v-if="paperTitle(t.paper_id)">{{ paperTitle(t.paper_id) }}</div>
+                <div class="mono id">{{ t.paper_id }}</div>
+              </div>
 
               <div class="right-actions">
                 <span class="pill ok">READY</span>
@@ -228,6 +237,11 @@ function formatBytes(n: number | null | undefined) {
   return `${v.toFixed(i === 0 ? 0 : 2)} ${units[i]}`;
 }
 
+function paperTitle(paperId: string): string | undefined {
+  const p = store.papers.find((x) => x.id === paperId);
+  return p?.title;
+}
+
 function statusClass(s: string) {
   const x = (s || "").toUpperCase();
   if (x.includes("SUCC")) return "ok";
@@ -265,15 +279,19 @@ async function onDeleteTranslate(paperId: string) {
 
 <style scoped>
 .assets {
-  height: 100%;
+  height: calc(100vh - 36px);
   display: flex;
   flex-direction: column;
   min-height: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.02);
+  overflow: hidden;
 }
 
 .card-header {
+  padding: 12px 12px 10px;
   margin-bottom: 10px;
-  padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -354,7 +372,17 @@ async function onDeleteTranslate(paperId: string) {
 }
 
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-.id { font-weight: 700; }
+.id { font-weight: 600; font-size: 11px; }
+
+.item-title-block { min-width: 0; flex: 1; }
+.item-title {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .sub { color: var(--muted); font-size: 12px; line-height: 1.35; margin-top: 2px; }
 .sub.err { color: #ff6b6b; }
 

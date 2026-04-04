@@ -93,7 +93,7 @@ onBeforeUnmount(() => {
 
   border: 1px solid var(--border);
   border-radius: 16px;
-  background: rgba(12,12,16,0.96);
+  background: var(--modal-bg);
   box-shadow: 0 18px 60px rgba(0,0,0,0.55);
   overflow: hidden;
 

@@ -12,13 +12,15 @@ from pydantic import BaseModel, Field
 from typing import Any, Dict, List, Optional, Literal
 
 from tools.tool_registry import registry
-from models.schemas import Paper, TranslateTask
+from models.schemas import (
+    Paper, TranslateTask, PdfAsset, TranslateAsset,
+    ChatLogItem, AgentStepItem, LogSessionSummary,
+)
 from models.store import store
-from models.pdf_cache import PdfAsset
-from models.translate_cache import TranslateAsset
 from utils.logger import log
 
 from services.runtime import event_bus, translate_runner
+from services.log_service import log_service
 from config import settings
 
 
@@ -473,14 +475,8 @@ def chat(req: ChatRequest) -> ChatResponse:
         )
 
         papers = store.get_last_papers(req.session_id)
-        pdf_assets = sorted(
-            store.pdf_cache.assets.values(), key=lambda x: x.updated_at, reverse=True
-        )
-        translate_assets = sorted(
-            store.translate_cache.assets.values(),
-            key=lambda x: x.updated_at,
-            reverse=True,
-        )
+        pdf_assets = store.list_pdf_assets()
+        translate_assets = store.list_translate_assets()
         tasks = store.list_tasks(session_id=req.session_id, limit=50)
 
         reply = ""
@@ -507,18 +503,12 @@ def chat(req: ChatRequest) -> ChatResponse:
 
 @router.get("/pdf/assets", response_model=PdfAssetsResponse)
 def list_pdf_assets() -> PdfAssetsResponse:
-    assets = sorted(
-        store.pdf_cache.assets.values(), key=lambda x: x.updated_at, reverse=True
-    )
-    return PdfAssetsResponse(assets=list(assets))
+    return PdfAssetsResponse(assets=store.list_pdf_assets())
 
 
 @router.get("/translate/assets", response_model=TranslateAssetsResponse)
 def list_translate_assets() -> TranslateAssetsResponse:
-    assets = sorted(
-        store.translate_cache.assets.values(), key=lambda x: x.updated_at, reverse=True
-    )
-    return TranslateAssetsResponse(assets=list(assets))
+    return TranslateAssetsResponse(assets=store.list_translate_assets())
 
 
 # ---------------- PDF view endpoints ----------------
@@ -726,3 +716,39 @@ def delete_translate_asset(
         deleted_files=deleted_files,
         warnings=warnings,
     )
+
+
+# ---------------- logs ----------------
+
+class LogSessionsResponse(BaseModel):
+    sessions: List[LogSessionSummary]
+
+
+class LogMessagesResponse(BaseModel):
+    messages: List[ChatLogItem]
+
+
+class LogStepsResponse(BaseModel):
+    steps: List[AgentStepItem]
+
+
+@router.get("/logs/sessions", response_model=LogSessionsResponse)
+def get_log_sessions(
+    limit: int = Query(default=50, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
+) -> LogSessionsResponse:
+    return LogSessionsResponse(sessions=log_service.list_sessions(limit, offset))
+
+
+@router.get("/logs/sessions/{session_id}/messages", response_model=LogMessagesResponse)
+def get_log_messages(
+    session_id: str,
+    limit: int = Query(default=100, ge=1, le=500),
+    offset: int = Query(default=0, ge=0),
+) -> LogMessagesResponse:
+    return LogMessagesResponse(messages=log_service.list_messages(session_id, limit, offset))
+
+
+@router.get("/logs/messages/{msg_id}/steps", response_model=LogStepsResponse)
+def get_log_steps(msg_id: str) -> LogStepsResponse:
+    return LogStepsResponse(steps=log_service.get_steps(msg_id))

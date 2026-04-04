@@ -53,5 +53,10 @@ class Settings:
     pdf2zh_service: str = os.getenv("PDF2ZH_SERVICE", "bing")
     pdf2zh_threads: int = int(os.getenv("PDF2ZH_THREADS", "4"))
 
+    # --- MySQL ---
+    mysql_uri: str = os.getenv(
+        "MYSQL_URI", "mysql+pymysql://root:root@127.0.0.1:3306/agentic_arxiv"
+    )
+
 
 settings = Settings()

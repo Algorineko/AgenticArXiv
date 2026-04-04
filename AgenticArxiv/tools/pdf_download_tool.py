@@ -8,7 +8,7 @@ from typing import Dict, Any, Optional, Union
 from tools.tool_registry import registry
 from models.store import store
 from models.schemas import Paper
-from models.pdf_cache import PdfAsset
+from models.schemas import PdfAsset
 from utils.pdf_downloader import (
     normalize_arxiv_pdf_url,
     safe_filename,

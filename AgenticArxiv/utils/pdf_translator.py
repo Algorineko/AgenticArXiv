@@ -31,10 +31,12 @@ def _guess_outputs(out_dir: str, stem: str) -> Tuple[str, str]:
     return mono, dual
 
 
+_ANSI_RE = re.compile(r"\x1b\[[0-9;]*[a-zA-Z]")
 _TQDM_PERCENT_RE = re.compile(r"(\d{1,3})%\|")  # tqdm 典型： 12%|████...
 _PLAIN_PERCENT_RE = re.compile(r"(?<!\d)(\d{1,3})%(?!\d)")
 _PAGE_RE = re.compile(r"(?i)\bpage(?:s)?\b.*?(\d+)\s*/\s*(\d+)")
-_FRACTION_RE = re.compile(r"(?<!\d)(\d+)\s*/\s*(\d+)(?!\d)")
+# 排除日期格式 [04/04/26]：(?<!\[) 拒绝 [ 开头，(?!/) 拒绝后续还有 /
+_FRACTION_RE = re.compile(r"(?<!\[)(?<!\d)(\d+)\s*/\s*(\d+)(?!\d)(?!/)")
 
 
 def _extract_progress(text: str) -> Optional[float]:
@@ -45,8 +47,14 @@ def _extract_progress(text: str) -> Optional[float]:
       2) 普通百分比： 12%
       3) page i/n
       4) i/n
+    只处理 tqdm 风格行（以空白+数字/百分比开头），跳过 INFO/Namespace 等日志行。
     """
     if not text:
+        return None
+    text = _ANSI_RE.sub("", text)
+    # 跳过非进度行：只处理 strip 后以数字开头的行（tqdm 输出格式）
+    stripped = text.strip()
+    if not stripped or not stripped[0].isdigit():
         return None
 
     m = _TQDM_PERCENT_RE.search(text)
@@ -72,7 +80,7 @@ def _extract_progress(text: str) -> Optional[float]:
     if m:
         i = int(m.group(1))
         n = int(m.group(2))
-        if n > 0:
+        if n > 1 and i <= n:
             return max(0.0, min(1.0, i / n))
 
     return None

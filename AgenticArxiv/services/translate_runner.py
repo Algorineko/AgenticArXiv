@@ -221,8 +221,8 @@ class TranslateRunner:
                 return
             if pp < 0:
                 pp = 0.0
-            if pp > 0.99:
-                pp = 0.99  # SUCCEEDED 再设 1.0
+            if pp > 1:
+                pp = 1.0
 
             now = time.time()
             # 至少提升 1% 或者间隔>=0.5s 才推送（两者满足其一）

@@ -1,87 +1,89 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-02-23 23:32:15
+生成时间: 2026-04-04 16:56:57
 论文数量: 5
 ================================================================================
 
-论文 1: Unifying approach to uniform expressivity of graph neural networks
+论文 1: ActionParty: Multi-Subject Action Binding in Generative Video Games
 ------------------------------------------------------------
-ID: 2602.18409v1
-作者: Huan Luo, Jonni Virtema
-发表时间: 2026-02-20 18:18:48
-更新时间: 2026-02-20 18:18:48
+ID: 2604.02330v1
+作者: Alexander Pondaven, Ziyi Wu, Igor Gilitschenski, Philip Torr, Sergey Tulyakov, Fabio Pizzati, Aliaksandr Siarohin
+发表时间: 2026-04-02 17:59:58
+更新时间: 2026-04-02 17:59:58
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.02330v1
+备注: Project page: https://action-party.github.io/
+摘要: Recent advances in video diffusion have enabled the development of "world models" capable of simulating interactive environments. However, these models are largely restricted to single-agent settings,...
+相关链接:
+  - https://arxiv.org/abs/2604.02330v1
+  - https://arxiv.org/pdf/2604.02330v1
+
+================================================================================
+
+论文 2: Steerable Visual Representations
+------------------------------------------------------------
+ID: 2604.02327v1
+作者: Jona Ruthardt, Manu Gaur, Deva Ramanan, Makarand Tapaswi, Yuki M. Asano
+发表时间: 2026-04-02 17:59:49
+更新时间: 2026-04-02 17:59:49
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.02327v1
+备注: preprint
+摘要: Pretrained Vision Transformers (ViTs) such as DINOv2 and MAE provide generic image features that can be applied to a variety of downstream tasks such as retrieval, classification, and segmentation. Ho...
+相关链接:
+  - https://arxiv.org/abs/2604.02327v1
+  - https://arxiv.org/pdf/2604.02327v1
+
+================================================================================
+
+论文 3: Grounded Token Initialization for New Vocabulary in LMs for Generative Recommendation
+------------------------------------------------------------
+ID: 2604.02324v1
+作者: Daiwei Chen, Zhoutong Fu, Chengming Jiang, Haichao Zhang, Ran Zhou, Tan Wang, Chunnan Yao, Guoyao Li, Rui Cai, Yihan Cao, Ruijie Jiang, Fedor Borisyuk, Jianqiang Shen, Jingwei Wu, Ramya Korlakai Vinayak
+发表时间: 2026-04-02 17:59:19
+更新时间: 2026-04-02 17:59:19
+主要分类: cs.CL
+所有分类: cs.CL, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.02324v1
+摘要: Language models (LMs) are increasingly extended with new learnable vocabulary tokens for domain-specific tasks, such as Semantic-ID tokens in generative recommendation. The standard practice initializ...
+相关链接:
+  - https://arxiv.org/abs/2604.02324v1
+  - https://arxiv.org/pdf/2604.02324v1
+
+================================================================================
+
+论文 4: Batched Contextual Reinforcement: A Task-Scaling Law for Efficient Reasoning
+------------------------------------------------------------
+ID: 2604.02322v1
+作者: Bangji Yang, Hongbo Ma, Jiajun Fan, Ge Liu
+发表时间: 2026-04-02 17:58:50
+更新时间: 2026-04-02 17:58:50
 主要分类: cs.LG
-所有分类: cs.LG, cs.AI, cs.LO
-PDF链接: https://arxiv.org/pdf/2602.18409v1
-摘要: The expressive power of Graph Neural Networks (GNNs) is often analysed via correspondence to the Weisfeiler-Leman (WL) algorithm and fragments of first-order logic. Standard GNNs are limited to perfor...
+所有分类: cs.LG, cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.02322v1
+备注: 43 pages, 5 figures, 24 tables
+摘要: Large Language Models employing Chain-of-Thought reasoning achieve strong performance but suffer from excessive token consumption that inflates inference costs. Existing efficiency methods such as exp...
 相关链接:
-  - https://arxiv.org/abs/2602.18409v1
-  - https://arxiv.org/pdf/2602.18409v1
+  - https://arxiv.org/abs/2604.02322v1
+  - https://arxiv.org/pdf/2604.02322v1
 
 ================================================================================
 
-论文 2: Leakage and Second-Order Dynamics Improve Hippocampal RNN Replay
+论文 5: Beyond the Assistant Turn: User Turn Generation as a Probe of Interaction Awareness in Language Models
 ------------------------------------------------------------
-ID: 2602.18401v1
-作者: Josue Casco-Rodriguez, Nanda H. Krishna, Richard G. Baraniuk
-发表时间: 2026-02-20 18:07:09
-更新时间: 2026-02-20 18:07:09
-主要分类: cs.LG
-所有分类: cs.LG, cs.AI, q-bio.NC, stat.ML
-PDF链接: https://arxiv.org/pdf/2602.18401v1
-摘要: Biological neural networks (like the hippocampus) can internally generate "replay" resembling stimulus-driven activity. Recent computational models of replay use noisy recurrent neural networks (RNNs)...
+ID: 2604.02315v1
+作者: Sarath Shekkizhar, Romain Cosentino, Adam Earle
+发表时间: 2026-04-02 17:57:29
+更新时间: 2026-04-02 17:57:29
+主要分类: cs.AI
+所有分类: cs.AI
+PDF链接: https://arxiv.org/pdf/2604.02315v1
+摘要: Standard LLM benchmarks evaluate the assistant turn: the model generates a response to an input, a verifier scores correctness, and the analysis ends. This paradigm leaves unmeasured whether the LLM e...
 相关链接:
-  - https://arxiv.org/abs/2602.18401v1
-  - https://arxiv.org/pdf/2602.18401v1
-
-================================================================================
-
-论文 3: Learning to Tune Pure Pursuit in Autonomous Racing: Joint Lookahead and Steering-Gain Control with PPO
-------------------------------------------------------------
-ID: 2602.18386v1
-作者: Mohamed Elgouhary, Amr S. El-Wakeel
-发表时间: 2026-02-20 17:48:21
-更新时间: 2026-02-20 17:48:21
-主要分类: cs.RO
-所有分类: cs.RO, cs.AI, cs.LG, eess.SY
-PDF链接: https://arxiv.org/pdf/2602.18386v1
-摘要: Pure Pursuit (PP) is widely used in autonomous racing for real-time path tracking due to its efficiency and geometric clarity, yet performance is highly sensitive to how key parameters-lookahead dista...
-相关链接:
-  - https://arxiv.org/abs/2602.18386v1
-  - https://arxiv.org/pdf/2602.18386v1
-
-================================================================================
-
-论文 4: FedZMG: Efficient Client-Side Optimization in Federated Learning
-------------------------------------------------------------
-ID: 2602.18384v1
-作者: Fotios Zantalis, Evangelos Zervas, Grigorios Koulouras
-发表时间: 2026-02-20 17:45:28
-更新时间: 2026-02-20 17:45:28
-主要分类: cs.LG
-所有分类: cs.LG, cs.AI
-PDF链接: https://arxiv.org/pdf/2602.18384v1
-摘要: Federated Learning (FL) enables distributed model training on edge devices while preserving data privacy. However, clients tend to have non-Independent and Identically Distributed (non-IID) data, whic...
-相关链接:
-  - https://arxiv.org/abs/2602.18384v1
-  - https://arxiv.org/pdf/2602.18384v1
-
-================================================================================
-
-论文 5: Zero-shot Interactive Perception
-------------------------------------------------------------
-ID: 2602.18374v1
-作者: Venkatesh Sripada, Frank Guerin, Amir Ghalamzan
-发表时间: 2026-02-20 17:30:25
-更新时间: 2026-02-20 17:30:25
-主要分类: cs.RO
-所有分类: cs.RO, cs.AI
-PDF链接: https://arxiv.org/pdf/2602.18374v1
-备注: Original manuscript submitted on April 24, 2025. Timestamped and publicly available on OpenReview: https://openreview.net/forum?id=7MhpFcr5Nx
-摘要: Interactive perception (IP) enables robots to extract hidden information in their workspace and execute manipulation plans by physically interacting with objects and altering the state of the environm...
-相关链接:
-  - https://arxiv.org/abs/2602.18374v1
-  - https://arxiv.org/pdf/2602.18374v1
+  - https://arxiv.org/abs/2604.02315v1
+  - https://arxiv.org/pdf/2604.02315v1
 
 ================================================================================
 

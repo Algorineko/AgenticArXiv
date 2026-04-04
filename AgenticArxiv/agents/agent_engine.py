@@ -1,11 +1,14 @@
 # AgenticArxiv/agents/agent_engine.py
 import json
 import re
+import time
+import uuid
 from typing import Dict, Any, Optional, Tuple
 import sys
 import os
 from models.schemas import Paper
 from models.store import store
+from services.log_service import log_service
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -16,7 +19,7 @@ from agents.prompt_templates import get_react_prompt, format_tool_description
 from utils.logger import log
 from config import settings
 
-from services.runtime import translate_runner
+from services.runtime import translate_runner, event_bus
 
 
 class ReActAgent:
@@ -210,9 +213,16 @@ class ReActAgent:
     ) -> Dict[str, Any]:
         log.info(f"开始执行任务: {task}")
         self.session_id = session_id
+        msg_id = uuid.uuid4().hex
 
         if agent_model is None:
             agent_model = settings.models.agent_model
+
+        # Log user message
+        try:
+            log_service.create_chat_log(session_id, msg_id, "user", task, model=agent_model)
+        except Exception as e:
+            log.warning(f"Failed to log user message: {e}")
 
         tools = registry.list_tools()
         tools_description = format_tool_description(tools)
@@ -230,7 +240,14 @@ class ReActAgent:
 
             log.debug(f"发送给LLM的提示词:\n{prompt}")
 
+            llm_ms = 0
+            tool_ms = 0
+            thought = ""
+            action_dict = None
+            observation = ""
+
             try:
+                t0 = time.time()
                 response = self.llm_client.chat_completions(
                     model=agent_model,
                     messages=[{"role": "user", "content": prompt}],
@@ -238,6 +255,7 @@ class ReActAgent:
                     max_tokens=1000,
                     stream=False,
                 )
+                llm_ms = int((time.time() - t0) * 1000)
 
                 content = (
                     response.get("choices", [{}])[0]
@@ -252,10 +270,27 @@ class ReActAgent:
 
                 if action_dict is None:
                     log.info("任务完成")
-                    self.context.add_step(thought, "FINISH", "任务完成")
+                    observation = "任务完成"
+                    self.context.add_step(thought, "FINISH", observation)
+                    # Log step + SSE
+                    try:
+                        log_service.save_agent_step(
+                            msg_id=msg_id, step_index=iteration,
+                            thought=thought, action_name="FINISH", action_args="{}",
+                            observation=observation, llm_latency_ms=llm_ms, tool_latency_ms=0,
+                        )
+                        event_bus.publish(session_id, {
+                            "type": "agent_step",
+                            "step": {"thought": thought, "action_name": "FINISH", "observation": observation,
+                                     "step_index": iteration, "llm_latency_ms": llm_ms, "tool_latency_ms": 0},
+                        })
+                    except Exception as e:
+                        log.warning(f"Failed to log step: {e}")
                     break
 
+                t1 = time.time()
                 observation = self.execute_action(action_dict)
+                tool_ms = int((time.time() - t1) * 1000)
                 log.info(f"Observation: {observation[:200]}...")
 
                 self.context.add_step(
@@ -264,23 +299,87 @@ class ReActAgent:
                     observation,
                 )
 
+                # Log step + SSE
+                try:
+                    log_service.save_agent_step(
+                        msg_id=msg_id, step_index=iteration,
+                        thought=thought,
+                        action_name=action_dict.get("name", ""),
+                        action_args=json.dumps(action_dict.get("args", {}), ensure_ascii=False),
+                        observation=observation[:4000],
+                        llm_latency_ms=llm_ms, tool_latency_ms=tool_ms,
+                    )
+                    event_bus.publish(session_id, {
+                        "type": "agent_step",
+                        "step": {"thought": thought, "action_name": action_dict.get("name", ""),
+                                 "observation": observation[:500], "step_index": iteration,
+                                 "llm_latency_ms": llm_ms, "tool_latency_ms": tool_ms},
+                    })
+                except Exception as e:
+                    log.warning(f"Failed to log step: {e}")
+
                 if iteration == self.max_iterations - 1:
                     log.warning("达到最大迭代次数，强制结束")
                     self.context.add_step("达到最大迭代次数", "FORCE_STOP", "迭代限制")
+                    try:
+                        log_service.save_agent_step(
+                            msg_id=msg_id, step_index=iteration + 1,
+                            thought="达到最大迭代次数", action_name="FORCE_STOP",
+                            observation="迭代限制", llm_latency_ms=0, tool_latency_ms=0,
+                        )
+                        event_bus.publish(session_id, {
+                            "type": "agent_step",
+                            "step": {"thought": "达到最大迭代次数", "action_name": "FORCE_STOP",
+                                     "observation": "迭代限制", "step_index": iteration + 1,
+                                     "llm_latency_ms": 0, "tool_latency_ms": 0},
+                        })
+                    except Exception:
+                        pass
                     break
 
             except Exception as e:
                 error_msg = f"LLM调用失败: {str(e)}"
                 log.error(error_msg)
                 self.context.add_step("LLM调用失败", "ERROR", error_msg)
+                try:
+                    log_service.save_agent_step(
+                        msg_id=msg_id, step_index=iteration,
+                        thought="LLM调用失败", action_name="ERROR",
+                        observation=error_msg, llm_latency_ms=llm_ms, tool_latency_ms=0,
+                    )
+                    event_bus.publish(session_id, {
+                        "type": "agent_step",
+                        "step": {"thought": "LLM调用失败", "action_name": "ERROR",
+                                 "observation": error_msg, "step_index": iteration,
+                                 "llm_latency_ms": llm_ms, "tool_latency_ms": 0},
+                    })
+                except Exception:
+                    pass
                 break
+
+        final_observation = (
+            self.context.history[-1].observation if self.context.history else "无执行结果"
+        )
+
+        # Extract reply for logging
+        reply = ""
+        for step in reversed(self.context.get_full_history()):
+            if step.get("action") not in ("FINISH", "FORCE_STOP", "ERROR"):
+                reply = step.get("observation", "")
+                break
+        reply = reply or final_observation
+
+        # Log assistant reply
+        try:
+            log_service.create_chat_log(session_id, msg_id + "_reply", "assistant", reply, model=agent_model)
+        except Exception as e:
+            log.warning(f"Failed to log assistant reply: {e}")
 
         result = {
             "task": task,
+            "msg_id": msg_id,
             "history": self.context.get_full_history(),
-            "final_observation": self.context.history[-1].observation
-            if self.context.history
-            else "无执行结果",
+            "final_observation": final_observation,
         }
 
         log.info(f"任务执行完成，共 {len(self.context.history)} 步")

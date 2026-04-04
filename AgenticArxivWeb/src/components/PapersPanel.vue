@@ -1,5 +1,5 @@
 <template>
-  <section class="card papers">
+  <section class="papers">
     <header class="card-header">
       <div class="title">论文信息区（session 临时记忆）</div>
 
@@ -192,16 +192,19 @@ function shouldWarnTranslate(paperId: string) {
 
 <style scoped>
 .papers {
-  /* 关键：让卡片本身占满右侧 1fr，并允许内部滚动 */
-  height: 100%;
+  height: calc(100vh - 36px);
   display: flex;
   flex-direction: column;
   min-height: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.02);
+  overflow: hidden;
 }
 
 .card-header {
+  padding: 12px 12px 10px;
   margin-bottom: 10px;
-  padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -281,7 +284,7 @@ th { text-align:left; color: var(--muted); font-weight: 600; }
 .col-op { width: 160px; }
 
 /* 小屏优化：隐藏作者/时间列，减少横向滚动 */
-@media (max-width: 1100px) {
+@media (max-width: 768px) {
   .col-auth, .col-time { display: none; }
   td.col-auth, td.col-time { display: none; }
 }

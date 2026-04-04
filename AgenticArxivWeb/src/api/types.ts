@@ -114,6 +114,34 @@ export interface DeleteAssetResponse {
   warnings: string[];
 }
 
+// --- Log types ---
+
+export interface LogSessionSummary {
+  session_id: string;
+  message_count: number;
+  last_active_at: string | null;
+}
+
+export interface ChatLogItem {
+  msg_id: string;
+  session_id: string;
+  role: "user" | "assistant";
+  content: string | null;
+  model: string | null;
+  created_at: string | null;
+}
+
+export interface AgentStepItem {
+  step_index: number;
+  thought: string | null;
+  action_name: string | null;
+  action_args: string | null;
+  observation: string | null;
+  llm_latency_ms: number | null;
+  tool_latency_ms: number | null;
+  created_at: string | null;
+}
+
 // SSE envelope：event_bus.publish 的结构
 export interface SseEnvelope {
   type: string; // connected / task_created / task_started / task_succeeded / task_failed / asset_deleted / ...
@@ -128,5 +156,9 @@ export interface SseEnvelope {
   warnings?: string[];
 
   message?: string;
+
+  // agent_step 事件
+  step?: AgentStepItem;
+
   [k: string]: any;
 }
