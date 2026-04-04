@@ -21,6 +21,7 @@ class LogService:
         role: str,
         content: str,
         model: Optional[str] = None,
+        agent_type: Optional[str] = None,
     ) -> None:
         with get_sync_session() as db:
             db.add(ChatLogRow(
@@ -29,6 +30,7 @@ class LogService:
                 role=role,
                 content=content,
                 model=model,
+                agent_type=agent_type,
                 created_at=datetime.now(),
             ))
             db.commit()
@@ -100,6 +102,7 @@ class LogService:
                     role=r.role,
                     content=r.content,
                     model=r.model,
+                    agent_type=r.agent_type,
                     created_at=r.created_at,
                 )
                 for r in rows

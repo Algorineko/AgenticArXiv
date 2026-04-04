@@ -86,6 +86,7 @@ class ChatLogItem(BaseModel):
     role: str
     content: Optional[str] = None
     model: Optional[str] = None
+    agent_type: Optional[str] = None
     created_at: Optional[datetime] = None
 
 

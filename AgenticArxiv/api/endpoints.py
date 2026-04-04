@@ -160,6 +160,10 @@ class ChatRequest(BaseModel):
     session_id: str = Field(default="default")
     message: str = Field(..., description="用户对 Agent 的一句话/一个任务")
     agent_model: Optional[str] = None
+    agent_type: str = Field(
+        default="react_regex",
+        description="Agent 架构: react_regex | mcp | skill_cli",
+    )
 
 
 class ChatResponse(BaseModel):
@@ -173,6 +177,7 @@ class ChatResponse(BaseModel):
     tasks: List[TranslateTask] = Field(
         default_factory=list, description="该 session 的最近任务（可选）"
     )
+    agent_type: str = Field(default="react_regex", description="使用的 Agent 架构")
 
 
 class PdfAssetsResponse(BaseModel):
@@ -465,10 +470,18 @@ def pdf_translate_async(req: TranslatePdfRequest) -> CreateTranslateTaskResponse
 def chat(req: ChatRequest) -> ChatResponse:
     try:
         from utils.llm_client import get_env_llm_client
-        from agents.agent_engine import ReActAgent
 
         llm_client = get_env_llm_client()
-        agent = ReActAgent(llm_client)
+
+        if req.agent_type == "mcp":
+            from mcp_protocol.mcp_agent import MCPAgent
+            agent = MCPAgent(llm_client)
+        elif req.agent_type == "skill_cli":
+            from skill_cli.skill_agent import SkillAgent
+            agent = SkillAgent(llm_client)
+        else:
+            from agents.agent_engine import ReActAgent
+            agent = ReActAgent(llm_client)
 
         result = agent.run(
             task=req.message, agent_model=req.agent_model, session_id=req.session_id
@@ -495,6 +508,7 @@ def chat(req: ChatRequest) -> ChatResponse:
             pdf_assets=list(pdf_assets),
             translate_assets=list(translate_assets),
             tasks=tasks,
+            agent_type=req.agent_type,
         )
     except Exception as e:
         log.error(f"/chat 失败: {str(e)}")

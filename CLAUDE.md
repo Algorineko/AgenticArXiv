@@ -6,15 +6,20 @@ ReAct Agent + arXiv 论文管理系统。Python FastAPI 后端 + Vue 3 前端。
 ## 技术栈
 - **后端**: FastAPI + uvicorn, SQLAlchemy 2.0 (pymysql), MySQL 8
 - **前端**: Vue 3 + TypeScript + Pinia + Vite
-- **Agent**: ReAct 模式 (Thought-Action-Observation), 最多 5 轮迭代
+- **Agent**: 三种架构并存 (通过 agent_type 切换), 最多 5 轮迭代
+  - `react_regex`: ReAct prompt + 正则解析 + 进程内函数调用
+  - `mcp`: ReAct prompt + 正则解析 + MCP JSON-RPC 跨进程调用
+  - `skill_cli`: Skill 文档 + LLM 生成 CLI 命令 + subprocess 执行
 - **实时通信**: SSE (Server-Sent Events) 推送翻译进度 + Agent 思考步骤
 
 ## 目录结构
 ```
 AgenticArxiv/          # Python 后端
   api/                 # FastAPI 路由 (app.py, endpoints.py)
-  agents/              # ReAct Agent 引擎
-  tools/               # Agent 工具 (arxiv_search, pdf_download, pdf_translate, cache_status)
+  agents/              # Agent 基类 (base_agent.py) + ReAct 引擎 (agent_engine.py)
+  skill_cli/           # 方案 C: Skill/CLI (SKILL.md + tool_cli.py + skill_agent.py)
+  mcp_protocol/        # 方案 B: MCP 协议 (server.py + mcp_agent.py)
+  tools/               # 底层工具 (arxiv_search, pdf_download, pdf_translate, cache_status)
   models/              # ORM (orm.py), 数据库 (db.py), Store (store.py), Pydantic (schemas.py)
   services/            # 日志服务 (log_service.py), 事件总线 (event_bus.py), 翻译 runner
   config.py            # 环境变量配置

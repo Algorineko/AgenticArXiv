@@ -56,6 +56,7 @@
 
         <div class="meta">
           <span class="role">{{ m.role === "user" ? "你" : "Agent" }}</span>
+          <span v-if="m.role === 'assistant' && m.agentType" class="agent-type-tag">{{ agentLabel(m.agentType) }}</span>
           <span class="time">{{ fmt(m.ts) }}</span>
         </div>
         <pre class="content">{{ m.content }}</pre>
@@ -194,6 +195,15 @@ function extractToolName(action: string): string {
   }
 }
 
+const agentLabelMap: Record<string, string> = {
+  react_regex: "ReAct",
+  mcp: "MCP",
+  skill_cli: "Skill/CLI",
+};
+function agentLabel(t: string): string {
+  return agentLabelMap[t] || t;
+}
+
 function truncate(s: string, max: number): string {
   if (!s || s.length <= max) return s;
   return s.slice(0, max) + "...";
@@ -329,10 +339,23 @@ watch(
 
 .meta {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
   color: var(--muted);
   font-size: 12px;
   margin-bottom: 6px;
+}
+.meta .time {
+  margin-left: auto;
+}
+
+.agent-type-tag {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(89,153,255,0.12);
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .content {

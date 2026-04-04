@@ -1,89 +1,89 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-04-04 16:56:57
+生成时间: 2026-04-04 20:57:16
 论文数量: 5
 ================================================================================
 
-论文 1: ActionParty: Multi-Subject Action Binding in Generative Video Games
+论文 1: What can be computed in average anonymous networks?
 ------------------------------------------------------------
-ID: 2604.02330v1
-作者: Alexander Pondaven, Ziyi Wu, Igor Gilitschenski, Philip Torr, Sergey Tulyakov, Fabio Pizzati, Aliaksandr Siarohin
-发表时间: 2026-04-02 17:59:58
-更新时间: 2026-04-02 17:59:58
-主要分类: cs.CV
-所有分类: cs.CV, cs.AI, cs.LG
-PDF链接: https://arxiv.org/pdf/2604.02330v1
-备注: Project page: https://action-party.github.io/
-摘要: Recent advances in video diffusion have enabled the development of "world models" capable of simulating interactive environments. However, these models are largely restricted to single-agent settings,...
+ID: 2604.02192v1
+作者: Joel Rybicki, Oleg Verbitsky, Maksim Zhukovskii
+发表时间: 2026-04-02 15:49:35
+更新时间: 2026-04-02 15:49:35
+主要分类: cs.DC
+所有分类: cs.DC
+PDF链接: https://arxiv.org/pdf/2604.02192v1
+备注: 34 pages, 1 figure, 2 tables
+摘要: We study what deterministic distributed algorithms can compute on random input graphs in extremely weak models of distributed computing: all nodes are anonymous, and in each communication round, nodes...
 相关链接:
-  - https://arxiv.org/abs/2604.02330v1
-  - https://arxiv.org/pdf/2604.02330v1
+  - https://arxiv.org/abs/2604.02192v1
+  - https://arxiv.org/pdf/2604.02192v1
 
 ================================================================================
 
-论文 2: Steerable Visual Representations
+论文 2: A Practical Two-Stage Framework for GPU Resource and Power Prediction in Heterogeneous HPC Systems
 ------------------------------------------------------------
-ID: 2604.02327v1
-作者: Jona Ruthardt, Manu Gaur, Deva Ramanan, Makarand Tapaswi, Yuki M. Asano
-发表时间: 2026-04-02 17:59:49
-更新时间: 2026-04-02 17:59:49
-主要分类: cs.CV
-所有分类: cs.CV, cs.AI
-PDF链接: https://arxiv.org/pdf/2604.02327v1
-备注: preprint
-摘要: Pretrained Vision Transformers (ViTs) such as DINOv2 and MAE provide generic image features that can be applied to a variety of downstream tasks such as retrieval, classification, and segmentation. Ho...
+ID: 2604.02158v1
+作者: Beste Oztop, Dhruva Kulkarni, Zhengji Zhao, Ayse Kivilcim Coskun, Kadidia Konate
+发表时间: 2026-04-02 15:27:09
+更新时间: 2026-04-02 15:27:09
+主要分类: cs.DC
+所有分类: cs.DC, cs.LG, cs.PF
+PDF链接: https://arxiv.org/pdf/2604.02158v1
+备注: 9 pages, 6 figures
+摘要: Efficient utilization of GPU resources and power has become critical with the growing demand for GPUs in high-performance computing (HPC). In this paper, we analyze GPU utilization and GPU memory util...
 相关链接:
-  - https://arxiv.org/abs/2604.02327v1
-  - https://arxiv.org/pdf/2604.02327v1
+  - https://arxiv.org/abs/2604.02158v1
+  - https://arxiv.org/pdf/2604.02158v1
 
 ================================================================================
 
-论文 3: Grounded Token Initialization for New Vocabulary in LMs for Generative Recommendation
+论文 3: Intelligent Cloud Orchestration: A Hybrid Predictive and Heuristic Framework for Cost Optimization
 ------------------------------------------------------------
-ID: 2604.02324v1
-作者: Daiwei Chen, Zhoutong Fu, Chengming Jiang, Haichao Zhang, Ran Zhou, Tan Wang, Chunnan Yao, Guoyao Li, Rui Cai, Yihan Cao, Ruijie Jiang, Fedor Borisyuk, Jianqiang Shen, Jingwei Wu, Ramya Korlakai Vinayak
-发表时间: 2026-04-02 17:59:19
-更新时间: 2026-04-02 17:59:19
-主要分类: cs.CL
-所有分类: cs.CL, cs.AI, cs.LG
-PDF链接: https://arxiv.org/pdf/2604.02324v1
-摘要: Language models (LMs) are increasingly extended with new learnable vocabulary tokens for domain-specific tasks, such as Semantic-ID tokens in generative recommendation. The standard practice initializ...
+ID: 2604.02131v1
+作者: Heet Nagoriya, Komal Rohit
+发表时间: 2026-04-02 15:04:24
+更新时间: 2026-04-02 15:04:24
+主要分类: cs.DC
+所有分类: cs.DC, cs.AI, cs.LG, cs.PF
+PDF链接: https://arxiv.org/pdf/2604.02131v1
+备注: 8 pages, 4 figures, 2 tables
+摘要: Cloud computing allows scalable resource provisioning, but dynamic workload changes often lead to higher costs due to over-provisioning. Machine learning (ML) approaches, such as Long Short-Term Memor...
 相关链接:
-  - https://arxiv.org/abs/2604.02324v1
-  - https://arxiv.org/pdf/2604.02324v1
+  - https://arxiv.org/abs/2604.02131v1
+  - https://arxiv.org/pdf/2604.02131v1
 
 ================================================================================
 
-论文 4: Batched Contextual Reinforcement: A Task-Scaling Law for Efficient Reasoning
+论文 4: Optimization Opportunities for Cloud-Based Data Pipeline Infrastructures
 ------------------------------------------------------------
-ID: 2604.02322v1
-作者: Bangji Yang, Hongbo Ma, Jiajun Fan, Ge Liu
-发表时间: 2026-04-02 17:58:50
-更新时间: 2026-04-02 17:58:50
-主要分类: cs.LG
-所有分类: cs.LG, cs.AI, cs.CL
-PDF链接: https://arxiv.org/pdf/2604.02322v1
-备注: 43 pages, 5 figures, 24 tables
-摘要: Large Language Models employing Chain-of-Thought reasoning achieve strong performance but suffer from excessive token consumption that inflates inference costs. Existing efficiency methods such as exp...
+ID: 2604.01954v1
+作者: Johannes Jablonski, Georg-Daniel Schwarz, Philip Heltweg, Dirk Riehle
+发表时间: 2026-04-02 12:19:16
+更新时间: 2026-04-02 12:19:16
+主要分类: cs.DC
+所有分类: cs.DC
+PDF链接: https://arxiv.org/pdf/2604.01954v1
+摘要: Cloud infrastructure supports the efficient operation of data pipelines regarding requirements like cost, speed, and resource utilization. We present an integrated view of optimization opportunities f...
 相关链接:
-  - https://arxiv.org/abs/2604.02322v1
-  - https://arxiv.org/pdf/2604.02322v1
+  - https://arxiv.org/abs/2604.01954v1
+  - https://arxiv.org/pdf/2604.01954v1
 
 ================================================================================
 
-论文 5: Beyond the Assistant Turn: User Turn Generation as a Probe of Interaction Awareness in Language Models
+论文 5: GPU-RMQ: Accelerating Range Minimum Queries on Modern GPUs
 ------------------------------------------------------------
-ID: 2604.02315v1
-作者: Sarath Shekkizhar, Romain Cosentino, Adam Earle
-发表时间: 2026-04-02 17:57:29
-更新时间: 2026-04-02 17:57:29
-主要分类: cs.AI
-所有分类: cs.AI
-PDF链接: https://arxiv.org/pdf/2604.02315v1
-摘要: Standard LLM benchmarks evaluate the assistant turn: the model generates a response to an input, a verifier scores correctness, and the analysis ends. This paradigm leaves unmeasured whether the LLM e...
+ID: 2604.01811v1
+作者: Lara Kreis, Justus Henneberg, Valentin Henkys, Felix Schuhknecht, Bertil Schmidt
+发表时间: 2026-04-02 09:23:08
+更新时间: 2026-04-02 09:23:08
+主要分类: cs.DB
+所有分类: cs.DB, cs.DC, cs.DS
+PDF链接: https://arxiv.org/pdf/2604.01811v1
+摘要: Range minimum queries are frequently used in string processing and database applications including biological sequence analysis, document retrieval, and web search. Hence, various data structures have...
 相关链接:
-  - https://arxiv.org/abs/2604.02315v1
-  - https://arxiv.org/pdf/2604.02315v1
+  - https://arxiv.org/abs/2604.01811v1
+  - https://arxiv.org/pdf/2604.01811v1
 
 ================================================================================
 
