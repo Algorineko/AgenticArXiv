@@ -18,7 +18,7 @@ from tools.tool_registry import registry
 class BaseAgent(ABC):
     """所有 Agent 方案的基类，封装通用的循环控制、日志、SSE、副作用逻辑"""
 
-    agent_type: str = "react_regex"  # 子类覆写
+    agent_type: str = "regex"  # 子类覆写
 
     def __init__(self, llm_client: LLMClient):
         self.llm_client = llm_client
@@ -67,6 +67,7 @@ class BaseAgent(ABC):
         self, task: str, agent_model: str = None, session_id: str = "default"
     ) -> Dict[str, Any]:
         log.info(f"[{self.__class__.__name__}] 开始执行任务: {task}")
+        run_start = time.time()
         self.session_id = session_id
         msg_id = uuid.uuid4().hex
 
@@ -85,6 +86,8 @@ class BaseAgent(ABC):
         enriched_task = self._enrich_task_with_context(task, session_id)
 
         history: List[Dict[str, str]] = []
+        step_timings: List[Dict[str, int]] = []
+        token_usage: Dict[str, int] = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
 
         for iteration in range(self.max_iterations):
             log.info(f"第 {iteration + 1} 次迭代")
@@ -110,6 +113,12 @@ class BaseAgent(ABC):
                 )
                 llm_ms = int((time.time() - t0) * 1000)
 
+                # 累计 token 用量
+                usage = response.get("usage") or {}
+                token_usage["prompt_tokens"] += usage.get("prompt_tokens", 0)
+                token_usage["completion_tokens"] += usage.get("completion_tokens", 0)
+                token_usage["total_tokens"] += usage.get("total_tokens", 0)
+
                 thought, action_dict = self.parse_response(response)
                 log.info(f"Thought: {thought}")
 
@@ -117,6 +126,7 @@ class BaseAgent(ABC):
                     log.info("任务完成")
                     observation = "任务完成"
                     history.append({"thought": thought, "action": "FINISH", "observation": observation})
+                    step_timings.append({"llm_ms": llm_ms, "tool_ms": 0})
                     self._log_step(msg_id, iteration, thought, "FINISH", "{}", observation, llm_ms, 0, session_id)
                     break
 
@@ -125,6 +135,8 @@ class BaseAgent(ABC):
                 observation = self._execute_with_side_effects(action_dict)
                 tool_ms = int((time.time() - t1) * 1000)
                 log.info(f"Observation: {observation[:200]}...")
+
+                step_timings.append({"llm_ms": llm_ms, "tool_ms": tool_ms})
 
                 action_str = json.dumps(action_dict, ensure_ascii=False)
                 history.append({"thought": thought, "action": action_str, "observation": observation})
@@ -145,6 +157,7 @@ class BaseAgent(ABC):
                 error_msg = f"LLM调用失败: {str(e)}"
                 log.error(error_msg)
                 history.append({"thought": "LLM调用失败", "action": "ERROR", "observation": error_msg})
+                step_timings.append({"llm_ms": llm_ms, "tool_ms": 0})
                 self._log_step(msg_id, iteration, "LLM调用失败", "ERROR", "", error_msg, llm_ms, 0, session_id)
                 break
 
@@ -162,13 +175,27 @@ class BaseAgent(ABC):
         except Exception as e:
             log.warning(f"Failed to log assistant reply: {e}")
 
+        total_time_ms = int((time.time() - run_start) * 1000)
+        total_llm_ms = sum(s["llm_ms"] for s in step_timings)
+        total_tool_ms = sum(s["tool_ms"] for s in step_timings)
+
         result = {
             "task": task,
             "msg_id": msg_id,
             "history": history,
             "final_observation": final_observation,
+            "total_time_ms": total_time_ms,
+            "iteration_count": len(history),
+            "agent_type": self.agent_type,
+            "timing": {
+                "total_llm_ms": total_llm_ms,
+                "total_tool_ms": total_tool_ms,
+                "framework_overhead_ms": total_time_ms - total_llm_ms - total_tool_ms,
+                "steps": step_timings,
+            },
+            "token_usage": token_usage,
         }
-        log.info(f"任务执行完成，共 {len(history)} 步")
+        log.info(f"任务执行完成，共 {len(history)} 步, 总耗时 {total_time_ms}ms (LLM {total_llm_ms}ms + Tool {total_tool_ms}ms)")
         log.info("-" * 80)
         return result
 

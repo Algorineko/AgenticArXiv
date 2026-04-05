@@ -90,7 +90,7 @@ const expandedMsgIds = reactive(new Set<string>());
 const stepsLoading = reactive(new Set<string>());
 
 const agentLabelMap: Record<string, string> = {
-  react_regex: "ReAct",
+  regex: "ReAct",
   mcp: "MCP",
   skill_cli: "Skill/CLI",
 };

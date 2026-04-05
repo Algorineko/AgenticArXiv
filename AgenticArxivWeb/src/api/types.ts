@@ -75,7 +75,7 @@ export interface TranslateTask {
   [k: string]: any;
 }
 
-export type AgentType = "react_regex" | "mcp" | "skill_cli";
+export type AgentType = "regex" | "mcp" | "skill_cli";
 
 export interface ChatRequest {
   session_id: string;

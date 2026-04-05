@@ -161,8 +161,8 @@ class ChatRequest(BaseModel):
     message: str = Field(..., description="用户对 Agent 的一句话/一个任务")
     agent_model: Optional[str] = None
     agent_type: str = Field(
-        default="react_regex",
-        description="Agent 架构: react_regex | mcp | skill_cli",
+        default="regex",
+        description="Agent 架构: regex | mcp | skill_cli",
     )
 
 
@@ -177,7 +177,7 @@ class ChatResponse(BaseModel):
     tasks: List[TranslateTask] = Field(
         default_factory=list, description="该 session 的最近任务（可选）"
     )
-    agent_type: str = Field(default="react_regex", description="使用的 Agent 架构")
+    agent_type: str = Field(default="regex", description="使用的 Agent 架构")
 
 
 class PdfAssetsResponse(BaseModel):

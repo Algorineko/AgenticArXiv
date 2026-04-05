@@ -101,7 +101,7 @@ class ChatLogRow(Base):
     role = Column(String(16), nullable=False)       # 'user' | 'assistant'
     content = Column(Text, nullable=True)
     model = Column(String(128), nullable=True)
-    agent_type = Column(String(32), nullable=True)  # react_regex | mcp | skill_cli
+    agent_type = Column(String(32), nullable=True)  # regex | mcp | skill_cli
     created_at = Column(DateTime, default=datetime.now)
 
 
