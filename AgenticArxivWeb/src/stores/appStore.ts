@@ -57,7 +57,7 @@ export const useAppStore = defineStore("app", {
     lastHistory: [] as ReactStep[],
 
     preferAgent: true,
-    agentType: (localStorage.getItem("agent_type") || "react_regex") as AgentType,
+    agentType: (localStorage.getItem("agent_type") || "regex") as AgentType,
 
     thinkingSteps: [] as any[],
     isThinking: false,

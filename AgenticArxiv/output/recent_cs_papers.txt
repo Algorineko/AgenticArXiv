@@ -1,89 +1,57 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-04-04 20:57:16
-论文数量: 5
+生成时间: 2026-04-05 20:32:28
+论文数量: 3
 ================================================================================
 
-论文 1: What can be computed in average anonymous networks?
+论文 1: EventHub: Data Factory for Generalizable Event-Based Stereo Networks without Active Sensors
 ------------------------------------------------------------
-ID: 2604.02192v1
-作者: Joel Rybicki, Oleg Verbitsky, Maksim Zhukovskii
-发表时间: 2026-04-02 15:49:35
-更新时间: 2026-04-02 15:49:35
-主要分类: cs.DC
-所有分类: cs.DC
-PDF链接: https://arxiv.org/pdf/2604.02192v1
-备注: 34 pages, 1 figure, 2 tables
-摘要: We study what deterministic distributed algorithms can compute on random input graphs in extremely weak models of distributed computing: all nodes are anonymous, and in each communication round, nodes...
+ID: 2604.02331v1
+作者: Luca Bartolomei, Fabio Tosi, Matteo Poggi, Stefano Mattoccia, Guillermo Gallego
+发表时间: 2026-04-02 17:59:59
+更新时间: 2026-04-02 17:59:59
+主要分类: cs.CV
+所有分类: cs.CV
+PDF链接: https://arxiv.org/pdf/2604.02331v1
+备注: CVPR 2026. Project Page: https://bartn8.github.io/eventhub/ Code: https://github.com/bartn8/eventhub
+摘要: We propose EventHub, a novel framework for training deep-event stereo networks without ground truth annotations from costly active sensors, relying instead on standard color images. From these images,...
 相关链接:
-  - https://arxiv.org/abs/2604.02192v1
-  - https://arxiv.org/pdf/2604.02192v1
-
-================================================================================
-
-论文 2: A Practical Two-Stage Framework for GPU Resource and Power Prediction in Heterogeneous HPC Systems
-------------------------------------------------------------
-ID: 2604.02158v1
-作者: Beste Oztop, Dhruva Kulkarni, Zhengji Zhao, Ayse Kivilcim Coskun, Kadidia Konate
-发表时间: 2026-04-02 15:27:09
-更新时间: 2026-04-02 15:27:09
-主要分类: cs.DC
-所有分类: cs.DC, cs.LG, cs.PF
-PDF链接: https://arxiv.org/pdf/2604.02158v1
-备注: 9 pages, 6 figures
-摘要: Efficient utilization of GPU resources and power has become critical with the growing demand for GPUs in high-performance computing (HPC). In this paper, we analyze GPU utilization and GPU memory util...
-相关链接:
-  - https://arxiv.org/abs/2604.02158v1
-  - https://arxiv.org/pdf/2604.02158v1
+  - https://arxiv.org/abs/2604.02331v1
+  - https://arxiv.org/pdf/2604.02331v1
 
 ================================================================================
 
-论文 3: Intelligent Cloud Orchestration: A Hybrid Predictive and Heuristic Framework for Cost Optimization
+论文 2: ActionParty: Multi-Subject Action Binding in Generative Video Games
 ------------------------------------------------------------
-ID: 2604.02131v1
-作者: Heet Nagoriya, Komal Rohit
-发表时间: 2026-04-02 15:04:24
-更新时间: 2026-04-02 15:04:24
-主要分类: cs.DC
-所有分类: cs.DC, cs.AI, cs.LG, cs.PF
-PDF链接: https://arxiv.org/pdf/2604.02131v1
-备注: 8 pages, 4 figures, 2 tables
-摘要: Cloud computing allows scalable resource provisioning, but dynamic workload changes often lead to higher costs due to over-provisioning. Machine learning (ML) approaches, such as Long Short-Term Memor...
+ID: 2604.02330v1
+作者: Alexander Pondaven, Ziyi Wu, Igor Gilitschenski, Philip Torr, Sergey Tulyakov, Fabio Pizzati, Aliaksandr Siarohin
+发表时间: 2026-04-02 17:59:58
+更新时间: 2026-04-02 17:59:58
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.02330v1
+备注: Project page: https://action-party.github.io/
+摘要: Recent advances in video diffusion have enabled the development of "world models" capable of simulating interactive environments. However, these models are largely restricted to single-agent settings,...
 相关链接:
-  - https://arxiv.org/abs/2604.02131v1
-  - https://arxiv.org/pdf/2604.02131v1
+  - https://arxiv.org/abs/2604.02330v1
+  - https://arxiv.org/pdf/2604.02330v1
 
 ================================================================================
 
-论文 4: Optimization Opportunities for Cloud-Based Data Pipeline Infrastructures
+论文 3: Generative World Renderer
 ------------------------------------------------------------
-ID: 2604.01954v1
-作者: Johannes Jablonski, Georg-Daniel Schwarz, Philip Heltweg, Dirk Riehle
-发表时间: 2026-04-02 12:19:16
-更新时间: 2026-04-02 12:19:16
-主要分类: cs.DC
-所有分类: cs.DC
-PDF链接: https://arxiv.org/pdf/2604.01954v1
-摘要: Cloud infrastructure supports the efficient operation of data pipelines regarding requirements like cost, speed, and resource utilization. We present an integrated view of optimization opportunities f...
+ID: 2604.02329v1
+作者: Zheng-Hui Huang, Zhixiang Wang, Jiaming Tan, Ruihan Yu, Yidan Zhang, Bo Zheng, Yu-Lun Liu, Yung-Yu Chuang, Kaipeng Zhang
+发表时间: 2026-04-02 17:59:53
+更新时间: 2026-04-02 17:59:53
+主要分类: cs.CV
+所有分类: cs.CV
+PDF链接: https://arxiv.org/pdf/2604.02329v1
+备注: Project page: https://alaya-studio.github.io/renderer/
+摘要: Scaling generative inverse and forward rendering to real-world scenarios is bottlenecked by the limited realism and temporal coherence of existing synthetic datasets. To bridge this persistent domain ...
 相关链接:
-  - https://arxiv.org/abs/2604.01954v1
-  - https://arxiv.org/pdf/2604.01954v1
-
-================================================================================
-
-论文 5: GPU-RMQ: Accelerating Range Minimum Queries on Modern GPUs
-------------------------------------------------------------
-ID: 2604.01811v1
-作者: Lara Kreis, Justus Henneberg, Valentin Henkys, Felix Schuhknecht, Bertil Schmidt
-发表时间: 2026-04-02 09:23:08
-更新时间: 2026-04-02 09:23:08
-主要分类: cs.DB
-所有分类: cs.DB, cs.DC, cs.DS
-PDF链接: https://arxiv.org/pdf/2604.01811v1
-摘要: Range minimum queries are frequently used in string processing and database applications including biological sequence analysis, document retrieval, and web search. Hence, various data structures have...
-相关链接:
-  - https://arxiv.org/abs/2604.01811v1
-  - https://arxiv.org/pdf/2604.01811v1
+  - https://arxiv.org/abs/2604.02329v1
+  - https://arxiv.org/pdf/2604.02329v1
 
 ================================================================================
 

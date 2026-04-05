@@ -196,7 +196,7 @@ function extractToolName(action: string): string {
 }
 
 const agentLabelMap: Record<string, string> = {
-  react_regex: "ReAct",
+  regex: "ReAct",
   mcp: "MCP",
   skill_cli: "Skill/CLI",
 };

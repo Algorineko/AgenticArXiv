@@ -27,7 +27,7 @@
         <label class="field-label">工具调用方案</label>
         <div class="field-row">
           <select class="select" v-model="store.agentType" @change="onAgentTypeChange">
-            <option value="react_regex">ReAct + 正则解析</option>
+            <option value="regex">ReAct + 正则解析</option>
             <option value="mcp">MCP 协议</option>
             <option value="skill_cli">Skill/CLI 命令</option>
           </select>
@@ -73,7 +73,7 @@ const sseLabelMap: Record<string, string> = {
 const sseLabel = computed(() => sseLabelMap[store.sseStatus] || store.sseStatus);
 
 const agentTypeHintMap: Record<string, string> = {
-  react_regex: "ReAct prompt + 正则提取 JSON Action + 进程内直接函数调用",
+  regex: "ReAct prompt + 正则提取 JSON Action + 进程内直接函数调用",
   mcp: "ReAct prompt + 正则解析 + MCP JSON-RPC 跨进程工具调用",
   skill_cli: "Skill 文档 + LLM 生成 CLI 命令 + subprocess 执行",
 };

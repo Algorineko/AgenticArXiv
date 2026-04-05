@@ -1,16 +1,9 @@
-2026-04-04 21:01:01 | INFO | mcp_protocol.mcp_agent:_async_run:123 | [MCPAgent] 通过 MCP 发现 4 个工具
-2026-04-04 21:01:01 | INFO | agents.base_agent:run:69 | [MCPAgent] 开始执行任务: 下载第3篇论文PDF
-2026-04-04 21:01:01 | INFO | agents.base_agent:run:90 | 第 1 次迭代
-2026-04-04 21:01:04 | DEBUG | mcp_protocol.mcp_agent:parse_response:71 | LLM响应: Thought: 用户要求下载第3篇论文的PDF，第3篇论文是"Intelligent Cloud Orchestration: A Hybrid Predictive and Heuristic Framework for Cost Optimization"，我直接用ref=3来下载。
-
-Action: {"name":"download_arxiv_pdf","args":{"ref":3,"session_id":"default","force":false}}
-2026-04-04 21:01:04 | INFO | agents.base_agent:run:114 | Thought: 用户要求下载第3篇论文的PDF，第3篇论文是"Intelligent Cloud Orchestration: A Hybrid Predictive and Heuristic Framework for Cost Optimization"，我直接用ref=3来下载。
-2026-04-04 21:01:04 | INFO | agents.base_agent:_execute_with_side_effects:198 | 执行工具: download_arxiv_pdf, 参数: {'ref': 3, 'session_id': 'default', 'force': False}
-2026-04-04 21:01:05 | INFO | agents.base_agent:run:127 | Observation: {'session_id': 'session-2fa70e33', 'paper_id': '2604.02131v1', 'pdf_url': 'https://arxiv.org/pdf/2604.02131v1.pdf', 'local_path': '/home/dev/AgenticArXiv/AgenticArxiv/output/pdf_raw/2604.02131v1.pdf',...
-2026-04-04 21:01:05 | INFO | agents.base_agent:run:90 | 第 2 次迭代
-2026-04-04 21:01:08 | DEBUG | mcp_protocol.mcp_agent:parse_response:71 | LLM响应: Thought: 任务已完成
-Action: FINISH
-2026-04-04 21:01:08 | INFO | agents.base_agent:run:114 | Thought: 任务已完成
-2026-04-04 21:01:08 | INFO | agents.base_agent:run:117 | 任务完成
-2026-04-04 21:01:09 | INFO | agents.base_agent:run:171 | 任务执行完成，共 2 步
-2026-04-04 21:01:09 | INFO | agents.base_agent:run:172 | --------------------------------------------------------------------------------
+2026-04-05 20:32:29 | INFO | agents.base_agent:run:137 | Observation: {'session_id': 'bench_r20260405_200151_composite_01_skill_cli_9', 'paper_id': '2604.02331v1', 'pdf_url': 'https://arxiv.org/pdf/2604.02331v1.pdf', 'local_path': '/home/dev/AgenticArXiv/AgenticArxiv/ou...
+2026-04-05 20:32:29 | INFO | agents.base_agent:run:93 | 第 3 次迭代
+2026-04-05 20:32:36 | DEBUG | skill_cli.skill_agent:parse_response:88 | LLM响应: Thought: 任务已完成。成功搜索了最近7天计算机视觉(cs.CV)领域的3篇论文，并成功下载了第1篇论文"EventHub: Data Factory for Generalizable Event-Based Stereo Networks without Active Sensors"（arxiv ID: 2604.02331v1），PDF文件已保存到本地路径 `/home/dev/AgenticArXiv/AgenticArxiv/output/pdf_raw/2604.02331v1.pdf`。
+Command: FINISH
+2026-04-05 20:32:36 | INFO | skill_cli.skill_agent:_parse_skill_text:170 | 提取到的Command: FINISH
+2026-04-05 20:32:36 | INFO | agents.base_agent:run:123 | Thought: 任务已完成。成功搜索了最近7天计算机视觉(cs.CV)领域的3篇论文，并成功下载了第1篇论文"EventHub: Data Factory for Generalizable Event-Based Stereo Networks without Active Sensors"（arxiv ID: 2604.02331v1），PDF文件已保存到本地路径 `/home/dev/AgenticArXiv/AgenticArxiv/output/pdf_raw/2604.02331v1.pdf`。
+2026-04-05 20:32:36 | INFO | agents.base_agent:run:126 | 任务完成
+2026-04-05 20:32:36 | INFO | agents.base_agent:run:198 | 任务执行完成，共 3 步, 总耗时 9212ms (LLM 7103ms + Tool 2068ms)
+2026-04-05 20:32:36 | INFO | agents.base_agent:run:199 | --------------------------------------------------------------------------------
