@@ -126,9 +126,7 @@ def _grouped_bar_positions(n_tasks, n_agents):
 # ---------- 图表 ----------
 
 def plot_time_breakdown(rows: list[dict], output_dir: str):
-    """按任务分组的堆叠条形图：LLM / Tool / Overhead 时间分解"""
-    from matplotlib.patches import Patch
-
+    """饼状图：每个 task × agent 的 LLM / Tool / Overhead 时间分解"""
     by_task = _group_by(rows, "task_id")
     tasks = sorted(by_task.keys())
     if not tasks:
@@ -149,49 +147,67 @@ def plot_time_breakdown(rows: list[dict], output_dir: str):
 
     agents = _ordered_agents(list(all_agents))
     n_tasks, n_agents = len(tasks), len(agents)
-    bar_w = 0.8 / max(n_agents, 1)
 
-    # subtitle: per-agent average total
+    # 组件颜色
+    comp_colors = ["#E45756", "#F2A86B", "#88BEDC"]  # LLM, Tool, Overhead
+    comp_names = ["LLM", _label("Tool", "Tool"), _label("Overhead", "Overhead")]
+
+    # subtitle
     by_agent_all = _group_by(rows, "agent_type")
     sub = _subtitle_line(by_agent_all, agents, "total_ms", unit="ms")
 
-    fig, ax = plt.subplots(figsize=(max(10, n_tasks * 2), 6))
+    fig, axes = plt.subplots(n_agents, n_tasks,
+                             figsize=(n_tasks * 2.5, n_agents * 2.8 + 0.8))
+    # 确保 axes 始终是 2D
+    if n_agents == 1:
+        axes = [axes]
+    if n_tasks == 1:
+        axes = [[ax] for ax in axes]
 
-    for j, a in enumerate(agents):
-        color = AGENT_COLORS.get(a, "#999")
-        positions = [i + j * bar_w for i in range(n_tasks)]
-        llms = [atd.get((a, t), (0, 0, 0))[0] for t in tasks]
-        tools = [atd.get((a, t), (0, 0, 0))[1] for t in tasks]
-        ohs = [atd.get((a, t), (0, 0, 0))[2] for t in tasks]
+    for i, a in enumerate(agents):
+        for j, t in enumerate(tasks):
+            ax = axes[i][j]
+            llm, tool, oh = atd.get((a, t), (0, 0, 0))
+            total = llm + tool + oh
+            if total == 0:
+                ax.set_visible(False)
+                continue
 
-        ax.bar(positions, llms, bar_w, color=color, label=AGENT_LABELS.get(a, a))
-        ax.bar(positions, tools, bar_w, bottom=llms, color=color, alpha=0.55)
-        bottoms = [l + t for l, t in zip(llms, tools)]
-        ax.bar(positions, ohs, bar_w, bottom=bottoms, color=color, alpha=0.25)
+            sizes = [llm, tool, oh]
+            pcts = [v / total * 100 for v in sizes]
 
-        for pos, l, t, o in zip(positions, llms, tools, ohs):
-            total = l + t + o
-            if total > 0:
-                ax.text(pos, total + 50, f"{total:.0f}", ha="center", fontsize=7)
+            def autopct_func(pct, vals=sizes):
+                idx = [i for i, p in enumerate([v / total * 100 for v in vals])
+                       if abs(p - pct) < 0.1]
+                ms = vals[idx[0]] if idx else 0
+                return f"{ms:.0f}ms\n({pct:.0f}%)" if pct >= 5 else ""
 
-    # component legend (gray patches)
-    comp_handles = [
-        Patch(facecolor="gray", alpha=1.0, label="LLM"),
-        Patch(facecolor="gray", alpha=0.55, label=_label("工具", "Tool")),
-        Patch(facecolor="gray", alpha=0.25, label=_label("框架开销", "Overhead")),
-    ]
-    leg1 = ax.legend(loc="upper left", fontsize=8)
-    ax.add_artist(leg1)
-    ax.legend(handles=comp_handles, loc="upper right", fontsize=8)
+            wedges, texts, autotexts = ax.pie(
+                sizes, colors=comp_colors, autopct=autopct_func,
+                startangle=90, pctdistance=0.65,
+                textprops={"fontsize": 6},
+            )
+            for at in autotexts:
+                at.set_fontsize(5.5)
 
-    ax.set_xticks([i + bar_w * (n_agents - 1) / 2 for i in range(n_tasks)])
-    ax.set_xticklabels(tasks, rotation=30, ha="right")
-    ax.set_ylabel(_label("平均耗时 (ms)", "Avg Time (ms)"))
+            # 行首显示 agent 名
+            if j == 0:
+                ax.set_ylabel(AGENT_LABELS.get(a, a), fontsize=9, fontweight="bold")
+            # 首行显示 task 名
+            if i == 0:
+                ax.set_title(t, fontsize=8, fontweight="bold")
+            # 右下角显示总耗时
+            ax.text(0, -1.25, f"{total:.0f}ms", ha="center", fontsize=6, color="gray")
+
+    # 图例
+    from matplotlib.patches import Patch
+    handles = [Patch(facecolor=c, label=n) for c, n in zip(comp_colors, comp_names)]
+    fig.legend(handles=handles, loc="lower center", ncol=3, fontsize=8,
+               bbox_to_anchor=(0.5, 0.01))
+
     title = _label("各任务耗时分解", "Time Breakdown per Task")
-    ax.set_title(f"{title} (N={len(rows)})\n{sub}", fontsize=10)
-    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
-
-    fig.tight_layout()
+    fig.suptitle(f"{title} (N={len(rows)})\n{sub}", fontsize=11)
+    fig.tight_layout(rect=[0, 0.08, 1, 0.93])
     fig.savefig(os.path.join(output_dir, "time_breakdown.png"), dpi=150)
     plt.close(fig)
     print(f"  time_breakdown.png")
