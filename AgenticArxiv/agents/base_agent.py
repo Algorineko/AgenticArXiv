@@ -271,6 +271,13 @@ class BaseAgent(ABC):
 
             # arxiv 搜索结果存入 session
             if tool_name == "get_recently_submitted_cs_papers":
+                # MCP 模式可能返回 dict（如 {"error": "..."}），兼容处理
+                if isinstance(result, dict):
+                    if "error" in result:
+                        return f"工具执行失败: {result['error']}"
+                    vals = list(result.values())
+                    if len(vals) == 1 and isinstance(vals[0], list):
+                        result = vals[0]
                 if isinstance(result, list):
                     if result:
                         papers_obj = [Paper(**p) for p in result]
@@ -285,7 +292,7 @@ class BaseAgent(ABC):
                     else:
                         return "未获取到任何论文记录，请尝试调整搜索参数（如增加天数范围）"
                 else:
-                    return f"工具返回结果格式异常: {type(result)}"
+                    return f"工具返回结果格式异常: {type(result)}, 内容: {str(result)[:200]}"
 
             elif tool_name == "format_papers_console":
                 return "FINISH"
