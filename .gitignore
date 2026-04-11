@@ -1,6 +1,7 @@
 .idea
 .vscode
 .venv
+node_modules
 __pycache__
 *.pyc
 !.gitkeep

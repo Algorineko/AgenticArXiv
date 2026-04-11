@@ -10,3 +10,4 @@ sqlalchemy>=2.0
 pymysql
 fire
 mcp>=1.0
+sqlalchemy

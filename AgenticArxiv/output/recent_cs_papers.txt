@@ -1,57 +1,89 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-04-05 20:32:28
-论文数量: 3
+生成时间: 2026-04-11 12:18:18
+论文数量: 5
 ================================================================================
 
-论文 1: EventHub: Data Factory for Generalizable Event-Based Stereo Networks without Active Sensors
+论文 1: Act Wisely: Cultivating Meta-Cognitive Tool Use in Agentic Multimodal Models
 ------------------------------------------------------------
-ID: 2604.02331v1
-作者: Luca Bartolomei, Fabio Tosi, Matteo Poggi, Stefano Mattoccia, Guillermo Gallego
-发表时间: 2026-04-02 17:59:59
-更新时间: 2026-04-02 17:59:59
+ID: 2604.08545v1
+作者: Shilin Yan, Jintao Tong, Hongwei Xue, Xiaojun Tang, Yangyang Wang, Kunyu Shi, Guannan Zhang, Ruixuan Li, Yixiong Zou
+发表时间: 2026-04-09 17:59:57
+更新时间: 2026-04-09 17:59:57
 主要分类: cs.CV
-所有分类: cs.CV
-PDF链接: https://arxiv.org/pdf/2604.02331v1
-备注: CVPR 2026. Project Page: https://bartn8.github.io/eventhub/ Code: https://github.com/bartn8/eventhub
-摘要: We propose EventHub, a novel framework for training deep-event stereo networks without ground truth annotations from costly active sensors, relying instead on standard color images. From these images,...
+所有分类: cs.CV, cs.AI
+PDF链接: https://arxiv.org/pdf/2604.08545v1
+备注: Project Page: https://Accio-Lab.github.io/Metis
+摘要: The advent of agentic multimodal models has empowered systems to actively interact with external environments. However, current agents suffer from a profound meta-cognitive deficit: they struggle to a...
 相关链接:
-  - https://arxiv.org/abs/2604.02331v1
-  - https://arxiv.org/pdf/2604.02331v1
-
-================================================================================
-
-论文 2: ActionParty: Multi-Subject Action Binding in Generative Video Games
-------------------------------------------------------------
-ID: 2604.02330v1
-作者: Alexander Pondaven, Ziyi Wu, Igor Gilitschenski, Philip Torr, Sergey Tulyakov, Fabio Pizzati, Aliaksandr Siarohin
-发表时间: 2026-04-02 17:59:58
-更新时间: 2026-04-02 17:59:58
-主要分类: cs.CV
-所有分类: cs.CV, cs.AI, cs.LG
-PDF链接: https://arxiv.org/pdf/2604.02330v1
-备注: Project page: https://action-party.github.io/
-摘要: Recent advances in video diffusion have enabled the development of "world models" capable of simulating interactive environments. However, these models are largely restricted to single-agent settings,...
-相关链接:
-  - https://arxiv.org/abs/2604.02330v1
-  - https://arxiv.org/pdf/2604.02330v1
+  - https://arxiv.org/abs/2604.08545v1
+  - https://arxiv.org/pdf/2604.08545v1
 
 ================================================================================
 
-论文 3: Generative World Renderer
+论文 2: SIM1: Physics-Aligned Simulator as Zero-Shot Data Scaler in Deformable Worlds
 ------------------------------------------------------------
-ID: 2604.02329v1
-作者: Zheng-Hui Huang, Zhixiang Wang, Jiaming Tan, Ruihan Yu, Yidan Zhang, Bo Zheng, Yu-Lun Liu, Yung-Yu Chuang, Kaipeng Zhang
-发表时间: 2026-04-02 17:59:53
-更新时间: 2026-04-02 17:59:53
-主要分类: cs.CV
-所有分类: cs.CV
-PDF链接: https://arxiv.org/pdf/2604.02329v1
-备注: Project page: https://alaya-studio.github.io/renderer/
-摘要: Scaling generative inverse and forward rendering to real-world scenarios is bottlenecked by the limited realism and temporal coherence of existing synthetic datasets. To bridge this persistent domain ...
+ID: 2604.08544v1
+作者: Yunsong Zhou, Hangxu Liu, Xuekun Jiang, Xing Shen, Yuanzhen Zhou, Hui Wang, Baole Fang, Yang Tian, Mulin Yu, Qiaojun Yu, Li Ma, Hengjie Li, Hanqing Wang, Jia Zeng, Jiangmiao Pang
+发表时间: 2026-04-09 17:59:52
+更新时间: 2026-04-09 17:59:52
+主要分类: cs.RO
+所有分类: cs.RO, cs.AI, cs.CV
+PDF链接: https://arxiv.org/pdf/2604.08544v1
+备注: Website: https://internrobotics.github.io/sim1.github.io/
+摘要: Robotic manipulation with deformable objects represents a data-intensive regime in embodied learning, where shape, contact, and topology co-evolve in ways that far exceed the variability of rigids. Al...
 相关链接:
-  - https://arxiv.org/abs/2604.02329v1
-  - https://arxiv.org/pdf/2604.02329v1
+  - https://arxiv.org/abs/2604.08544v1
+  - https://arxiv.org/pdf/2604.08544v1
+
+================================================================================
+
+论文 3: Seeing but Not Thinking: Routing Distraction in Multimodal Mixture-of-Experts
+------------------------------------------------------------
+ID: 2604.08541v1
+作者: Haolei Xu, Haiwen Hong, Hongxing Li, Rui Zhou, Yang Zhang, Longtao Huang, Hui Xue, Yongliang Shen, Weiming Lu, Yueting Zhuang
+发表时间: 2026-04-09 17:59:44
+更新时间: 2026-04-09 17:59:44
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.08541v1
+摘要: Multimodal Mixture-of-Experts (MoE) models have achieved remarkable performance on vision-language tasks. However, we identify a puzzling phenomenon termed Seeing but Not Thinking: models accurately p...
+相关链接:
+  - https://arxiv.org/abs/2604.08541v1
+  - https://arxiv.org/pdf/2604.08541v1
+
+================================================================================
+
+论文 4: AVGen-Bench: A Task-Driven Benchmark for Multi-Granular Evaluation of Text-to-Audio-Video Generation
+------------------------------------------------------------
+ID: 2604.08540v1
+作者: Ziwei Zhou, Zeyuan Lai, Rui Wang, Yifan Yang, Zhen Xing, Yuqing Yang, Qi Dai, Lili Qiu, Chong Luo
+发表时间: 2026-04-09 17:59:39
+更新时间: 2026-04-09 17:59:39
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.08540v1
+摘要: Text-to-Audio-Video (T2AV) generation is rapidly becoming a core interface for media creation, yet its evaluation remains fragmented. Existing benchmarks largely assess audio and video in isolation or...
+相关链接:
+  - https://arxiv.org/abs/2604.08540v1
+  - https://arxiv.org/pdf/2604.08540v1
+
+================================================================================
+
+论文 5: OpenVLThinkerV2: A Generalist Multimodal Reasoning Model for Multi-domain Visual Tasks
+------------------------------------------------------------
+ID: 2604.08539v1
+作者: Wenbo Hu, Xin Chen, Yan Gao-Tian, Yihe Deng, Nanyun Peng, Kai-Wei Chang
+发表时间: 2026-04-09 17:59:39
+更新时间: 2026-04-09 17:59:39
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.08539v1
+备注: code at: https://github.com/uclanlp/openvlthinker
+摘要: Group Relative Policy Optimization (GRPO) has emerged as the de facto Reinforcement Learning (RL) objective driving recent advancements in Multimodal Large Language Models. However, extending this suc...
+相关链接:
+  - https://arxiv.org/abs/2604.08539v1
+  - https://arxiv.org/pdf/2604.08539v1
 
 ================================================================================
 
