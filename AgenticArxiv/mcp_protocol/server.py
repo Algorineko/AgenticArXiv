@@ -56,7 +56,8 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         result = registry.execute_tool(name, arguments)
         text = json.dumps(result, ensure_ascii=False, default=str)
     except Exception as e:
-        text = json.dumps({"error": str(e)}, ensure_ascii=False)
+        import traceback
+        text = json.dumps({"error": str(e), "traceback": traceback.format_exc()}, ensure_ascii=False)
     return [TextContent(type="text", text=text)]
 
 
