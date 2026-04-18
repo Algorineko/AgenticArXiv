@@ -26,3 +26,5 @@ environment_backup.yml
 *.pdf
 *.pdf.lock
 *.pdf.part
+# paper docs
+paper-doc/

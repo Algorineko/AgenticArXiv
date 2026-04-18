@@ -1,89 +1,88 @@
 ================================================================================
 ArXiv 计算机科学论文列表
-生成时间: 2026-04-11 12:18:18
+生成时间: 2026-04-18 16:17:09
 论文数量: 5
 ================================================================================
 
-论文 1: Act Wisely: Cultivating Meta-Cognitive Tool Use in Agentic Multimodal Models
+论文 1: MM-WebAgent: A Hierarchical Multimodal Web Agent for Webpage Generation
 ------------------------------------------------------------
-ID: 2604.08545v1
-作者: Shilin Yan, Jintao Tong, Hongwei Xue, Xiaojun Tang, Yangyang Wang, Kunyu Shi, Guannan Zhang, Ruixuan Li, Yixiong Zou
-发表时间: 2026-04-09 17:59:57
-更新时间: 2026-04-09 17:59:57
+ID: 2604.15309v1
+作者: Yan Li, Zezi Zeng, Yifan Yang, Yuqing Yang, Ning Liao, Weiwei Guo, Lili Qiu, Mingxi Cheng, Qi Dai, Zhendong Wang, Zhengyuan Yang, Xue Yang, Ji Li, Lijuan Wang, Chong Luo
+发表时间: 2026-04-16 17:59:49
+更新时间: 2026-04-16 17:59:49
+主要分类: cs.CV
+所有分类: cs.CV, cs.AI, cs.CL
+PDF链接: https://arxiv.org/pdf/2604.15309v1
+摘要: The rapid progress of Artificial Intelligence Generated Content (AIGC) tools enables images, videos, and visualizations to be created on demand for webpage design, offering a flexible and increasingly...
+相关链接:
+  - https://arxiv.org/abs/2604.15309v1
+  - https://arxiv.org/pdf/2604.15309v1
+
+================================================================================
+
+论文 2: Generalization in LLM Problem Solving: The Case of the Shortest Path
+------------------------------------------------------------
+ID: 2604.15306v1
+作者: Yao Tong, Jiayuan Ye, Anastasia Borovykh, Reza Shokri
+发表时间: 2026-04-16 17:59:43
+更新时间: 2026-04-16 17:59:43
+主要分类: cs.AI
+所有分类: cs.AI, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.15306v1
+摘要: Whether language models can systematically generalize remains actively debated. Yet empirical performance is jointly shaped by multiple factors such as training data, training paradigms, and inference...
+相关链接:
+  - https://arxiv.org/abs/2604.15306v1
+  - https://arxiv.org/pdf/2604.15306v1
+
+================================================================================
+
+论文 3: Diagnosing LLM Judge Reliability: Conformal Prediction Sets and Transitivity Violations
+------------------------------------------------------------
+ID: 2604.15302v1
+作者: Manan Gupta, Dhruv Kumar
+发表时间: 2026-04-16 17:58:21
+更新时间: 2026-04-16 17:58:21
+主要分类: cs.AI
+所有分类: cs.AI, cs.CL, cs.LG
+PDF链接: https://arxiv.org/pdf/2604.15302v1
+备注: Under Review
+摘要: LLM-as-judge frameworks are increasingly used for automatic NLG evaluation, yet their per-instance reliability remains poorly understood. We present a two-pronged diagnostic toolkit applied to SummEva...
+相关链接:
+  - https://arxiv.org/abs/2604.15302v1
+  - https://arxiv.org/pdf/2604.15302v1
+
+================================================================================
+
+论文 4: How Do LLMs and VLMs Understand Viewpoint Rotation Without Vision? An Interpretability Study
+------------------------------------------------------------
+ID: 2604.15294v1
+作者: Zhen Yang, Ping Jian, Zhongbin Guo, Zuming Zhang, Chengzhi Li, Yonghong Deng, Xinyue Zhang, Wenpeng Lu
+发表时间: 2026-04-16 17:55:19
+更新时间: 2026-04-16 17:55:19
+主要分类: cs.AI
+所有分类: cs.AI
+PDF链接: https://arxiv.org/pdf/2604.15294v1
+备注: Published as a main-conference paper at The 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026)
+摘要: Over the past year, spatial intelligence has drawn increasing attention. Many prior works study it from the perspective of visual-spatial intelligence, where models have access to visuospatial informa...
+相关链接:
+  - https://arxiv.org/abs/2604.15294v1
+  - https://arxiv.org/pdf/2604.15294v1
+
+================================================================================
+
+论文 5: AD4AD: Benchmarking Visual Anomaly Detection Models for Safer Autonomous Driving
+------------------------------------------------------------
+ID: 2604.15291v1
+作者: Fabrizio Genilotti, Arianna Stropeni, Gionata Grotto, Francesco Borsatti, Manuel Barusco, Davide Dalle Pezze, Gian Antonio Susto
+发表时间: 2026-04-16 17:54:53
+更新时间: 2026-04-16 17:54:53
 主要分类: cs.CV
 所有分类: cs.CV, cs.AI
-PDF链接: https://arxiv.org/pdf/2604.08545v1
-备注: Project Page: https://Accio-Lab.github.io/Metis
-摘要: The advent of agentic multimodal models has empowered systems to actively interact with external environments. However, current agents suffer from a profound meta-cognitive deficit: they struggle to a...
+PDF链接: https://arxiv.org/pdf/2604.15291v1
+摘要: The reliability of a machine vision system for autonomous driving depends heavily on its training data distribution. When a vehicle encounters significantly different conditions, such as atypical obst...
 相关链接:
-  - https://arxiv.org/abs/2604.08545v1
-  - https://arxiv.org/pdf/2604.08545v1
-
-================================================================================
-
-论文 2: SIM1: Physics-Aligned Simulator as Zero-Shot Data Scaler in Deformable Worlds
-------------------------------------------------------------
-ID: 2604.08544v1
-作者: Yunsong Zhou, Hangxu Liu, Xuekun Jiang, Xing Shen, Yuanzhen Zhou, Hui Wang, Baole Fang, Yang Tian, Mulin Yu, Qiaojun Yu, Li Ma, Hengjie Li, Hanqing Wang, Jia Zeng, Jiangmiao Pang
-发表时间: 2026-04-09 17:59:52
-更新时间: 2026-04-09 17:59:52
-主要分类: cs.RO
-所有分类: cs.RO, cs.AI, cs.CV
-PDF链接: https://arxiv.org/pdf/2604.08544v1
-备注: Website: https://internrobotics.github.io/sim1.github.io/
-摘要: Robotic manipulation with deformable objects represents a data-intensive regime in embodied learning, where shape, contact, and topology co-evolve in ways that far exceed the variability of rigids. Al...
-相关链接:
-  - https://arxiv.org/abs/2604.08544v1
-  - https://arxiv.org/pdf/2604.08544v1
-
-================================================================================
-
-论文 3: Seeing but Not Thinking: Routing Distraction in Multimodal Mixture-of-Experts
-------------------------------------------------------------
-ID: 2604.08541v1
-作者: Haolei Xu, Haiwen Hong, Hongxing Li, Rui Zhou, Yang Zhang, Longtao Huang, Hui Xue, Yongliang Shen, Weiming Lu, Yueting Zhuang
-发表时间: 2026-04-09 17:59:44
-更新时间: 2026-04-09 17:59:44
-主要分类: cs.CV
-所有分类: cs.CV, cs.AI, cs.CL
-PDF链接: https://arxiv.org/pdf/2604.08541v1
-摘要: Multimodal Mixture-of-Experts (MoE) models have achieved remarkable performance on vision-language tasks. However, we identify a puzzling phenomenon termed Seeing but Not Thinking: models accurately p...
-相关链接:
-  - https://arxiv.org/abs/2604.08541v1
-  - https://arxiv.org/pdf/2604.08541v1
-
-================================================================================
-
-论文 4: AVGen-Bench: A Task-Driven Benchmark for Multi-Granular Evaluation of Text-to-Audio-Video Generation
-------------------------------------------------------------
-ID: 2604.08540v1
-作者: Ziwei Zhou, Zeyuan Lai, Rui Wang, Yifan Yang, Zhen Xing, Yuqing Yang, Qi Dai, Lili Qiu, Chong Luo
-发表时间: 2026-04-09 17:59:39
-更新时间: 2026-04-09 17:59:39
-主要分类: cs.CV
-所有分类: cs.CV, cs.AI, cs.CL
-PDF链接: https://arxiv.org/pdf/2604.08540v1
-摘要: Text-to-Audio-Video (T2AV) generation is rapidly becoming a core interface for media creation, yet its evaluation remains fragmented. Existing benchmarks largely assess audio and video in isolation or...
-相关链接:
-  - https://arxiv.org/abs/2604.08540v1
-  - https://arxiv.org/pdf/2604.08540v1
-
-================================================================================
-
-论文 5: OpenVLThinkerV2: A Generalist Multimodal Reasoning Model for Multi-domain Visual Tasks
-------------------------------------------------------------
-ID: 2604.08539v1
-作者: Wenbo Hu, Xin Chen, Yan Gao-Tian, Yihe Deng, Nanyun Peng, Kai-Wei Chang
-发表时间: 2026-04-09 17:59:39
-更新时间: 2026-04-09 17:59:39
-主要分类: cs.CV
-所有分类: cs.CV, cs.AI, cs.CL
-PDF链接: https://arxiv.org/pdf/2604.08539v1
-备注: code at: https://github.com/uclanlp/openvlthinker
-摘要: Group Relative Policy Optimization (GRPO) has emerged as the de facto Reinforcement Learning (RL) objective driving recent advancements in Multimodal Large Language Models. However, extending this suc...
-相关链接:
-  - https://arxiv.org/abs/2604.08539v1
-  - https://arxiv.org/pdf/2604.08539v1
+  - https://arxiv.org/abs/2604.15291v1
+  - https://arxiv.org/pdf/2604.15291v1
 
 ================================================================================
 

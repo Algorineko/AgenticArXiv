@@ -280,13 +280,14 @@ def plot_completion_rate(rows: list[dict], output_dir: str):
 
 
 def plot_iterations(rows: list[dict], output_dir: str):
-    """分组条形图：各任务在不同 Agent 模式下的平均迭代次数"""
+    """抖动散点图：各任务在不同 Agent 模式下的迭代次数分布"""
+    import numpy as np
+
     by_task = _group_by(rows, "task_id")
     tasks = sorted(by_task.keys())
     if not tasks:
         return
 
-    # agent -> {task_id: [iterations]}
     by_agent_task: dict[str, dict[str, list[int]]] = {}
     for task_id, items in by_task.items():
         for r in items:
@@ -296,35 +297,106 @@ def plot_iterations(rows: list[dict], output_dir: str):
     agents = _ordered_agents(list(by_agent_task.keys()))
     n_tasks = len(tasks)
     n_agents = len(agents)
-    bar_w = 0.8 / max(n_agents, 1)
+    group_width = 0.8
+    point_w = group_width / max(n_agents, 1)
 
     fig, ax = plt.subplots(figsize=(max(8, n_tasks * 1.5), 5))
-    for j, a in enumerate(agents):
-        avgs = [_mean(by_agent_task.get(a, {}).get(t, [0])) for t in tasks]
-        positions = [i + j * bar_w for i in range(n_tasks)]
-        bars = ax.bar(positions, avgs, bar_w,
-                      label=AGENT_LABELS.get(a, a), color=AGENT_COLORS.get(a, "#999"))
-        for bar, v in zip(bars, avgs):
-            if v > 0:
-                ax.text(bar.get_x() + bar.get_width() / 2, v + 0.05,
-                        f"{v:.1f}", ha="center", fontsize=8)
 
-    ax.set_xticks([i + bar_w * (n_agents - 1) / 2 for i in range(n_tasks)])
+    for j, a in enumerate(agents):
+        color = AGENT_COLORS.get(a, "#999")
+        for i, t in enumerate(tasks):
+            iterations = by_agent_task.get(a, {}).get(t, [0])
+            if not iterations:
+                continue
+
+            x_offset = (j - (n_agents - 1) / 2) * point_w
+            x_jitter = np.random.normal(0, 0.04, len(iterations))
+            x_pos = i + x_offset + x_jitter
+
+            ax.scatter(x_pos, iterations, alpha=0.6, s=50, color=color,
+                      edgecolors="black", linewidth=0.5, label=AGENT_LABELS.get(a, a) if i == 0 else "")
+
+            mean_val = _mean(iterations)
+            ax.plot([i + x_offset - point_w * 0.35, i + x_offset + point_w * 0.35],
+                   [mean_val, mean_val], color="black", linewidth=2.5, zorder=3)
+
+    ax.set_xticks(range(n_tasks))
     ax.set_xticklabels(tasks, rotation=30, ha="right")
-    # subtitle: per-agent average
     by_agent_all = _group_by(rows, "agent_type")
     sub = _subtitle_line(by_agent_all, agents, "iterations", fmt="{:.1f}")
 
-    ax.set_ylabel(_label("平均迭代次数", "Avg Iterations"))
-    title = _label("各任务平均迭代次数", "Avg Iterations per Task")
+    handles, labels = ax.get_legend_handles_labels()
+    unique_labels = []
+    unique_handles = []
+    for h, l in zip(handles, labels):
+        if l not in unique_labels:
+            unique_labels.append(l)
+            unique_handles.append(h)
+    ax.legend(unique_handles, unique_labels, fontsize=8)
+
+    ax.set_ylabel(_label("迭代次数", "Iterations"))
+    title = _label("各任务迭代次数分布", "Iteration Distribution per Task")
     ax.set_title(f"{title} (N={len(rows)})\n{sub}", fontsize=10)
-    ax.legend(fontsize=8)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
     fig.tight_layout()
     fig.savefig(os.path.join(output_dir, "iteration_boxplot.png"), dpi=150)
     plt.close(fig)
     print(f"  iteration_boxplot.png")
+
+
+def plot_iterations_heatmap(rows: list[dict], output_dir: str):
+    """热力图：任务 × agent 的平均迭代次数"""
+    import numpy as np
+
+    by_task = _group_by(rows, "task_id")
+    tasks = sorted(by_task.keys())
+    if not tasks:
+        return
+
+    by_agent_task: dict[str, dict[str, list[int]]] = {}
+    for task_id, items in by_task.items():
+        for r in items:
+            at = r["agent_type"]
+            by_agent_task.setdefault(at, {}).setdefault(task_id, []).append(int(r["iterations"]))
+
+    agents = _ordered_agents(list(by_agent_task.keys()))
+    n_tasks = len(tasks)
+    n_agents = len(agents)
+
+    # 构建数据矩阵 (agent × task)
+    data = np.zeros((n_agents, n_tasks))
+    for i, a in enumerate(agents):
+        for j, t in enumerate(tasks):
+            iterations = by_agent_task.get(a, {}).get(t, [0])
+            data[i, j] = _mean(iterations)
+
+    fig, ax = plt.subplots(figsize=(max(8, n_tasks * 1.2), 4))
+
+    im = ax.imshow(data, cmap="Blues", aspect="auto", vmin=2.0, vmax=4.0)
+
+    # 添加数值标签
+    for i in range(n_agents):
+        for j in range(n_tasks):
+            text = ax.text(j, i, f"{data[i, j]:.1f}",
+                          ha="center", va="center", color="black", fontsize=8)
+
+    ax.set_xticks(range(n_tasks))
+    ax.set_xticklabels(tasks, rotation=30, ha="right")
+    ax.set_yticks(range(n_agents))
+    ax.set_yticklabels([AGENT_LABELS.get(a, a) for a in agents])
+
+    # colorbar
+    cbar = plt.colorbar(im, ax=ax)
+    cbar.set_label(_label("平均迭代次数", "Avg Iterations"), rotation=270, labelpad=15)
+
+    title = _label("各任务迭代次数热力图", "Iteration Heatmap per Task")
+    ax.set_title(f"{title} (N={len(rows)})", fontsize=10)
+
+    fig.tight_layout()
+    fig.savefig(os.path.join(output_dir, "iteration_heatmap.png"), dpi=150)
+    plt.close(fig)
+    print(f"  iteration_heatmap.png")
 
 
 def plot_per_task_time(rows: list[dict], output_dir: str):
@@ -441,6 +513,7 @@ def main():
     plot_time_breakdown(rows, args.output)
     plot_completion_rate(rows, args.output)
     plot_iterations(rows, args.output)
+    plot_iterations_heatmap(rows, args.output)
     plot_per_task_time(rows, args.output)
     plot_token_usage(rows, args.output)
 
